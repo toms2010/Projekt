@@ -10,7 +10,7 @@ public class ProductController {
 	
 	@RequestMapping("/list")
 	public String List(Model theModel) {
-		return "new-file";
+		return "tabela";
 	}
 
 	@RequestMapping("/showForm")
