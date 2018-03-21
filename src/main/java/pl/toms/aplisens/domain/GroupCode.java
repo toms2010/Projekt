@@ -4,19 +4,30 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * Encja reprezentująca kod produktów
+ * Encja reprezentująca kod produktów.
  * 
  * @author toms
  * 
  */
 @Entity
 @Table(name = "kody")
-public class Code {
+public class GroupCode {
 
+	/**
+	 * Identyfikator encji
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+	
 	/**
 	 * Dane produktu
 	 */

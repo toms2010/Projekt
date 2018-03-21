@@ -15,6 +15,7 @@
 		<!-- WERSJE -->
 		<javax.servlet.version>3.1.0</javax.servlet.version>
 		<javax.servlet.jsp.version>2.3.1</javax.servlet.jsp.version>
+		<jstl.version>1.2</jstl.version>
 		<!-- Spring Core, Context, Web, Webmvc -->
 		<org.springframework.version>5.0.3.RELEASE</org.springframework.version>
 		<org.springframework.data.version>2.0.3.RELEASE</org.springframework.data.version>
@@ -42,6 +43,11 @@
 			<artifactId>javax.servlet.jsp-api</artifactId>
 			<version>${javax.servlet.jsp.version}</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>

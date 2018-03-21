@@ -22,22 +22,18 @@
 		
 			<table>
 				<tr>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Email</th>
+					<th>Name</th>
+					<th>Cena</th>
 				</tr>
 				
 				<!-- loop over and print our customers -->
-				<c:forEach var="tempCustomer" items="${customers}">
+				<c:forEach var="tempProduct" items="${product}">
 				
 									
 					
 					<tr>
-						<td> ${tempCustomer.firstName} </td>
-						<td> ${tempCustomer.lastName} </td>
-						<td> ${tempCustomer.email} </td>
-						
-						
+						<td> ${tempProduct.name} </td>
+						<td> ${tempProduct.price} </td>				
 					</tr>
 				
 				</c:forEach>

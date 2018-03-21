@@ -22,7 +22,7 @@ public class BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int unitId;
+	private Long id;
 
 	/**
 	 * Nazwa encji
@@ -42,8 +42,8 @@ public class BaseEntity {
 	 * 
 	 * @return identyfikator obiektu
 	 */
-	public int getUnitId() {
-		return unitId;
+	public Long getId() {
+		return id;
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class BaseEntity {
 	 */
 	@Override
 	public String toString() {
-		return "BaseEntity [productID=" + unitId + ", name=" + name + ", createDate=" + createDate + "]";
+		return "BaseEntity [productID=" + id + ", name=" + name + ", createDate=" + createDate + "]";
 	}
 
 }

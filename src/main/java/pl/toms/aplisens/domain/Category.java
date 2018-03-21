@@ -71,8 +71,4 @@ public class Category extends BaseEntity{
 	public String toString() {
 		return "Category [products=" + products + ", tag=" + tag + super.toString() + "]";
 	}
-	
-
-	
-
 }

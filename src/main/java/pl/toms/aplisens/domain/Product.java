@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 public class Product extends BaseEntity{
 	
 	/**
-	 * Lista parametró produktu
+	 * Lista parametrów produktu
 	 */
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "produkt_parametry", 
@@ -55,7 +55,7 @@ public class Product extends BaseEntity{
 	 */
     @ManyToOne 
     @JoinColumn(name="kod_ID")
-	private Code code;
+	private GroupCode code;
 	
 	/**
 	 * Opis produktu
@@ -128,7 +128,7 @@ public class Product extends BaseEntity{
 	 * 
 	 * @return kod produktu
 	 */
-	public Code getCode() {
+	public GroupCode getCode() {
 		return code;
 	}
 	
@@ -137,7 +137,7 @@ public class Product extends BaseEntity{
 	 * 
 	 * @param code kod produktu
 	 */
-	public void setCode(Code code) {
+	public void setCode(GroupCode code) {
 		this.code = code;
 	}
 
