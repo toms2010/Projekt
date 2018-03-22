@@ -17,13 +17,25 @@
 		<div id="content">
 			<table>
 				<tr>
-					<th>Nazwa</th>					
+					<th>Kod</th>
+					<th>Nazwa</th>
 					<th>Cena</th>
 				</tr>
 				<c:forEach var="tempProduct" items="${product}">
+					<c:url var="selectLink" value="/customer/helloworld-form">
+						<c:param name="product" value="${tempProduct.id}" />
+					</c:url>
+					<c:url var="updateLink" value="/customer/helloworld-form">
+						<c:param name="product1" value="${tempProduct.id}" />
+					</c:url>
 					<tr>
+						<td>${tempProduct.code.codeName}</td>
 						<td>${tempProduct.name}</td>
 						<td>${tempProduct.price}</td>
+						<td>
+							<a href="${selectLink}">Select</a> 
+							<a href="${updateLink}" onclick="if (!(confirm('Are you sure you want to delete this customer?'))) return false">Update</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>

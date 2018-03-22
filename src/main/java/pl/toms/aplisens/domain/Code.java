@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "kody")
 @Component
-public class GroupCode {
+public class Code {
 
 	/**
 	 * Identyfikator encji
@@ -41,7 +41,7 @@ public class GroupCode {
 	 * Kod produktu
 	 */
 	@Column(name = "kod")
-	private String code;
+	private String codeName;
 
 	/**
 	 * Zwraca produkt
@@ -67,8 +67,8 @@ public class GroupCode {
 	 * 
 	 * @return kod produktu
 	 */
-	public String getCode() {
-		return code;
+	public String getCodeName() {
+		return codeName;
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class GroupCode {
 	 *            kod produktu
 	 */
 	public void setTag(String code) {
-		this.code = code;
+		this.codeName = code;
 	}
 
 	/*
@@ -88,7 +88,7 @@ public class GroupCode {
 	 */
 	@Override
 	public String toString() {
-		return "Code [products=" + products + ", kod=" + code + "]";
+		return "Code [products=" + products + ", kod=" + codeName + "]";
 	}
 
 }

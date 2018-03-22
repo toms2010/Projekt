@@ -54,7 +54,7 @@ public class Product extends BaseEntity{
 	 */
     @ManyToOne
     @JoinColumn(name="kod_ID")
-	private GroupCode code;
+	private Code code;
 	
 	/**
 	 * Opis produktu
@@ -127,7 +127,7 @@ public class Product extends BaseEntity{
 	 * 
 	 * @return kod produktu
 	 */
-	public GroupCode getCode() {
+	public Code getCode() {
 		return code;
 	}
 	
@@ -136,7 +136,7 @@ public class Product extends BaseEntity{
 	 * 
 	 * @param code kod produktu
 	 */
-	public void setCode(GroupCode code) {
+	public void setCode(Code code) {
 		this.code = code;
 	}
 
