@@ -7,21 +7,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import pl.toms.aplisens.domain.Product;
-import pl.toms.aplisens.service.ProductService;
+import pl.toms.aplisens.domain.Category;
+import pl.toms.aplisens.service.CategoryService;
 
 @Controller
-public class ProductController {
+public class CategoryController {
 	
 	@Autowired
-	private ProductService baseService;
+	private CategoryService categoryService;
 
-	@RequestMapping("/list")
+	@RequestMapping("/start")
 	public String lista(Model theModel) {
-		List<Product> products = baseService.getProducts();
-		
-		theModel.addAttribute("product",products);
-		return "products";
+		List<Category> categoryList = categoryService.getCategoryList();
+		theModel.addAttribute("categoryList",categoryList);
+		return "index";
 	}
 
 }

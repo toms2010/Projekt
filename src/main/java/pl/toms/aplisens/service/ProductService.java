@@ -4,7 +4,7 @@ import java.util.List;
 
 import pl.toms.aplisens.domain.Product;
 
-public interface BaseService {
+public interface ProductService {
 
 	List<Product> getProducts();
 

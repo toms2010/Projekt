@@ -10,7 +10,7 @@ import pl.toms.aplisens.repository.ProductRepository;
 
 
 @Service
-public class BaseServiceImpl implements BaseService{
+public class ProductServiceImpl implements ProductService{
 
 	@Autowired 
 	protected ProductRepository repo;
