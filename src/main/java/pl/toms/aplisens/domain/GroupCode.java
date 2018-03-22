@@ -10,14 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 /**
- * Encja reprezentująca kod produktów.
+ * Encja reprezentująca kod produktów
  * 
  * @author toms
  * 
  */
 @Entity
 @Table(name = "kody")
+@Component
 public class GroupCode {
 
 	/**

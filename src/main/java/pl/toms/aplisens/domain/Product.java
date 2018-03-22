@@ -22,7 +22,6 @@ import org.springframework.stereotype.Component;
  */
 @Entity
 @Table(name = "produkty")
-@Component
 public class Product extends BaseEntity{
 	
 	/**
@@ -53,7 +52,7 @@ public class Product extends BaseEntity{
 	/**
 	 * Kod produktu
 	 */
-    @ManyToOne 
+    @ManyToOne
     @JoinColumn(name="kod_ID")
 	private GroupCode code;
 	

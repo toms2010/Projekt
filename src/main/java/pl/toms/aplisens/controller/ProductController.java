@@ -12,17 +12,16 @@ import pl.toms.aplisens.domain.Product;
 import pl.toms.aplisens.service.BaseService;
 
 @Controller
-//@RequestMapping("/product")
 public class ProductController {
 	
-//	@Autowired
-//	private BaseService baseService;
-//	
+	@Autowired
+	private BaseService baseService;
+
 	@GetMapping("/list")
 	public String lista(Model theModel) {
-//		List<Product> products = baseService.getProducts();
-//		
-//		theModel.addAttribute("product",products);
+		List<Product> products = baseService.getProducts();
+		
+		theModel.addAttribute("product",products);
 		return "tabela";
 	}
 

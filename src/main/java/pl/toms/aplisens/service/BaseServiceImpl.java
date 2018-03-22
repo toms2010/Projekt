@@ -12,17 +12,11 @@ import pl.toms.aplisens.repository.ProductRepository;
 @Service
 public class BaseServiceImpl implements BaseService{
 
-	@Override
-	public List<Product> getProducts() {
-		// TODO Auto-generated method stub
-		return null;
+	@Autowired 
+	protected ProductRepository repo;
+	
+	public List<Product> getProducts(){
+		
+		return repo.findAll();
 	}
-
-//	@Autowired 
-//	protected ProductRepository repo;
-//	
-//	public List<Product> getProducts(){
-//		
-//		return repo.findAll();
-//	}
 }
