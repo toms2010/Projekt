@@ -31,7 +31,7 @@
 						<c:param name="product1" value="${tempProduct.id}" />
 					</c:url>
 					<tr>
-						<td>${tempProduct.code.codeName}</td>
+						<td>${tempProduct.code}</td>
 						<td>${tempProduct.name}</td>
 						<td>${tempProduct.price}</td>
 						<td>

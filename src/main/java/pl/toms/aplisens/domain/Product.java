@@ -13,7 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
 
 /**
  * Encja reprezentująca produky
@@ -52,9 +51,8 @@ public class Product extends BaseEntity{
 	/**
 	 * Kod produktu
 	 */
-    @ManyToOne
-    @JoinColumn(name="kod_ID")
-	private Code code;
+    @Column(name="kod")
+	private String code;
 	
 	/**
 	 * Opis produktu
@@ -127,7 +125,7 @@ public class Product extends BaseEntity{
 	 * 
 	 * @return kod produktu
 	 */
-	public Code getCode() {
+	public String getCode() {
 		return code;
 	}
 	
@@ -136,7 +134,7 @@ public class Product extends BaseEntity{
 	 * 
 	 * @param code kod produktu
 	 */
-	public void setCode(Code code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 

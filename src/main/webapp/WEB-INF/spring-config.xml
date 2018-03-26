@@ -16,6 +16,7 @@
 	<jpa:repositories base-package="pl.toms.aplisens" entity-manager-factory-ref="entityManagerFactory"
 		transaction-manager-ref="transactionManager" />
 
+
 <!-- Konfiguracja viewResolver -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
@@ -68,5 +69,6 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
+		<mvc:resources location="/resources/" mapping="/resources/**" />
 	
 </beans>
