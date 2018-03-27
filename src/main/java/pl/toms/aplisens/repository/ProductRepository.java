@@ -9,6 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.toms.aplisens.domain.Category;
 import pl.toms.aplisens.domain.Product;
 
+
+/**
+ * Interfejs definiujący metody dostępu do danych produktów
+ *
+ * @see Product
+ */
 @Repository
 @Transactional(propagation = Propagation.REQUIRED)
 public interface ProductRepository extends BaseRepository<Product, Long>{

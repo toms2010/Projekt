@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ProductSpecificsController {
 
-	@RequestMapping("/product-specifics")
+
+    
+	@RequestMapping("/product-details")
 	public String lista(Model theModel) {
-		return "product-form";
+
+		return "product-details";
 	}
 
 }

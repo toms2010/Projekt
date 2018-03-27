@@ -12,6 +12,9 @@ import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Bazowa klasa encji
+ */
 @Component
 @MappedSuperclass
 public class BaseEntity {
@@ -84,3 +87,31 @@ public class BaseEntity {
 	}
 
 }
+
+
+///**
+// * Status obiektu
+// *
+// */
+//public enum UnitStatus {
+//    /**
+//     * Wprowadzony
+//     */
+//    RESERVED,
+//    /**
+//     * Aktywny
+//     */
+//    ACTIVE,
+//    /**
+//     * Usunięty
+//     */
+//    DELETED,
+//    /**
+//     * Aktywny do usunięcia
+//     */
+//    ACTIVE_TO_DELETE,
+//    /**
+//     * Wprowadzony do usunięcia
+//     */
+//    RESERVED_TO_DELETE;
+//}

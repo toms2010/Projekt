@@ -5,8 +5,14 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 import pl.toms.aplisens.domain.BaseEntity;
 
+/**
+ * Interfejs definiujący metody dostępu do encji
+ *
+ * @param <T> typ encji
+ * @param <ID> typ identyfikatora bazodanowego encji
+ */
 @NoRepositoryBean
-public interface BaseRepository<T, ID> extends JpaRepository<T, ID>{
+public interface BaseRepository<T extends BaseEntity, ID> extends JpaRepository<T, ID>{
 	
 	/**
 	 * Wyszukuje encje po nazwie
