@@ -25,7 +25,7 @@
 				</tr>
 				<c:forEach var="tempProduct" items="${product}">
 					<c:url var="selectLink" value="/product-specifics">
-						<c:param name="product" value="${tempProduct.id}" />
+						<c:param name="productId" value="${tempProduct.id}" />
 					</c:url>
 					<c:url var="updateLink" value="/new-product-form">
 						<c:param name="product1" value="${tempProduct.id}" />

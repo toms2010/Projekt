@@ -10,15 +10,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.toms.aplisens.domain.Product;
 import pl.toms.aplisens.service.ProductService;
 
+/**
+ * Kontroler zarządzający produktami
+ */
 @Controller
 public class ProductController {
-	
 	@Autowired
-	private ProductService baseService;
+	private ProductService productService;
 
+	/**
+    *
+    * @param 
+    * @return 
+    */
 	@RequestMapping("/list")
 	public String lista(Model theModel) {
-		List<Product> products = baseService.getProducts();
+		List<Product> products = productService.getProducts();
 		
 		theModel.addAttribute("product",products);
 		return "products";

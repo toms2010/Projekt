@@ -20,6 +20,6 @@ public interface BaseRepository<T extends BaseEntity, ID> extends JpaRepository<
 	 * @param name nazwa encji do wyszukania
 	 * @return encja o podanej nazwie
 	 */
-	BaseEntity findOneByName(String name);
+	T findOneByName(String name);
 
 }

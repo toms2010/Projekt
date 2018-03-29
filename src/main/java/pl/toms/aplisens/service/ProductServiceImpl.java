@@ -8,15 +8,30 @@ import org.springframework.stereotype.Service;
 import pl.toms.aplisens.domain.Product;
 import pl.toms.aplisens.repository.ProductRepository;
 
-
+/**
+ * Implementacja serwisu wewnętrznego do zarządzania produktami
+ *
+ * @see Product
+ */
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService
+{
+    @Autowired
+    private ProductRepository repo;
 
-	@Autowired 
-	protected ProductRepository repo;
-	
-	public List<Product> getProducts(){
-		
-		return repo.findAll();
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public List<Product> getProducts(){
+        return repo.findAll();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public Product getProduct(Long productId){
+        return repo.getOne(productId);
+    }
+    
+
 }

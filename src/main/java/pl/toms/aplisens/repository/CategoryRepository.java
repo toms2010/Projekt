@@ -6,6 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pl.toms.aplisens.domain.Category;
 
+/**
+ * Interfejs definiujący metody dostępu do danych kategorii
+ *
+ * @see Category
+ */
 @Repository
 @Transactional(propagation = Propagation.REQUIRED)
 public interface CategoryRepository extends BaseRepository<Category, Long>{
