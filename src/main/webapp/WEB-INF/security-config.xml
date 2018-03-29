@@ -10,7 +10,7 @@
 	<authentication-manager>
 		<authentication-provider>
 			<user-service>
-				<user name="user" password="1234" authorities="ROLE_USER" />
+				<user name="user" password="{noop}1234" authorities="ROLE_USER" />
 			</user-service>
 		</authentication-provider>
 	</authentication-manager>

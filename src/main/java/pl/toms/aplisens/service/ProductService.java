@@ -14,7 +14,7 @@ import pl.toms.aplisens.domain.Product;
  * @see Product
  */
 @Service
-@Transactional(propagation = Propagation.MANDATORY)
+@Transactional(propagation = Propagation.REQUIRED)
 public interface ProductService {
 
     /**

@@ -23,7 +23,7 @@ public class CategoryController {
     * @param 
     * @return 
     */
-	@RequestMapping("/start")
+	@RequestMapping("/")
 	public String lista(Model theModel) {
 	    //logger
 		List<Category> categoryList = categoryService.getCategoryList();
