@@ -32,7 +32,3 @@ public class ProductSpecificsController
     }
 
 }
-
-
-// public void delete(@RequestParam("unitId") final UnitId unitId) {
-// public GrupaSklDTO update(@RequestBody final GrupaSklDTO grupaSklDTO) {

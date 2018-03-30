@@ -19,14 +19,14 @@ public class ProductController {
 	private ProductService productService;
 
 	/**
-    *
-    * @param 
-    * @return 
+    * Zwraca stronę z listą produktów o podanej kategorii
+    * 
+    * @param Model
+    * @return products.jsp
     */
 	@RequestMapping("/list")
-	public String lista(Model theModel) {
+	public String getProductList(Model theModel) {
 		List<Product> products = productService.getProducts();
-		
 		theModel.addAttribute("product",products);
 		return "products";
 	}

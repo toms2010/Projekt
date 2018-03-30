@@ -27,12 +27,11 @@
 	</bean>
 
 <!-- Konfiguracja dataSource -->
-
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="${DB_DRIVERCLASSNAME}" />
 		<property name="jdbcUrl" value="${DB_URL}" />
 		<property name="user" value="${DB_USERNAME}" />
-<!-- 		<property name="password" value="${DB_PASSWORD}" /> -->
+		<property name="password" value="${DB_PASSWORD}" />
 		<property name="minPoolSize" value="5" />
 		<property name="maxPoolSize" value="20" />
 		<property name="maxIdleTime" value="30000" />
@@ -49,7 +48,7 @@
 			</bean>
 		</property>
 	</bean>
-
+<!-- Konfiguracja sessionFactory -->
 <!-- 	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"> -->
 <!-- 		<property name="dataSource" ref="dataSource" /> -->
 <!-- 		<property name="packagesToScan" value="pl.toms.aplisens.entity" /> -->
@@ -70,14 +69,19 @@
 	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
 		<security:form-login />
-		<security:logout />
+		<security:logout logout-url="/logout"/>
+		<security:csrf />
 	</security:http>
-	
+
 	<security:authentication-manager>
 		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="user" password="{noop}1234" authorities="ROLE_USER" />
-			</security:user-service>
+			<security:jdbc-user-service data-source-ref="dataSource" users-by-username-query=
+		   			 "select username,password, enabled from users where username=?"
+		 					   authorities-by-username-query=
+		    		 "select username, authority from authorities where username =?  " />
+<!-- 			<security:user-service> -->
+<!-- 				<security:user name="user" password="{noop}1234" authorities="ROLE_USER" /> -->
+<!-- 			</security:user-service> -->
 		</security:authentication-provider>
 	</security:authentication-manager>
 	
