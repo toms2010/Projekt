@@ -44,7 +44,6 @@
 					<th></th>
 					<th></th>
 					<th></th>
-<!-- 				TODO	Dodać ilośc prod w kategorii -->
 				</tr>
 				<c:forEach var="category" items="${categoryList}">
 					<tr>
