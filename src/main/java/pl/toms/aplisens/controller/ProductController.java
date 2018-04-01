@@ -20,7 +20,7 @@ import pl.toms.aplisens.service.ProductService;
 public class ProductController {
 	private static final String PRODUCT_LIST_WINDOW = "product-list";
 	
-	protected final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+	protected static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 	
 	@Autowired
 	private ProductService productService;
@@ -40,5 +40,4 @@ public class ProductController {
 		LOGGER.debug("Showing {}", PRODUCT_LIST_WINDOW);
 		return PRODUCT_LIST_WINDOW;
 	}
-
 }

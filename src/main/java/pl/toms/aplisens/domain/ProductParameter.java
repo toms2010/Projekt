@@ -122,7 +122,7 @@ public class ProductParameter extends BaseEntity{
 	 */
 	@Override
 	public String toString() {
-		return "ProductParameter [products=" + products + ", value=" + value + ", code=" + code + ", description="
+		return "ProductParameter [value=" + value + ", code=" + code + ", description="
 				+ description + super.toString() + "]";
 	}
 	

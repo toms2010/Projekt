@@ -18,7 +18,7 @@ import pl.toms.aplisens.service.ProductService;
 public class ProductDetailsController {
 	private static final String DETAILS_WINDOW = "product-details";
 	
-	protected final Logger LOGGER = LoggerFactory.getLogger(ProductDetailsController.class);
+	protected static final Logger LOGGER = LoggerFactory.getLogger(ProductDetailsController.class);
 	
 	@Autowired
 	private ProductService productService;
@@ -34,7 +34,7 @@ public class ProductDetailsController {
 	public String getProductDetails(@RequestParam("productId") Long productId, Model theModel) {
 		Product product = productService.getProductById(productId);
 		LOGGER.debug("Load product : product={}", product);
-		theModel.addAttribute("productDetails", product);
+		theModel.addAttribute("product", product);
 		LOGGER.debug("Showing {}", DETAILS_WINDOW);
 		return DETAILS_WINDOW;
 	}

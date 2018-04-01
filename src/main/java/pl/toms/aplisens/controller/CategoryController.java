@@ -23,7 +23,7 @@ public class CategoryController {
 	private static final String CATEGORY_LIST_WINDOW = "category-list";
 	private static final String CREATE_CATEGORY_WINDOW = "category-frm";
 
-	protected final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
+	protected static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
 
 	@Autowired
 	private CategoryService categoryService;
@@ -36,9 +36,9 @@ public class CategoryController {
 	 */
 	@GetMapping(value = { "/", "/category" })
 	public String getCategoryList(Model theModel) {
-		List<Category> category = categoryService.getCategoryList();
-		LOGGER.debug("Load category list: category={}", category);
-		theModel.addAttribute("categoryList", category);
+		List<Category> categorys = categoryService.getCategoryList();
+		LOGGER.debug("Load category list: category={}", categorys);
+		theModel.addAttribute("categoryList", categorys);
 		LOGGER.debug("Showing {}", CATEGORY_LIST_WINDOW);
 		return CATEGORY_LIST_WINDOW;
 	}
@@ -59,7 +59,21 @@ public class CategoryController {
 	}
 
 	/**
-	 * Metoda zwracająca okno do edycji kategorii !!NIE DZIALA!!
+	 * Metoda zapisująca kategorie
+	 * 
+	 * @param theModel
+	 * @param category kategoria do zapisania
+	 * @return category-list.jsp
+	 */
+	@PostMapping("adm/saveCategory")
+	public String saveCategory(@ModelAttribute("category") Category category) {
+		LOGGER.debug("Saving category: category={}", category);
+		categoryService.saveCategory(category);
+		return "redirect:/category";
+	}
+	
+	/**
+	 * Metoda zwracająca okno do edycji kategorii
 	 * 
 	 * @param theModel
 	 * @param categoryId identyfikator kategorii
@@ -75,20 +89,6 @@ public class CategoryController {
 	}
 
 	/**
-	 * Metoda zapisująca kategorie
-	 * 
-	 * @param theModel
-	 * @param category kategoria do zapisania
-	 * @return category-list.jsp
-	 */
-	@PostMapping("adm/saveCategory")
-	public String saveCategory(@ModelAttribute("category") Category category) {
-		LOGGER.debug("Saving category: category={}", category);
-		categoryService.saveCategory(category);
-		return "redirect:/category";
-	}
-
-	/**
 	 * Metoda do usuwania kategorii !!NIE DZIALA!!
 	 * 
 	 * @param theModel
@@ -96,7 +96,7 @@ public class CategoryController {
 	 */
 	@PostMapping("/adm/deleteCategory")
 	public String deleteCategory(Model theModel, @RequestParam("categoryId") Long categoryId) {
-		// TODO
+		categoryService.deleteCategory(categoryId);
 		return "redirect:/category";
 	}
 }

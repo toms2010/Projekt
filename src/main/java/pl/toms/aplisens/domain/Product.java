@@ -13,6 +13,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 
 /**
  * Encja reprezentująca produky
@@ -35,10 +38,11 @@ public class Product extends BaseEntity{
 	/**
 	 * Lista wykonań produktu
 	 */
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "produkt_wykonania", 
 				joinColumns = @JoinColumn(name = "produktID"), 
 				inverseJoinColumns = @JoinColumn(name = "wykonanieID"))
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<ProductDesign> productDesign;
 	
 	/**
