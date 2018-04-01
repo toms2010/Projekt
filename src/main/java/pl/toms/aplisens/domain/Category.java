@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Encja reprezentująca kategorie produktów
@@ -19,7 +21,7 @@ public class Category extends BaseEntity{
 	/**
 	 * Dane produktu
 	 */
-	@OneToMany(mappedBy="category")
+	@OneToMany(mappedBy="category", fetch=FetchType.EAGER)
 	private List<Product> products;
 	
 	/**
@@ -27,6 +29,12 @@ public class Category extends BaseEntity{
 	 */
 	@Column(name="tag")
 	private String tag;
+	
+	/*
+	 * Iloś produktów w kategorii
+	 */
+	@Transient
+	private Integer size;
 
 	/**
 	 * Zwraca produkt
@@ -64,11 +72,30 @@ public class Category extends BaseEntity{
 		this.tag = tag;
 	}
 
+	/**
+	 * Zwraca ilośc produktów 
+	 * 
+	 * @return ilośc produktów
+	 */
+	public Integer getSize() {
+		setSize(products.size());
+		return size;
+	}
+	
+	/**
+	 * Ustawia ilośc produktów
+	 * 
+	 * @param size ilośc produktów
+	 */
+	private void setSize(Integer size) {
+		this.size = size;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Category [products=" + products + ", tag=" + tag + super.toString() + "]";
+		return "Category [tag= " + tag +" ;"+  super.toString() + "]";
 	}
 }

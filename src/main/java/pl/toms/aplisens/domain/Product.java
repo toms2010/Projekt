@@ -26,7 +26,7 @@ public class Product extends BaseEntity{
 	/**
 	 * Lista parametrów produktu
 	 */
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "produkt_parametry", 
 				joinColumns = @JoinColumn(name = "produktID"), 
 				inverseJoinColumns = @JoinColumn(name = "parametrID"))
@@ -179,7 +179,7 @@ public class Product extends BaseEntity{
 	 */
 	@Override
 	public String toString() {
-		return "Product [category=" + category + ", code=" + code + ", description=" + description + ", price=" + price
-				+ super.toString() + "]";
-	}	
+		return "Product [category=" + category + "; " + super.toString() + ", code=" + code + ", description=" + description + ", price=" + price
+				+ "]";
+	}
 }

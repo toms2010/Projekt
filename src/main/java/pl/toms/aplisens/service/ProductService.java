@@ -22,13 +22,21 @@ public interface ProductService {
      *
      * @return lista produktów
      */
-	List<Product> getProducts();
+	List<Product> getAllProducts();
 
+    /**
+     * Zwraca wszystkie produkty z wybranej kategorii
+     *
+     * @param categoryId numer identyfikacyjny kategorii
+     * @return lista produktów 
+     */
+	List<Product> getProductsByCategory(Long categoryId);
+	
 	/**
      * Zwraca produkt o podanym numerze identyfikacyjnym
      *
-     * @param productId numer identyfikacyjny
+     * @param productId numer identyfikacyjny produktu
      * @return produkt
      */
-	Product getProduct(Long productId);
+	Product getProductById(Long productId);
 }

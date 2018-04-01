@@ -24,4 +24,8 @@ public interface CategoryService {
      */
 	List<Category> getCategoryList();
 
+	void saveCategory(Category category);
+
+	Category getCategoryById(Long categoryId);
+
 }

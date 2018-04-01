@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.toms.aplisens.domain.Product;
 import pl.toms.aplisens.service.ProductService;
@@ -21,14 +22,15 @@ public class ProductController {
 	/**
     * Zwraca stronę z listą produktów o podanej kategorii
     * 
-    * @param Model
+    * @param model
+    * @param categoryId identyfikator grupy produktów
     * @return products.jsp
     */
-	@RequestMapping("/list")
-	public String getProductList(Model theModel) {
-		List<Product> products = productService.getProducts();
-		theModel.addAttribute("product",products);
-		return "products";
+	@RequestMapping("/products")
+	public String getProductList(Model theModel, @RequestParam("categoryId") Long categoryId) {
+		List<Product> products = productService.getProductsByCategory(categoryId);
+		theModel.addAttribute("products",products);
+		return "product-list";
 	}
 
 }

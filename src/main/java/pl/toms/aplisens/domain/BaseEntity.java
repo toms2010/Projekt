@@ -83,7 +83,7 @@ public class BaseEntity {
 	 */
 	@Override
 	public String toString() {
-		return "BaseEntity [productID=" + id + ", name=" + name + ", createDate=" + createDate + "]";
+		return "BaseEntity [id=" + id + ", name=" + name + ", createDate=" + createDate + "]";
 	}
 
 }
