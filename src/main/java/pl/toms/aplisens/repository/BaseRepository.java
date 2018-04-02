@@ -22,4 +22,11 @@ public interface BaseRepository<T extends BaseEntity, ID> extends JpaRepository<
 	 */
 	T findOneByName(String name);
 
+	/*
+	 * Wyszukuje encje po identyfikatorze
+	 * 
+	 * @param name identyfikator encji do wyszukania
+	 * @return encja o podanym identyfikatore
+	 */
+	T findOneById(Long id);
 }

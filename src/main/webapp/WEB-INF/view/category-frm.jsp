@@ -35,11 +35,11 @@
 	
 	<div id="container">
 		<div id="content">
-			<form:form action="saveCategory" method="post" modelAttribute="category"> 
+			<form:form action="saveCategory" method="post" modelAttribute="category" acceptCharset="UTF-8"> 
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				<form:hidden path="id" />
-				Nazwa kategorii: <form:input path="name" />
-				Tag Kategorii <form:input path="tag" />
+				Numer id : <form:input path="id" readonly="true"/><br/>
+				Nazwa kategorii: <form:input path="name" /><br/>
+				Tag Kategorii <form:input path="tag" /><br/>
 				<input type="submit" value="Zapisz" class="save"/>
 			</form:form>
 			

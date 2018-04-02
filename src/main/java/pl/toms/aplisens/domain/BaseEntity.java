@@ -48,6 +48,15 @@ public class BaseEntity {
 	public Long getId() {
 		return id;
 	}
+	
+	/**
+	 * Ustawia identyfikator
+	 * 
+	 * @param id identyfikator obiektu
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	/**
 	 * Zwraca nazwę obiektu
@@ -61,7 +70,7 @@ public class BaseEntity {
 	/**
 	 * Ustawia nazwę obiektu
 	 * 
-	 * @param nazwa obiektu
+	 * @param name nazwa obiektu
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -74,6 +83,15 @@ public class BaseEntity {
 	 */
 	public Date getCreateDate() {
 		return createDate;
+	}
+
+	/**
+	 * Ustawia date utworzenia obiektu
+	 * 
+	 * @param createDate data utworzenia obiektu
+	 */
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 	/*

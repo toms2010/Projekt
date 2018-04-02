@@ -2,8 +2,8 @@ package pl.toms.aplisens.service;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +18,10 @@ import pl.toms.aplisens.repository.CategoryRepository;
  */
 @Service
 public class CategoryServiceImpl implements CategoryService{
-	protected final Logger LOGGER = LoggerFactory.getLogger(CategoryServiceImpl.class);
-	
 	@Autowired 
 	private CategoryRepository repo;
+	@Autowired 
+	private EntityManager em;
 	
     /**
      * {@inheritDoc}
@@ -34,16 +34,15 @@ public class CategoryServiceImpl implements CategoryService{
      * {@inheritDoc}
      */
 	public void saveCategory(Category category) {
-		repo.save(category);
+		em.merge(category);
+//		repo.save(category);
 	}
 
     /**
      * {@inheritDoc}
      */
 	public Category getCategoryById(Long categoryId) {
-		Category category =repo.getOne(categoryId);
-		LOGGER.debug("Load category : category={}", category);
-		return category;
+		return repo.findOneById(categoryId);
 	}
 
     /**
