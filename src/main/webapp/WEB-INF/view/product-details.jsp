@@ -67,6 +67,8 @@
 						<br>
 					</c:forEach>
 					<br>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<input type="hidden" name="productId" value="${product.id}" />
 					<input type="submit" name="submit" value="Zatwierdz">
 				</form:form>
 		</div>
