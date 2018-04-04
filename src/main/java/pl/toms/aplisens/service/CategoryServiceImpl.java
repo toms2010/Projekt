@@ -34,6 +34,9 @@ public class CategoryServiceImpl implements CategoryService{
      * {@inheritDoc}
      */
 	public void saveCategory(Category category) {
+        if (category == null) {
+            throw new RuntimeException("Category is null ");
+        }
 		em.merge(category);
 //		repo.save(category);
 	}
@@ -42,6 +45,9 @@ public class CategoryServiceImpl implements CategoryService{
      * {@inheritDoc}
      */
 	public Category getCategoryById(Long categoryId) {
+        if (categoryId == null) {
+            throw new RuntimeException("CategoryId is null ");
+        }
 		return repo.findOneById(categoryId);
 	}
 
@@ -49,7 +55,9 @@ public class CategoryServiceImpl implements CategoryService{
      * {@inheritDoc}
      */
 	public void deleteCategory(Long categoryId) {
+        if (categoryId == null) {
+            throw new RuntimeException("CategoryId is null ");
+        }
 		repo.deleteById(categoryId);
 	}
 }
-//NPE

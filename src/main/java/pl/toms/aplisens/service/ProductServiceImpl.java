@@ -32,13 +32,19 @@ public class ProductServiceImpl implements ProductService {
 	 * {@inheritDoc}
 	 */
 	public List<Product> getProductsByCategory(Long categoryId) {
+        if (categoryId == null) {
+            throw new RuntimeException("CategoryId is null ");
+        }
 		return repo.findAllByCategory(repoCategory.getOne(categoryId));
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Product getProductById(Long productId) {;
+	public Product getProductById(Long productId) {
+        if (productId == null) {
+            throw new RuntimeException("ProductId is null ");
+        }
 		return repo.findOneById(productId);
 	}
 
