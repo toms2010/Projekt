@@ -20,8 +20,8 @@ import pl.toms.aplisens.repository.CategoryRepository;
 public class CategoryServiceImpl implements CategoryService{
 	@Autowired 
 	private CategoryRepository repo;
-	@Autowired 
-	private EntityManager em;
+//	@Autowired 
+//	private EntityManager em;
 	
     /**
      * {@inheritDoc}
@@ -35,10 +35,10 @@ public class CategoryServiceImpl implements CategoryService{
      */
 	public void saveCategory(Category category) {
         if (category == null) {
-            throw new RuntimeException("Category is null ");
+            throw new RuntimeException("Category is null");
         }
-		em.merge(category);
-//		repo.save(category);
+//		em.merge(category);
+		repo.save(category);
 	}
 
     /**

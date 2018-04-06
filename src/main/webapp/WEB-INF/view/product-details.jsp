@@ -42,10 +42,10 @@
 					<h5>
 						Zakres pomiarowy: <input type="text" name="rangeLow" />...
 						<input type="text" name="rangeHigh" /> 
-						<select name="jednostka">
-							<option value="kPa">Pa</option>
+						<select name="unit">
+							<option value="Pa">Pa</option>
 							<option value="kPa" selected>kPa</option>
-							<option value="kPa">MPa</option>
+							<option value="MPa">MPa</option>
 						</select>
 					</h5>
 					Uzupełnij zakres pomiarowy. Zakres odnosi się do ciśnienia atmosferycznego, dla pomiaru ciśnienia bezwzględnego jako początek zakresu podać 100 kPA
