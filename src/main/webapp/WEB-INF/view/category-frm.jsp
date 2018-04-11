@@ -43,8 +43,10 @@
 				Tag Kategorii <form:input path="tag" /><br/>
 				<input type="submit" value="Zapisz" class="save"/>
 			</form:form>
-			
+			JS: Jeśli nowy (id=null) to komunikat:
+			"Możliwe utowrzenie kategorii jedynie dla produktów nie wymagających dodatkowej specyfikacji"
 		</div>
 	</div>
+	
 </body>
 </html>
