@@ -15,7 +15,6 @@ import pl.toms.aplisens.domain.Product;
 import pl.toms.aplisens.domain.ProductVO;
 import pl.toms.aplisens.util.AppMessage;
 import pl.toms.aplisens.util.PresureUnits;
-import pl.toms.aplisens.util.SpecialCategory;
 
 /**
  * Implementacja serwisu wewnętrznego do zarządzania szczegółami produktów
@@ -57,7 +56,7 @@ public class ProductDetailsServiceImpl implements ProductDetailsService
             Product product = productService.getProductById(productId);
             if (product == null)
             {
-                throw new RuntimeException(appMessage.getAppMessage("error.product.load", "Błąd pobrania produktu", null));
+                throw new RuntimeException(appMessage.getAppMessage("error.product.load", "Błąd pobrania produktu [in]", null));
             }
             LOGGER.debug("Load product : product={}", product);
             theModel.addAttribute("product", product);
@@ -65,19 +64,16 @@ public class ProductDetailsServiceImpl implements ProductDetailsService
             String category = product.getCategory().getTag();
             if (category == null)
             {
-                throw new RuntimeException(appMessage.getAppMessage("error.product.loadCategory", "Błąd pobraniakategorii produktu", null));
+                throw new RuntimeException(appMessage.getAppMessage("error.product.loadCategory", "Błąd pobrania kategorii produktu [in]", null));
             }
             switch (category)
             {
                 case "PC":
                     theModel.addAttribute("units", PresureUnits.values());
-                    LOGGER.debug("Showing {}", PC_DETAILS_WINDOW);
                     returnWindow = PC_DETAILS_WINDOW;
                 case "SG":
-                    LOGGER.debug("Showing {}", SG_DETAILS_WINDOW);
                     returnWindow = SG_DETAILS_WINDOW;
                 default:
-                    LOGGER.debug("Showing {}", DEFAULT_DETAILS_WINDOW);
                     returnWindow = DEFAULT_DETAILS_WINDOW;
             }
         }
@@ -85,8 +81,9 @@ public class ProductDetailsServiceImpl implements ProductDetailsService
             returnWindow =  NO_ARG_WINDOW;
         }
         HashMap<String, Object> data = new HashMap<>();
-        data.put("window", returnWindow);
-        data.put("model", theModel);
+        data.put("WINDOW", returnWindow);
+        data.put("MODEL", theModel);
+        return data;
     }
 
     /**

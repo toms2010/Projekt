@@ -1,5 +1,7 @@
 package pl.toms.aplisens.controller;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mysql.jdbc.StringUtils;
+
 import pl.toms.aplisens.domain.Product;
 import pl.toms.aplisens.domain.ProductVO;
 import pl.toms.aplisens.service.ProductDetailsService;
 import pl.toms.aplisens.service.ProductService;
+import pl.toms.aplisens.util.AppMessage;
 import pl.toms.aplisens.util.PresureUnits;
 import pl.toms.aplisens.util.SpecialCategory;
 
@@ -27,7 +32,13 @@ public class ProductDetailsController
     @Autowired
     private ProductService productService;
 
-    /**
+    @Autowired
+    private ProductDetailsService productDetailsService;
+    
+    @Autowired
+    private AppMessage appMessage;
+    
+    /** 
      * Zwraca stronę z formularzem szczegółów produktów
      * 
      * @param theModel
@@ -38,25 +49,13 @@ public class ProductDetailsController
     @RequestMapping("/details")
     public String getProductDetails(@RequestParam("productId") Long productId, Model theModel)
     {
-        Product product = productService.getProductById(productId);
-        LOGGER.debug("Load product : product={}", product);
-        theModel.addAttribute("product", product);
-        theModel.addAttribute("productVO", new ProductVO());
-
-        SpecialCategory cat = SpecialCategory.valueOf(product.getCategory().getTag());;
-        switch (cat)
-        {
-            case PC:
-                theModel.addAttribute("units", PresureUnits.values());
-                LOGGER.debug("Showing {}", PC_DETAILS_WINDOW);
-                return PC_DETAILS_WINDOW;
-            case SG:
-                LOGGER.debug("Showing {}", SG_DETAILS_WINDOW);
-                return SG_DETAILS_WINDOW;
-            default:
-                LOGGER.debug("Showing {}", DEFAULT_DETAILS_WINDOW);
-                return DEFAULT_DETAILS_WINDOW;
+        HashMap<String, Object> data = productDetailsService.displayDetailsForm(productId, theModel);
+        String window = (String) data.get("WINDOW");
+        theModel = (Model) data.get("MODEL");
+        if (StringUtils.isNullOrEmpty(window)) {
+            throw new RuntimeException(appMessage.getAppMessage("error.product.loadCategory", "Błąd pobrania kategorii produktu [in]", null));
         }
+        return window;
     }
 
     /**
