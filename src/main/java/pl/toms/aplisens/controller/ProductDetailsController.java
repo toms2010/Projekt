@@ -1,16 +1,11 @@
 package pl.toms.aplisens.controller;
 
-import java.math.BigDecimal;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,61 +13,64 @@ import pl.toms.aplisens.domain.Product;
 import pl.toms.aplisens.domain.ProductVO;
 import pl.toms.aplisens.service.ProductDetailsService;
 import pl.toms.aplisens.service.ProductService;
+import pl.toms.aplisens.util.PresureUnits;
+import pl.toms.aplisens.util.SpecialCategory;
 
 /**
  * Kontroler zarządzający szczegółami produktu
  */
 @Controller
-public class ProductDetailsController {
-	private static final String DETAILS_WINDOW = "product-details";
+public class ProductDetailsController
+{
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ProductDetailsController.class);
 
-	protected static final Logger LOGGER = LoggerFactory.getLogger(ProductDetailsController.class);
+    @Autowired
+    private ProductService productService;
 
-	@Autowired
-	private ProductService productService;
+    /**
+     * Zwraca stronę z formularzem szczegółów produktów
+     * 
+     * @param theModel
+     * @param productId
+     *        identyfikator produktu
+     * @return product-details.jsp
+     */
+    @RequestMapping("/details")
+    public String getProductDetails(@RequestParam("productId") Long productId, Model theModel)
+    {
+        Product product = productService.getProductById(productId);
+        LOGGER.debug("Load product : product={}", product);
+        theModel.addAttribute("product", product);
+        theModel.addAttribute("productVO", new ProductVO());
 
-	@Autowired
-	private ProductDetailsService productDetailsService;
+        SpecialCategory cat = SpecialCategory.valueOf(product.getCategory().getTag());;
+        switch (cat)
+        {
+            case PC:
+                theModel.addAttribute("units", PresureUnits.values());
+                LOGGER.debug("Showing {}", PC_DETAILS_WINDOW);
+                return PC_DETAILS_WINDOW;
+            case SG:
+                LOGGER.debug("Showing {}", SG_DETAILS_WINDOW);
+                return SG_DETAILS_WINDOW;
+            default:
+                LOGGER.debug("Showing {}", DEFAULT_DETAILS_WINDOW);
+                return DEFAULT_DETAILS_WINDOW;
+        }
+    }
 
-	/**
-	 * Zwraca stronę ze szczegółami produktu
-	 * 
-	 * @param theModel
-	 * @param productId
-	 *            identyfikator produktu
-	 * @return product-details.jsp
-	 */
-	@RequestMapping("/details")
-	public String getProductDetails(@RequestParam("productId") Long productId, Model theModel) {
-		Product product = productService.getProductById(productId);
-		LOGGER.debug("Load product : product={}", product);
-		theModel.addAttribute("product", product);
-	    theModel.addAttribute("productVO", new ProductVO());
-	    ProductDetailsService.SpecialCategory cat = null;
-	    
-	    switch (cat) {
-	        case PC:
-	            theModel.addAttribute("units", ProductDetailsService.PresureUnits.values());
-	            LOGGER.debug("Showing {}", DETAILS_WINDOW);
-	            return DETAILS_WINDOW;
-	        case SG:
-	            LOGGER.debug("Showing {}", DETAILS_WINDOW);
-	            return DETAILS_WINDOW;
-	    }
-	    return DETAILS_WINDOW;
-	}
-
-	/**
-	 * Oblicza cenę produktu
-	 * 
-	 * @param
-	 * @param
-	 * @return
-	 */
-	@RequestMapping("/saveProduct")
-	public String getPrice(@ModelAttribute("productVO") ProductVO productVO, Model theModel) {
-		LOGGER.debug("------------------------------------");
-		LOGGER.debug(productVO.toString());
-		return "test";
-	}
+    /**
+     * Oblicza cenę produktu
+     * 
+     * @param
+     * @param
+     * @return
+     */
+    @RequestMapping("/saveProduct")
+    public String getPrice(@ModelAttribute("productVO") ProductVO productVO, Model theModel)
+    {
+        LOGGER.debug("------------------------------------");
+        LOGGER.debug(productVO.toString());
+        return "test";
+    }
 }

@@ -31,7 +31,7 @@
 		<property name="driverClass" value="${DB_DRIVERCLASSNAME}" />
 		<property name="jdbcUrl" value="${DB_URL}" />
 		<property name="user" value="${DB_USERNAME}" />
-		<property name="password" value="${DB_PASSWORD}" />
+<!-- 		<property name="password" value="${DB_PASSWORD}" /> -->
 		<property name="minPoolSize" value="5" />
 		<property name="maxPoolSize" value="20" />
 		<property name="maxIdleTime" value="30000" />
@@ -82,4 +82,14 @@
 		</security:authentication-provider>
 	</security:authentication-manager>
 	
+<!-- Konfiguracja messageSource -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>classpath:locale/messages</value>
+            </list>
+        </property>
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="fileEncodings" value="UTF-8" />
+    </bean>
 </beans>

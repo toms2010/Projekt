@@ -1,12 +1,14 @@
 package pl.toms.aplisens.service;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import pl.toms.aplisens.domain.Category;
 import pl.toms.aplisens.domain.Product;
@@ -20,29 +22,6 @@ import pl.toms.aplisens.domain.Product;
 @Transactional(propagation = Propagation.REQUIRED)
 public interface ProductDetailsService
 {
-    
-    public enum PresureUnits
-    {
-         kPa(1), Pa(1000), mPa(0.001), bar(0.01);
-
-        private double multiplier;
-
-        PresureUnits(double multiplier)
-        {
-            this.multiplier = multiplier;
-        }
-
-        public double getMultiplier()
-        {
-            return multiplier;
-        }
-    }
-    
-    public enum SpecialCategory
-    {
-         SG, PC, CT
-    }
-
+    HashMap<String, Object> displayDetailsForm(Long productId, Model theModel); 
     BigDecimal countPrice(Product product, HttpServletRequest request);
-
 }
