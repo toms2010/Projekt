@@ -1,6 +1,8 @@
 package pl.toms.aplisens.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,68 +10,65 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mysql.jdbc.StringUtils;
 
-import pl.toms.aplisens.domain.Product;
 import pl.toms.aplisens.domain.ProductVO;
 import pl.toms.aplisens.service.ProductDetailsService;
-import pl.toms.aplisens.service.ProductService;
 import pl.toms.aplisens.util.AppMessage;
-import pl.toms.aplisens.util.PresureUnits;
-import pl.toms.aplisens.util.SpecialCategory;
+import pl.toms.aplisens.util.ApplicationException;
 
 /**
  * Kontroler zarządzający szczegółami produktu
  */
 @Controller
-public class ProductDetailsController
-{
+public class ProductDetailsController {
+    private static final String PRODUCT_SUMMARY = "product-summary";
+
     protected static final Logger LOGGER = LoggerFactory.getLogger(ProductDetailsController.class);
 
     @Autowired
-    private ProductService productService;
-
-    @Autowired
     private ProductDetailsService productDetailsService;
-    
+
+    /**
+     * Generator komunikatów aplikacji
+     */
     @Autowired
     private AppMessage appMessage;
-    
-    /** 
-     * Zwraca stronę z formularzem szczegółów produktów
+
+    /**
+     * Zwraca stronę z formularzem szczegółów produku
      * 
      * @param theModel
-     * @param productId
-     *        identyfikator produktu
-     * @return product-details.jsp
+     * @param productId identyfikator produktu
+     * @return okno ze szczegółami produktu
      */
-    @RequestMapping("/details")
-    public String getProductDetails(@RequestParam("productId") Long productId, Model theModel)
-    {
-        HashMap<String, Object> data = productDetailsService.displayDetailsForm(productId, theModel);
+    @SuppressWarnings("unchecked")
+    @PostMapping("/details")
+    public String getProductDetails(@RequestParam("productId") Long productId, Model theModel) {
+        HashMap<String, Object> data = (HashMap<String, Object>) productDetailsService.displayDetailsForm(productId, theModel);
+        theModel.addAllAttributes((Map<String, ?>) data.get("ADDITIONAL_ATTRIBUTES"));
         String window = (String) data.get("WINDOW");
-        theModel = (Model) data.get("MODEL");
         if (StringUtils.isNullOrEmpty(window)) {
-            throw new RuntimeException(appMessage.getAppMessage("error.product.loadCategory", "Błąd pobrania kategorii produktu [in]", null));
+            throw new ApplicationException(appMessage.getAppMessage("error.product.loadCategory", null));
         }
         return window;
     }
 
     /**
-     * Oblicza cenę produktu
+     * Zwraca okno z podsumowaniem produktu
      * 
-     * @param
-     * @param
-     * @return
+     * @param productVO obiekt z wartościami produktu
+     * @param theModel
+     * @return okno z podsumowaniem produktu
      */
-    @RequestMapping("/saveProduct")
-    public String getPrice(@ModelAttribute("productVO") ProductVO productVO, Model theModel)
-    {
-        LOGGER.debug("------------------------------------");
-        LOGGER.debug(productVO.toString());
-        return "test";
+    @PostMapping("/saveProduct")
+    public String getPrice(@ModelAttribute("productVO") ProductVO productVO, Model theModel) {
+        LOGGER.debug("Pobrano wartości: {}", productVO);
+        BigDecimal price = productDetailsService.countPricePC(productVO);
+        theModel.addAttribute("totalPrice", price);
+        return PRODUCT_SUMMARY;
     }
 }

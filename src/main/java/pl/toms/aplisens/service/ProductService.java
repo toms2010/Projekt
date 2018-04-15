@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.toms.aplisens.domain.Product;
 
 /**
- * Serwis wewnętrzny do zarządzania produktami
+ * Serwis do zarządzania produktami.
  *
  * @see Product
  */
@@ -18,14 +18,14 @@ import pl.toms.aplisens.domain.Product;
 public interface ProductService {
 
     /**
-     * Zwraca wszystkie produkty 
+     * Zwraca wszystkie produkty.
      *
      * @return lista produktów
      */
 	List<Product> getAllProducts();
 
     /**
-     * Zwraca wszystkie produkty z wybranej kategorii
+     * Zwraca wszystkie produkty z wybranej kategorii.
      *
      * @param categoryId numer identyfikacyjny kategorii
      * @return lista produktów 
@@ -33,10 +33,24 @@ public interface ProductService {
 	List<Product> getProductsByCategory(Long categoryId);
 	
 	/**
-     * Zwraca produkt o podanym numerze identyfikacyjnym
+     * Zwraca produkt o podanym numerze identyfikacyjnym.
      *
      * @param productId numer identyfikacyjny produktu
      * @return produkt
      */
 	Product getProductById(Long productId);
+
+    /**
+     * Usuwa produkt.
+     *
+     * @param productId identyfikator produktu
+     */
+    void deleteProduct(Long productId);
+
+    /**
+     * Zapisuje produkt.
+     *
+     * @param product produkt
+     */
+    void saveProduct(Product product);
 }

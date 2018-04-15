@@ -8,44 +8,73 @@ import org.springframework.stereotype.Service;
 import pl.toms.aplisens.domain.Product;
 import pl.toms.aplisens.repository.CategoryRepository;
 import pl.toms.aplisens.repository.ProductRepository;
+import pl.toms.aplisens.util.AppMessage;
+import pl.toms.aplisens.util.ApplicationException;
 
 /**
- * Implementacja serwisu wewnętrznego do zarządzania produktami
+ * Implementacja serwisu do zarządzania produktami
  *
  * @see Product
  */
 @Service
 public class ProductServiceImpl implements ProductService {
-	@Autowired
-	private ProductRepository repo;
-	@Autowired
-	private CategoryRepository repoCategory;
+    @Autowired
+    private ProductRepository repo;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public List<Product> getAllProducts() {
-		return repo.findAll();
-	}
+    @Autowired
+    private CategoryRepository repoCategory;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public List<Product> getProductsByCategory(Long categoryId) {
+    /**
+     * Generator komunikatów aplikacji
+     */
+    @Autowired
+    private AppMessage appMessage;
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<Product> getAllProducts() {
+        return repo.findAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<Product> getProductsByCategory(Long categoryId) {
         if (categoryId == null) {
-            throw new RuntimeException("CategoryId is null ");
+            throw new ApplicationException(appMessage.getAppMessage("error.categoryId.null", null));
         }
-		return repo.findAllByCategory(repoCategory.getOne(categoryId));
-	}
+        return repo.findAllByCategory(repoCategory.getOne(categoryId));
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public Product getProductById(Long productId) {
+    /**
+     * {@inheritDoc}
+     */
+    public Product getProductById(Long productId) {
         if (productId == null) {
-            throw new RuntimeException("ProductId is null ");
+            throw new ApplicationException(appMessage.getAppMessage("error.productId.null", null));
         }
-		return repo.findOneById(productId);
-	}
+        return repo.findOneById(productId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void deleteProduct(Long productId) {
+        if (productId == null) {
+            throw new ApplicationException(appMessage.getAppMessage("error.productId.null", null));
+        }
+        repo.deleteById(productId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void saveProduct(Product product) {
+        if (product == null) {
+            throw new ApplicationException(appMessage.getAppMessage("error.product.null", null));
+        }
+        repo.save(product);
+    }
 
 }

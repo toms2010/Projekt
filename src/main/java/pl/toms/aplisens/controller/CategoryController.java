@@ -14,89 +14,94 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.toms.aplisens.domain.Category;
 import pl.toms.aplisens.service.CategoryService;
+import pl.toms.aplisens.util.AppMessage;
 
 /**
- * Kontroler zarządzający kategoriami
+ * Kontroler zarządzający kategoriami.
  */
 @Controller
 public class CategoryController {
-	private static final String CATEGORY_LIST_WINDOW = "category-list";
-	private static final String CREATE_CATEGORY_WINDOW = "category-frm";
+    private static final String CATEGORY_LIST_WINDOW = "category-list";
+    private static final String CREATE_CATEGORY_WINDOW = "category-frm";
 
-	protected static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
 
-	@Autowired
-	private CategoryService categoryService;
+    @Autowired
+    private CategoryService categoryService;
 
-	/**
-	 * Metoda zwracająca okno z listą kategorii produktów
-	 * 
-	 * @param theModel
-	 * @return category-list.jsp
-	 */
-	@GetMapping(value = { "/", "/category" })
-	public String getCategoryList(Model theModel) {
-		List<Category> categorys = categoryService.getCategoryList();
-		LOGGER.debug("Load category list: category={}", categorys);
-		theModel.addAttribute("categoryList", categorys);
-		LOGGER.debug("Showing {}", CATEGORY_LIST_WINDOW);
-		return CATEGORY_LIST_WINDOW;
-	}
+    /**
+     * Generator komunikatów aplikacji
+     */
+    @Autowired
+    private AppMessage appMessage;
 
-	/**
-	 * Metoda zwracająca okno do dodawania nowej kategorii
-	 * 
-	 * @param theModel
-	 * @return category-frm.jsp
-	 */
-	@GetMapping("adm/addCategory")
-	public String addNewCategory(Model theModel) {
-		Category category = new Category();
-		LOGGER.debug("Create new category: category={}", category);
-		theModel.addAttribute("category", category);
-		LOGGER.debug("Showing {}", CREATE_CATEGORY_WINDOW);
-		return CREATE_CATEGORY_WINDOW;
-	}
+    /**
+     * Metoda zwracająca okno z listą kategorii produktów
+     * 
+     * @param theModel
+     * @return okno z listą kategorii: CATEGORY_LIST_WINDOW
+     */
+    @GetMapping(value = { "/", "/category" })
+    public String getCategoryList(Model theModel) {
+        List<Category> categories = categoryService.getCategoryList();
+        theModel.addAttribute("categoryList", categories);
+        LOGGER.debug(appMessage.getAppMessage("info.showing", new Object[] { CATEGORY_LIST_WINDOW, categories }));
+        return CATEGORY_LIST_WINDOW;
+    }
 
-	/**
-	 * Metoda zapisująca kategorie
-	 * 
-	 * @param theModel
-	 * @param category kategoria do zapisania
-	 * @return category-list.jsp
-	 */
-	@PostMapping("adm/saveCategory")
-	public String saveCategory(@ModelAttribute("category") Category category) {
-		LOGGER.debug("Saving category: category={}", category);
-		categoryService.saveCategory(category);
-		return "redirect:/category";
-	}
-	
-	/**
-	 * Metoda zwracająca okno do edycji kategorii
-	 * 
-	 * @param theModel
-	 * @param categoryId identyfikator kategorii
-	 * @return category-frm.jsp
-	 */
-	@PostMapping("adm/editCategory")
-	public String editCategory(Model theModel, @RequestParam("categoryId") Long categoryId) {
-		Category category = categoryService.getCategoryById(categoryId);
-		LOGGER.debug("Editing category: category={}", category);
-		theModel.addAttribute("category", category);
-		LOGGER.debug("Showing {}", CREATE_CATEGORY_WINDOW);
-		return CREATE_CATEGORY_WINDOW;
-	}
+    /**
+     * Metoda zwracająca okno do dodawania nowej kategorii
+     * 
+     * @param theModel
+     * @return okno z farmularzem kategorii: CREATE_CATEGORY_WINDOW
+     */
+    @GetMapping("adm/addCategory")
+    public String addNewCategory(Model theModel) {
+        Category category = new Category();
+        theModel.addAttribute("category", category);
+        LOGGER.debug(appMessage.getAppMessage("info.showing", new Object[] { CREATE_CATEGORY_WINDOW, category }));
+        return CREATE_CATEGORY_WINDOW;
+    }
 
-	/**
-	 * Metoda do usuwania kategorii !!NIE DZIALA!!
-	 * 
-	 * @param theModel
-	 * @return category-list.jsp
-	 */
-	@PostMapping("/adm/deleteCategory")
-	public String deleteCategory(Model theModel, @RequestParam("categoryId") Long categoryId) {
-		categoryService.deleteCategory(categoryId);
-		return "redirect:/category";
-	}
+    /**
+     * Metoda zwracająca okno do edycji kategorii
+     * 
+     * @param theModel
+     * @param categoryId identyfikator kategorii
+     * @return CREATE_CATEGORY_WINDOW
+     */
+    @PostMapping("adm/editCategory")
+    public String editCategory(Model theModel, @RequestParam("categoryId") Long categoryId) {
+        Category category = categoryService.getCategoryById(categoryId);
+        theModel.addAttribute("category", category);
+        LOGGER.debug(appMessage.getAppMessage("info.showing", new Object[] { CREATE_CATEGORY_WINDOW, category }));
+        return CREATE_CATEGORY_WINDOW;
+    }
+
+    /**
+     * Metoda do usuwania kategorii
+     * 
+     * @param theModel
+     * @return wraca do okna kategorii
+     */
+    @PostMapping("/adm/deleteCategory")
+    public String deleteCategory(Model theModel, @RequestParam("categoryId") Long categoryId) {
+        categoryService.deleteCategory(categoryId);
+        LOGGER.debug(appMessage.getAppMessage("info.delete", new Object[] {categoryId}));
+        return "redirect:/category";
+    }
+
+    /**
+     * Metoda zapisująca kategorie
+     * 
+     * @param theModel
+     * @param category kategoria do zapisania
+     * @return wraca do okna kategorii
+     */
+    @PostMapping("adm/saveCategory")
+    public String saveCategory(@ModelAttribute("category") Category category) {
+        categoryService.saveCategory(category);
+        LOGGER.debug(appMessage.getAppMessage("info.save", new Object[] {category}));
+        return "redirect:/category";
+    }
 }

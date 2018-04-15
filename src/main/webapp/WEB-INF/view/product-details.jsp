@@ -1,15 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="true"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" session="true"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
-<% response.setCharacterEncoding("UTF-8");
-   request.setCharacterEncoding("UTF-8"); %>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
+<%
+	response.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8");
+%>
 
 <html>
 <head>
-	<title>Szczegóły produktu</title>
-	<link type="text/css" rel="stylesheet"
-		  href="${pageContext.request.contextPath}/resources/css/style.css" />
+<title>Szczegóły produktu</title>
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 </head>
 
 <body>
@@ -41,32 +45,39 @@
 			<h3>Parametry dla : ${product.name}</h3>
 			<h5>${product.description}</h5>
 			<p>
-				<form:form action="saveProduct" modelAttribute="productVO" method="POST">
+				<form:form action="saveProduct" modelAttribute="productVO"
+					method="POST">
 					<h5>
-						Zakres pomiarowy:  <form:input path="rangeLow" />...
-										   <form:input path="rangeHigh" /> 
-										<form:select path="unit" items="${units}" />
-<%-- 										<form:checkbox path="ABSValue"/> --%>
+						Zakres pomiarowy:
+						<form:input path="rangeLow" />
+						...
+						<form:input path="rangeHigh" />
+						<form:select path="unit" items="${units}" />
+						<%-- 										<form:checkbox path="ABSValue"/> --%>
 					</h5>
 					<h5>Wybierz dodatkowe opcje:</h5>
 					<table>
 						<c:forEach var="parameter" items="${product.productParameter}">
-							<tr> 
-								<td><form:checkbox path="productParameter" value="${parameter.id}" /></td>
+							<tr>
+								<td><form:checkbox path="productParameterID"
+										value="${parameter.id}" /></td>
 								<td>${parameter.name}</td>
 								<td>${parameter.value}</td>
 							</tr>
 						</c:forEach>
 					</table>
-
-<!-- 					<h5>Wykonania:</h5> -->
-<%-- 					<c:forEach var="design" items="${product.productDesign}"> --%>
-<%-- 						<input type="radio" name="nazwa" value="${design.id}" /> ${design.name} --%>
-<!-- 						<br> -->
-<%-- 					</c:forEach> --%>
 					<br>
-<%-- 					<input type="hidden" name="${_csrf.parameterName}"value="${_csrf.token}" /> --%>
-<%-- 					<input type="hidden" name="productId" value="${product.id}" /> --%>
+					<h5>Wykonania:</h5>
+					<c:forEach var="design" items="${product.productDesign}"
+						varStatus="rowItem">
+						<form:radiobutton path="productDesignID" value="${design.id}" />
+						 ${design.name}
+						<br>
+					</c:forEach>
+					<br>
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+					<input type="hidden" name="productId" value="${product.id}" />
 					<input type="submit" name="submit" value="Zatwierdz">
 				</form:form>
 		</div>
@@ -74,5 +85,6 @@
 </body>
 
 </html>
+
 
 

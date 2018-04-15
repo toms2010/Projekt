@@ -13,6 +13,6 @@ import pl.toms.aplisens.domain.Category;
  */
 @Repository
 @Transactional(propagation = Propagation.REQUIRED)
-public interface CategoryRepository extends BaseRepository<Category, Long>{
+public interface CategoryRepository extends BaseRepository<Category, Long> {
 
 }

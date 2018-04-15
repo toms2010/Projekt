@@ -16,174 +16,167 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-
 /**
  * Encja reprezentująca produky
- * @author toms
  *
  */
 @Entity
 @Table(name = "produkty")
-public class Product extends BaseEntity{
-	
-	/**
-	 * Lista parametrów produktu
-	 */
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "produkt_parametry", 
-				joinColumns = @JoinColumn(name = "produktID"), 
-				inverseJoinColumns = @JoinColumn(name = "parametrID"))
-	private List<ProductParameter> productParameter;
-	
-	/**
-	 * Lista wykonań produktu
-	 */
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "produkt_wykonania", 
-				joinColumns = @JoinColumn(name = "produktID"), 
-				inverseJoinColumns = @JoinColumn(name = "wykonanieID"))
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<ProductDesign> productDesign;
-	
-	/**
-	 * Identyfikator kategorii produktu
-	 */
-    @ManyToOne 
-    @JoinColumn(name="kategoria_ID")
-	private Category category;
-	
-	/**
-	 * Kod produktu
-	 */
-    @Column(name="kod")
-	private String code;
-	
-	/**
-	 * Opis produktu
-	 */
-	@Column(name="dok_opis")
-	private String description;
-	
-	/**
-	 * Cena produktu
-	 */
-	@Column(name="cena")
-	private BigDecimal price;
-	
-	/**
-	 * Zwraca liste parametrów produktu
-	 * 
-	 * @return lista parametrów produktu
-	 */
-	public List<ProductParameter> getProductParameter() {
-		return productParameter;
-	}
+public class Product extends BaseEntity {
 
-	/**
-	 * Ustawia liste parametrów produktu
-	 * 
-	 * @param productParameter lista parametrów produktu
-	 */
-	public void setProductParameter(List<ProductParameter> productParameter) {
-		this.productParameter = productParameter;
-	}
+    /**
+     * Lista parametrów produktu
+     */
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "produkt_parametry", joinColumns = @JoinColumn(name = "produktID"), inverseJoinColumns = @JoinColumn(name = "parametrID"))
+    private List<ProductParameter> productParameter;
 
-	/**
-	 * Zwraca liste wykonań produktu
-	 * 
-	 * @return lista wykonań produktu
-	 */
-	public List<ProductDesign> getProductDesign() {
-		return productDesign;
-	}
+    /**
+     * Lista wykonań produktu
+     */
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "produkt_wykonania", joinColumns = @JoinColumn(name = "produktID"), inverseJoinColumns = @JoinColumn(name = "wykonanieID"))
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<ProductDesign> productDesign;
 
-	/**
-	 * Ustawia liste wykonań produktu
-	 * 
-	 * @param productDesign lista wykonań produktu
-	 */
-	public void setProductDesign(List<ProductDesign> productDesign) {
-		this.productDesign = productDesign;
-	}
+    /**
+     * Identyfikator kategorii produktu
+     */
+    @ManyToOne
+    @JoinColumn(name = "kategoria_ID")
+    private Category category;
 
-	/**
-	 * Zwraca kategorie produktu
-	 * 
-	 * @return kategoria produktu
-	 */
-	public Category getCategory() {
-		return category;
-	}
+    /**
+     * Kod produktu
+     */
+    @Column(name = "kod")
+    private String code;
 
-	/**
-	 * Ustawia kategorie produktu
-	 * 
-	 * @param category Kategoria produktu
-	 */
-	public void setCategory(Category category) {
-		this.category = category;
-	}
+    /**
+     * Opis produktu
+     */
+    @Column(name = "dok_opis")
+    private String description;
 
-	/**
-	 * Zwraca kod produktu
-	 * 
-	 * @return kod produktu
-	 */
-	public String getCode() {
-		return code;
-	}
-	
-	/**
-	 * Ustawia kod produktu
-	 * 
-	 * @param code kod produktu
-	 */
-	public void setCode(String code) {
-		this.code = code;
-	}
+    /**
+     * Cena produktu
+     */
+    @Column(name = "cena")
+    private BigDecimal price;
 
-	/**
-	 * Zwraca opis produktu
-	 * 
-	 * @return opis produktu
-	 */
-	public String getDescription() {
-		return description;
-	}
+    /**
+     * Zwraca liste parametrów produktu
+     * 
+     * @return lista parametrów produktu
+     */
+    public List<ProductParameter> getProductParameter() {
+        return productParameter;
+    }
 
-	/**
-	 * Ustawia opis produktu
-	 * 
-	 * @param description opis produktu
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    /**
+     * Ustawia liste parametrów produktu
+     * 
+     * @param productParameter lista parametrów produktu
+     */
+    public void setProductParameter(List<ProductParameter> productParameter) {
+        this.productParameter = productParameter;
+    }
 
-	/**
-	 * Zwraca cene produktu
-	 * 
-	 * @return cena produktu
-	 */
-	public BigDecimal getPrice() {
-		return price;
-	}
+    /**
+     * Zwraca liste wykonań produktu
+     * 
+     * @return lista wykonań produktu
+     */
+    public List<ProductDesign> getProductDesign() {
+        return productDesign;
+    }
 
-	/**
-	 * Ustawia cene produktu
-	 * 
-	 * @param price cena produktu
-	 */
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
+    /**
+     * Ustawia liste wykonań produktu
+     * 
+     * @param productDesign lista wykonań produktu
+     */
+    public void setProductDesign(List<ProductDesign> productDesign) {
+        this.productDesign = productDesign;
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Product [category=" + category + "; " + super.toString() + ", code=" + code + ", description=" + description + ", price=" + price
-				+ "]";
-	}
+    /**
+     * Zwraca kategorie produktu
+     * 
+     * @return kategoria produktu
+     */
+    public Category getCategory() {
+        return category;
+    }
+
+    /**
+     * Ustawia kategorie produktu
+     * 
+     * @param category Kategoria produktu
+     */
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    /**
+     * Zwraca kod produktu
+     * 
+     * @return kod produktu
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * Ustawia kod produktu
+     * 
+     * @param code kod produktu
+     */
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    /**
+     * Zwraca opis produktu
+     * 
+     * @return opis produktu
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Ustawia opis produktu
+     * 
+     * @param description opis produktu
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Zwraca cene produktu
+     * 
+     * @return cena produktu
+     */
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    /**
+     * Ustawia cene produktu
+     * 
+     * @param price cena produktu
+     */
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString() */
+    @Override
+    public String toString() {
+        return "Product [category=" + category + "; " + super.toString() + ", code=" + code + ", description=" + description + ", price=" + price
+                + "]";
+    }
 }

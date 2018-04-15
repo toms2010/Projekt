@@ -11,91 +11,88 @@ import javax.persistence.Transient;
 
 /**
  * Encja reprezentująca kategorie produktów
- * @author toms
  * 
  */
 @Entity
-@Table(name="kategorie")
-public class Category extends BaseEntity{
-	
-	/**
-	 * Dane produktu
-	 */
-	@OneToMany(mappedBy="category", fetch=FetchType.EAGER)
-	private List<Product> products;
-	
-	/**
-	 * Tag produktu
-	 */
-	@Column(name="tag")
-	private String tag;
-	
-	/*
-	 * Iloś produktów w kategorii
-	 */
-	@Transient
-	private Integer size;
+@Table(name = "kategorie")
+public class Category extends BaseEntity {
 
-	/**
-	 * Zwraca produkt
-	 * 
-	 * @return produkt
-	 */
-	public List<Product> getProducts() {
-		return products;
-	}
+    /**
+     * Dane produktu
+     */
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    private List<Product> products;
 
-	/**
-	 * Ustawia produkt
-	 * 
-	 * @param products produkt
-	 */
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
+    /**
+     * Tag produktu
+     */
+    @Column(name = "tag")
+    private String tag;
 
-	/**
-	 * Zwraca tag produktu
-	 * 
-	 * @return tag produktu
-	 */
-	public String getTag() {
-		return tag;
-	}
+    /* Ilośc produktów w kategorii */
+    @Transient
+    private Integer size;
 
-	/**
-	 * Ustawia tag produktu
-	 * 
-	 * @param tag tag produktu
-	 */
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
+    /**
+     * Zwraca produkt
+     * 
+     * @return produkt
+     */
+    public List<Product> getProducts() {
+        return products;
+    }
 
-	/**
-	 * Zwraca ilośc produktów 
-	 * 
-	 * @return ilośc produktów
-	 */
-	public Integer getSize() {
-		setSize(products.size());
-		return size;
-	}
-	
-	/**
-	 * Ustawia ilośc produktów
-	 * 
-	 * @param size ilośc produktów
-	 */
-	private void setSize(Integer size) {
-		this.size = size;
-	}
+    /**
+     * Ustawia produkt
+     * 
+     * @param products produkt
+     */
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Category [tag= " + tag +" ;"+  super.toString() + "]";
-	}
+    /**
+     * Zwraca tag produktu
+     * 
+     * @return tag produktu
+     */
+    public String getTag() {
+        return tag;
+    }
+
+    /**
+     * Ustawia tag produktu
+     * 
+     * @param tag tag produktu
+     */
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    /**
+     * Zwraca ilośc produktów
+     * 
+     * @return ilośc produktów
+     */
+    public Integer getSize() {
+        setSize(products.size());
+        return size;
+    }
+
+    /**
+     * Ustawia ilośc produktów
+     * 
+     * @param size ilośc produktów
+     */
+    private void setSize(Integer size) {
+        this.size = size;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString() 
+     * */
+    @Override
+    public String toString() {
+        return "Category [tag= " + tag + " ;" + super.toString() + "]";
+    }
 }

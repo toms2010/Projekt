@@ -7,9 +7,14 @@ public enum PresureUnits
 {
      kPa(1), Pa(1000), mPa(0.001), bar(0.01);
 
+    
     private double multiplier;
 
-    PresureUnits(double multiplier)
+    /**
+     * Przelicznik jednostki do jednostki bazowej (kPa)
+     * @param multiplier
+     */
+    PresureUnits(final double multiplier)
     {
         this.multiplier = multiplier;
     }

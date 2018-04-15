@@ -16,7 +16,7 @@ import pl.toms.aplisens.domain.Product;
  */
 @Repository
 @Transactional(propagation = Propagation.REQUIRED)
-public interface ProductRepository extends BaseRepository<Product, Long>{
+public interface ProductRepository extends BaseRepository<Product, Long> {
 
     /**
      * Wyszukuje wszystkie produkty po podanej kategorii
@@ -24,5 +24,5 @@ public interface ProductRepository extends BaseRepository<Product, Long>{
      * @param category kategoria wyszukiwanych produktów
      * @return lista produktów z podanej kategorii
      */
-	List<Product> findAllByCategory(Category category);
+    List<Product> findAllByCategory(Category category);
 }

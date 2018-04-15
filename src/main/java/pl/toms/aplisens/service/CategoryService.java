@@ -9,40 +9,40 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.toms.aplisens.domain.Category;
 
 /**
- * Serwis wewnętrzny do zarządzania kategoriami
+ * Serwis do zarządzania kategoriami.
  *
  * @see Category
  */
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
 public interface CategoryService {
-	
+
     /**
-     * Zwraca wszystkie kategorie
+     * Zwraca wszystkie kategorie.
      *
      * @return lista kategorii
      */
-	List<Category> getCategoryList();
-    
-	/**
-     * Zwraca kategorie o podanym identyfikatorze
+    List<Category> getCategoryList();
+
+    /**
+     * Zwraca kategorie o podanym identyfikatorze.
      *
      * @return kategoria
      */
-	Category getCategoryById(Long categoryId);
-	
+    Category getCategoryById(Long categoryId);
+
     /**
-     * Zapisuje kategorie
+     * Zapisuje kategorie.
      *
      * @param category kategoria
      */
-	void saveCategory(Category category);
+    void saveCategory(Category category);
 
     /**
-     * Usuwa kategorie
+     * Usuwa kategorie.
      *
      * @param categoryId identyfikator kategorii
      */
-	void deleteCategory(Long categoryId);
+    void deleteCategory(Long categoryId);
 
 }
