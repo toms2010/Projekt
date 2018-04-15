@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.toms.aplisens.domain.Product;
@@ -41,7 +43,7 @@ public class ProductController {
     * @param categoryId identyfikator grupy produktów
     * @return okno z listą produktó PRODUCT_LIST_WINDOW
     */
-	@PostMapping("/products")
+	@RequestMapping(value="/products", method={ RequestMethod.POST, RequestMethod.GET })
 	public String getProductList(Model theModel, @RequestParam("categoryId") Long categoryId) {
 		List<Product> products = productService.getProductsByCategory(categoryId);
 		theModel.addAttribute("products",products);
@@ -89,6 +91,8 @@ public class ProductController {
     @PostMapping("/adm/deleteProduct")
     public String deleteProduct(Model theModel, @RequestParam("productId") Long productId) {
         productService.deleteProduct(productId);
+        LOGGER.debug(appMessage.getAppMessage("info.delete", new Object[] {productId}));
+        //TODO usuwa wszystkie powiązane
         return "redirect:/products";
     }
     

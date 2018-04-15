@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import pl.toms.aplisens.domain.Product;
+import pl.toms.aplisens.domain.ProductDesign;
 import pl.toms.aplisens.domain.ProductVO;
+import pl.toms.aplisens.repository.ProductDesignRepository;
 import pl.toms.aplisens.util.AppMessage;
 import pl.toms.aplisens.util.ApplicationException;
 import pl.toms.aplisens.util.PresureUnits;
@@ -41,6 +43,8 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private ProductDesignRepository repo;
     /**
      * Generator komunikatów aplikacji.
      */
@@ -62,7 +66,13 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
                 throw new ApplicationException(appMessage.getAppMessage("error.product.load", null));
 
             theModel.addAttribute("product", product);
-            theModel.addAttribute("productVO", new ProductVO());
+            // rozwiązanie tymczasowe, do poprawy przez jakieś factory czy @InitBinder
+            ProductVO productVO = new ProductVO();
+            productVO.setName(product.getName());
+            productVO.setPrice(product.getPrice());
+            productVO.setTag(product.getCode());
+            //TODO to powinno by wykonywane juz podczas obliczania ceny, jednocześnie wyciąganie cen dodatkowych wykonań itd
+            theModel.addAttribute("productVO", productVO);
             String category = product.getCategory().getTag();
             if (category == null)
                 throw new ApplicationException(appMessage.getAppMessage("error.product.loadCategory", null));
@@ -115,11 +125,17 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
      * @return dodatek do ceny za wykonania
      */
     private BigDecimal countDesignPrice(ProductVO productVO) {
-        List<Long> designs = productVO.getProductDesignID();
-        if (designs == null || designs.isEmpty())
+        List<Long> designsIds = productVO.getProductDesignID();
+        BigDecimal designPrice= new BigDecimal(0);
+        if (designsIds == null || designsIds.isEmpty())
             return BigDecimal.ZERO;
-        // TODO Załadowanie listy design
-        return BigDecimal.valueOf(500);
+        
+        List<ProductDesign> designs = repo.findAllById(designsIds);
+        for(ProductDesign design: designs) {
+            designPrice = designPrice.add(design.getPrice());
+        }
+        LOGGER.debug(appMessage.getAppMessage("info.price.design", new Object[] {designPrice}));
+        return designPrice;
     }
 
     /**

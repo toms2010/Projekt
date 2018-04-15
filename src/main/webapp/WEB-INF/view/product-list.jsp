@@ -57,14 +57,14 @@
 						<td>${product.name}</td>
 						<td>${product.price}</td>
 						<td>
-							<form action="<c:url value="/details"/>" method="post" id="selectForm">
+							<form action="<c:url value="/details"/>" method="post">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 								<input type="hidden" name="productId" value="${product.id}" />
 								<input type="submit" value="Wybierz" />
 							</form>
 						</td>
 						<td><sec:authorize access="hasRole('ROLE_ADMIN')">
-								<form action="<c:url value="/adm/editProduct"/>" method="post" id="updateForm">
+								<form action="<c:url value="/adm/editProduct"/>" method="post">
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 									<input type="hidden" name="productId" value="${product.id}" />
 									<input type="submit" value="Edytuj" />

@@ -14,17 +14,17 @@ public class ProductVO {
     /**
      * Nazwa produktu.
      */
-    private String name = "TesT1";
+    private String name;
     
     /**
      * Tag produktu.
      */
-    private String tag = "T1";
+    private String tag;
     
     /**
      * Cena produktu.
      */
-    private BigDecimal price = BigDecimal.valueOf(1500);
+    private BigDecimal price;
     
     /**
      * Dolny zakres pomiarowy porduktu.
