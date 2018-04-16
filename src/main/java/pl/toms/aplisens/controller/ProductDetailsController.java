@@ -1,8 +1,6 @@
 package pl.toms.aplisens.controller;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,14 +43,11 @@ public class ProductDetailsController {
      * @param productId identyfikator produktu
      * @return okno ze szczegółami produktu
      */
-    @SuppressWarnings("unchecked")
     @PostMapping("/details")
     public String getProductDetails(@RequestParam("productId") Long productId, Model theModel) {
-        HashMap<String, Object> data = (HashMap<String, Object>) productDetailsService.displayDetailsForm(productId, theModel);
-        theModel.addAllAttributes((Map<String, ?>) data.get("ADDITIONAL_ATTRIBUTES"));
-        String window = (String) data.get("WINDOW");
+        String window = productDetailsService.displayDetailsForm(productId, theModel);
         if (StringUtils.isNullOrEmpty(window)) {
-            throw new ApplicationException(appMessage.getAppMessage("error.product.loadCategory", null));
+            throw new ApplicationException(appMessage.getAppMessage("error.product.window", null));
         }
         return window;
     }

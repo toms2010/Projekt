@@ -33,8 +33,9 @@ public class Product extends BaseEntity {
 
     /**
      * Lista wykonań produktu
+     * TODO napisać testy i sprawdzić usuwanie (czy cascade działa)
      */
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
     @JoinTable(name = "produkt_wykonania", joinColumns = @JoinColumn(name = "produktID"), inverseJoinColumns = @JoinColumn(name = "wykonanieID"))
     @Fetch(value = FetchMode.SUBSELECT)
     private List<ProductDesign> productDesign;

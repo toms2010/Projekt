@@ -115,12 +115,10 @@ public class ProductVO {
         this.productDesignID = productDesignID;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString() */
     @Override
-    public String toString() {
-        return "ProductVO [rangeLow=" + rangeLow + ", rangeHigh=" + rangeHigh + ", unit=" + unit + ", productParameterID=" + productParameterID
-                + ", productDesignID=" + productDesignID + "]";
+    public String toString()
+    {
+        return "ProductVO [name=" + name + ", tag=" + tag + ", price=" + price + ", rangeLow=" + rangeLow + ", rangeHigh=" + rangeHigh + ", unit=" + unit
+            + ", productParameterID=" + productParameterID + ", productDesignID=" + productDesignID + "]";
     }
-
 }

@@ -23,7 +23,7 @@ public class ProductDesign extends BaseEntity {
     /**
      * Lista produktów
      */
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
     @JoinTable(name = "produkt_wykonania", joinColumns = @JoinColumn(name = "wykonanieID"), inverseJoinColumns = @JoinColumn(name = "produktID"))
     private List<Product> products;
 

@@ -13,20 +13,13 @@
 </head>
 
 <body>
-	<!-- Obsługa logout -->
-	<form action="<c:url value="/logout"/>}" method="post" id="logoutForm">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-	</form>
-	<script>
-		function formLogout() {
-			document.getElementById("logoutForm").submit();
-		}
-	</script>
-
 	<div id="wrapper">
-		<h3>
-			Zalogowany jako: ${pageContext.request.userPrincipal.name} | <a href="javascript:formLogout()">Logout</a>
-		</h3>
+		<h3> Zalogowany jako: ${pageContext.request.userPrincipal.name}  </h3>
+		<!-- Obsługa logout -->
+		<form action="<c:url value="/logout"/>" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+			<input type="submit" value="Wyloguj" class="add-button" />
+		</form>
 
 		<div id="header">
 			<h2>Wybrano produkt: ${productVO.name}</h2>

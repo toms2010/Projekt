@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
-<% 	response.setCharacterEncoding("UTF-8"); request.setCharacterEncoding("UTF-8"); %>
+<%
+    response.setCharacterEncoding("UTF-8");
+    request.setCharacterEncoding("UTF-8");
+%>
 
 <html>
 <head>
@@ -10,21 +13,15 @@
 </head>
 
 <body>
-	<!-- Obsługa logout -->
-	<form action="	<c:url value="/logout"/>" method="post" id="logoutForm">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-	</form>
-	<script>
-			function formLogout() {
-				document.getElementById("logoutForm").submit();
-			}
-	</script>
-
 	<!-- Nagłówek z przyciskiem logout -->
 	<div id="wrapper">
-		<h3>
-			Zalogowany jako: ${pageContext.request.userPrincipal.name} | <a href="javascript:formLogout()">Logout</a>
-		</h3>
+		<h3>Zalogowany jako: ${pageContext.request.userPrincipal.name}</h3>
+		<!-- Obsługa logout -->
+		<form action="<c:url value="/logout"/>" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+			<input type="submit" value="Wyloguj" class="add-button" />
+		</form>
+
 		<!-- Nagłówek z tytułem -->
 		<div id="header">
 			<h2>Lista kategorii produktów</h2>
@@ -85,7 +82,3 @@
 	</div>
 </body>
 </html>
-
-<!-- TODO -->
-<!-- -- Ujednolicić logout i inne przyciski -->
-<!-- -- Pomyśleć nad jedną metodą do tego -->

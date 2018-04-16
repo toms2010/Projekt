@@ -1,7 +1,6 @@
 package pl.toms.aplisens.service;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,7 +24,7 @@ public interface ProductDetailsService
      * @param theModel
      * @return odpowiedni formularz ze szczegółami produktu
      */
-    Map<String, Object> displayDetailsForm(Long productId, Model theModel); 
+    String displayDetailsForm(Long productId, Model theModel); 
     
     /**
      * Liczy cenę produktu z grupy "PC".

@@ -104,4 +104,15 @@ public class CategoryController {
         LOGGER.debug(appMessage.getAppMessage("info.save", new Object[] {category}));
         return "redirect:/category";
     }
+    
+  /**
+  * Metoda obsługująca błąd HTTP 400
+  * 
+  * @return okno startowe
+  */
+ @GetMapping("/error400")
+ public String getWindowFor400Error(Model theModel) {
+     LOGGER.debug(appMessage.getAppMessage("error.badRequest.400", null));
+     return "redirect:/category";
+ }
 }

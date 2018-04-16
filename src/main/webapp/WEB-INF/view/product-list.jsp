@@ -10,21 +10,13 @@
 </head>
 
 <body>
-	<!-- Obsługa logout -->
-	<form action="<c:url value="/logout"/>}" method="post" id="logoutForm">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-	</form>
-	<script>
-			function formLogout() {
-				document.getElementById("logoutForm").submit();
-			}
-	</script>
-
 	<div id="wrapper">
-		<h3>
-			Zalogowany jako: ${pageContext.request.userPrincipal.name} | <a href="javascript:formLogout()">Logout</a>
-		</h3>
-
+		<h3> Zalogowany jako: ${pageContext.request.userPrincipal.name}  </h3>
+		<!-- Obsługa logout -->
+		<form action="<c:url value="/logout"/>" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+			<input type="submit" value="Wyloguj" class="add-button" />
+		</form>
 		<div id="header">
 			<h2>Lista produktów: ${products[0].category.name}</h2>
 		</div>
@@ -33,12 +25,12 @@
 	<div id="container">
 		<div id="content">
 			<!-- Przycisk dodawania nowego produktu -->
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
-                <form action="<c:url value="/adm/addProduct"/>" method="get">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-                    <input type="submit" value="Dodaj produkt" class="add-button" />
-                </form>
-            </sec:authorize>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<form action="<c:url value="/adm/addProduct"/>" method="get">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+					<input type="submit" value="Dodaj produkt" class="add-button" />
+				</form>
+			</sec:authorize>
 
 			<table>
 				<tr>
@@ -50,8 +42,6 @@
 					<th></th>
 				</tr>
 				<c:forEach var="product" items="${products}">
-
-
 					<tr>
 						<td>${product.code}</td>
 						<td>${product.name}</td>
@@ -82,6 +72,10 @@
 			</table>
 		</div>
 	</div>
-
+	<br>
+	<form action="<c:url value="/category"/>" method="get">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+		<input type="submit" value="Wstecz" />
+	</form>
 </body>
 </html>

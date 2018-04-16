@@ -2,9 +2,7 @@ package pl.toms.aplisens.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,31 +53,22 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
      * {@inheritDoc}
      * 
      */
-    public Map<String, Object> displayDetailsForm(Long productId, Model theModel) {
+    public String displayDetailsForm(Long productId, Model theModel) {
         String returnWindow;
-        HashMap<String, Object> additionalAttributes = new HashMap<>();
-        HashMap<String, Object> data = new HashMap<>();
 
         if (productId != null || theModel != null) {
             Product product = productService.getProductById(productId);
             if (product == null)
                 throw new ApplicationException(appMessage.getAppMessage("error.product.load", null));
-
             theModel.addAttribute("product", product);
-            // rozwiązanie tymczasowe, do poprawy przez jakieś factory czy @InitBinder
-            ProductVO productVO = new ProductVO();
-            productVO.setName(product.getName());
-            productVO.setPrice(product.getPrice());
-            productVO.setTag(product.getCode());
-            //TODO to powinno by wykonywane juz podczas obliczania ceny, jednocześnie wyciąganie cen dodatkowych wykonań itd
-            theModel.addAttribute("productVO", productVO);
+            theModel.addAttribute("productVO", new ProductVO());
             String category = product.getCategory().getTag();
             if (category == null)
                 throw new ApplicationException(appMessage.getAppMessage("error.product.loadCategory", null));
 
             switch (category) {
             case "PC":
-                additionalAttributes.put("units", PresureUnits.values());
+                theModel.addAttribute("units", PresureUnits.values());
                 returnWindow = PC_DETAILS_WINDOW;
                 break;
             case "SG":
@@ -92,10 +81,9 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
         } else {
             returnWindow = NO_ARG_WINDOW;
         }
-        data.put("WINDOW", returnWindow);
-        data.put("ADDITIONAL_ATTRIBUTES", additionalAttributes);
+
         LOGGER.debug(appMessage.getAppMessage("info.showing", new Object[] { returnWindow, productId }));
-        return data;
+        return returnWindow;
     }
 
     /**
@@ -106,13 +94,14 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
         if (productVO == null)
             throw new ApplicationException(appMessage.getAppMessage("error.productVO.null", null));
 
-        BigDecimal finalPrice = BigDecimal.ZERO;
+        BigDecimal finalPrice = BigDecimal.valueOf(0);
         List<BigDecimal> priceComponents = new ArrayList<>();
         priceComponents.add(productVO.getPrice());
         priceComponents.add(countPCRangePrice(productVO));
         priceComponents.add(countDesignPrice(productVO));
 
         for (BigDecimal price : priceComponents) {
+            LOGGER.debug(appMessage.getAppMessage("info.price", new Object[] {price}));
             finalPrice = finalPrice.add(price);
         }
         return finalPrice;
