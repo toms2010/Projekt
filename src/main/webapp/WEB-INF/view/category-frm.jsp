@@ -10,11 +10,6 @@
 <title>Dodaj/edytuj kategorie</title>
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/add-style.css">
-
-<style>
-	.error {color.red}
-</style>
-
 </head>
 
 <body>
@@ -44,9 +39,10 @@
 		<div id="content">
 			<form:form action="saveCategory" method="post" modelAttribute="category" acceptCharset="UTF-8">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				Numer id : <form:input path="id" readonly="true" />
+				Numer id : <form:input path="id" disabled="true"/>
 				<br />
 				Nazwa kategorii: <form:input path="name" />
+				<form:errors path="name" cssClass="error" />
 				<br />
 				Tag Kategorii <form:input path="tag" />
 				<form:errors path="tag" cssClass="error" />
@@ -54,7 +50,7 @@
 				<input type="submit" value="Zapisz" class="save" />
 			</form:form>
 			<c:if test="${category.id == null}">
-				<p>Możliwe utowrzenie kategorii jedynie dla produktów nie wymagających dodatkowej specyfikacji"
+				<p>Możliwe utowrzenie kategorii jedynie dla produktów nie wymagających dodatkowej specyfikacji
 			</c:if>
 		</div>
 	</div>

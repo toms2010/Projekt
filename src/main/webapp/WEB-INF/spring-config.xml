@@ -15,7 +15,7 @@
 	<context:component-scan base-package="pl.toms.aplisens" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<jpa:repositories base-package="pl.toms.aplisens" entity-manager-factory-ref="entityManagerFactory" transaction-manager-ref="transactionManager" />
-	<mvc:annotation-driven />
+	<mvc:annotation-driven validator="validator"/>
 	<mvc:resources location="/resources/" mapping="/resources/**" />
 
 	<!-- Konfiguracja viewResolver -->
@@ -53,7 +53,7 @@
 	</bean>
 
 	<!-- Konfiguracja Spring Security -->
-	<security:http auto-config="true" use-expressions="true">s
+	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
 		<security:form-login />
 		<security:logout logout-url="/logout" />
@@ -66,8 +66,15 @@
 				authorities-by-username-query="select username, authority from authorities where username =?  " />
 		</security:authentication-provider>
 	</security:authentication-manager>
-
-	<!-- Konfiguracja messageSource -->
+	
+	<!-- Konfiguracja walidatora -->
+	<bean name="validator"  class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+    	<property name="validationMessageSource">
+        	<ref bean="messageSource"/>
+    	</property>
+	</bean>
+	
+		<!-- Konfiguracja messageSource -->
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
@@ -77,7 +84,5 @@
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="fileEncodings" value="UTF-8" />
 	</bean>
-	
-	<bean id="validator"
-    class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+
 </beans>

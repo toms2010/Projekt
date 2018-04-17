@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -104,7 +103,7 @@ public class CategoryController {
      * @return wraca do okna kategorii
      */
     @PostMapping("adm/saveCategory")
-    public String saveCategory(@ModelAttribute("category")  @Validated Category category, BindingResult bindingResult, Model theModel) {
+    public String saveCategory(@Valid @ModelAttribute("category") Category category, BindingResult bindingResult, Model theModel) {
         if(bindingResult.hasErrors()) {
             LOGGER.debug("Błąd walidacji");
             theModel.addAttribute("category", category);
@@ -115,7 +114,7 @@ public class CategoryController {
             LOGGER.debug(appMessage.getAppMessage("info.save", new Object[] {category}));
             return "redirect:/category"; 
         }
-
+        //TODO przy edycji poprawić
     }
     
   /**
