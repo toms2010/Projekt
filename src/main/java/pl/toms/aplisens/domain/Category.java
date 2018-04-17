@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Encja reprezentująca kategorie produktów
@@ -18,61 +20,65 @@ import javax.persistence.Transient;
 public class Category extends BaseEntity {
 
     /**
-     * Dane produktu
+     * Dane kategorii
      */
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private List<Product> products;
 
     /**
-     * Tag produktu
+     * Tag kategorii
      */
-    @Column(name = "tag")
+    @Column(name = "tag", nullable=false)
+    @NotNull(message = "To long")
+    @Size(min = 2, max = 4)
     private String tag;
 
-    /* Ilośc produktów w kategorii */
+    /**
+     *  Ilośc produktów w kategorii 
+     *  */
     @Transient
     private Integer size;
 
     /**
-     * Zwraca produkt
+     * Zwraca listę produktów nalezących do kategorii
      * 
-     * @return produkt
+     * @return lista produktów
      */
     public List<Product> getProducts() {
         return products;
     }
 
     /**
-     * Ustawia produkt
+     * Ustawia listę produktów nalezących do kategorii
      * 
-     * @param products produkt
+     * @param products lista produktów
      */
     public void setProducts(List<Product> products) {
         this.products = products;
     }
 
     /**
-     * Zwraca tag produktu
+     * Zwraca tag kategorii
      * 
-     * @return tag produktu
+     * @return tag kategorii
      */
     public String getTag() {
         return tag;
     }
 
     /**
-     * Ustawia tag produktu
+     * Ustawia tag kategorii
      * 
-     * @param tag tag produktu
+     * @param tag tag kategorii
      */
     public void setTag(String tag) {
         this.tag = tag;
     }
 
     /**
-     * Zwraca ilośc produktów
+     * Zwraca ilość produktów w kategorii
      * 
-     * @return ilośc produktów
+     * @return ilość produktów
      */
     public Integer getSize() {
         setSize(products.size());
@@ -80,9 +86,9 @@ public class Category extends BaseEntity {
     }
 
     /**
-     * Ustawia ilośc produktów
+     * Ustawia ilośc produktów w kategorii
      * 
-     * @param size ilośc produktów
+     * @param size ilość produktów
      */
     private void setSize(Integer size) {
         this.size = size;

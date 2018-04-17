@@ -8,8 +8,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Dodaj/edytuj kategorie</title>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/add-style.css">
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/add-style.css">
+
+<style>
+	.error {color.red}
+</style>
+
 </head>
 
 <body>
@@ -44,6 +49,7 @@
 				Nazwa kategorii: <form:input path="name" />
 				<br />
 				Tag Kategorii <form:input path="tag" />
+				<form:errors path="tag" cssClass="error" />
 				<br />
 				<input type="submit" value="Zapisz" class="save" />
 			</form:form>

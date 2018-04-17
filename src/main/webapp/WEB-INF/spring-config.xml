@@ -53,7 +53,7 @@
 	</bean>
 
 	<!-- Konfiguracja Spring Security -->
-	<security:http auto-config="true" use-expressions="true">
+	<security:http auto-config="true" use-expressions="true">s
 		<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
 		<security:form-login />
 		<security:logout logout-url="/logout" />
@@ -77,4 +77,7 @@
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="fileEncodings" value="UTF-8" />
 	</bean>
+	
+	<bean id="validator"
+    class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 </beans>

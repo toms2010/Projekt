@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -24,13 +26,15 @@ public class BaseEntity {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Long id;
 
     /**
      * Nazwa encji
      */
-    @Column(name = "nazwa")
+    @NotNull(message = "{error.validation.name.notNull}")
+    @Size(min = 3, max = 30)
+    @Column(name = "nazwa", nullable = false)
     private String name;
 
     /**
