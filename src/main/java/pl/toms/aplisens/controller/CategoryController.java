@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.toms.aplisens.domain.Category;
@@ -50,29 +52,21 @@ public class CategoryController {
     }
 
     /**
-     * Metoda zwracająca okno do dodawania nowej kategorii
+     * Metoda zwracająca okno do edycji lub dodawania nowej kategorii
      * 
      * @param theModel
-     * @return okno z farmularzem kategorii: CREATE_CATEGORY_WINDOW
-     */
-    @GetMapping("adm/addCategory")
-    public String addNewCategory(Model theModel) {
-        Category category = new Category();
-        theModel.addAttribute("category", category);
-        LOGGER.debug(appMessage.getAppMessage("info.showing", new Object[] { CREATE_CATEGORY_WINDOW, category }));
-        return CREATE_CATEGORY_WINDOW;
-    }
-
-    /**
-     * Metoda zwracająca okno do edycji kategorii
-     * 
-     * @param theModel
-     * @param categoryId identyfikator kategorii
+     * @param categoryId identyfikator kategorii (dla edycji), przy tworzeniu nie wymagany
      * @return CREATE_CATEGORY_WINDOW
      */
-    @PostMapping("adm/editCategory")
-    public String editCategory(Model theModel, @RequestParam("categoryId") Long categoryId) {
-        Category category = categoryService.getCategoryById(categoryId);
+    @RequestMapping(value = {"adm/editCategory", "adm/addCategory"},  method= {RequestMethod.POST, RequestMethod.GET})
+    public String editCategory(Model theModel, @RequestParam(name="categoryId", required=false ) Long categoryId) {
+        Category category;
+        if (categoryId == null) {
+             category = new Category();
+        }
+        else {
+            category = categoryService.getCategoryById(categoryId);
+        }
         theModel.addAttribute("category", category);
         LOGGER.debug(appMessage.getAppMessage("info.showing", new Object[] { CREATE_CATEGORY_WINDOW, category }));
         return CREATE_CATEGORY_WINDOW;

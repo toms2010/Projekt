@@ -14,7 +14,7 @@ import javax.persistence.Transient;
  * 
  */
 @Entity
-@Table(name = "kategorie")
+@Table(name = "categories")
 public class Category extends BaseEntity {
 
     /**
@@ -26,8 +26,8 @@ public class Category extends BaseEntity {
     /**
      * Tag produktu
      */
-    @Column(name = "tag")
-    private String tag;
+    @Column(name = "code")
+    private String code;
 
     /* Ilośc produktów w kategorii */
     @Transient
@@ -52,21 +52,21 @@ public class Category extends BaseEntity {
     }
 
     /**
-     * Zwraca tag produktu
+     * Zwraca kod produktu
      * 
-     * @return tag produktu
+     * @return code produktu
      */
-    public String getTag() {
-        return tag;
+    public String getCode() {
+        return code;
     }
 
     /**
-     * Ustawia tag produktu
+     * Ustawia kod produktu
      * 
-     * @param tag tag produktu
+     * @param code kod produktu
      */
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     /**
@@ -93,6 +93,6 @@ public class Category extends BaseEntity {
      * */
     @Override
     public String toString() {
-        return "Category [tag= " + tag + " ;" + super.toString() + "]";
+        return "Category [code= " + code + " ;" + super.toString() + "]";
     }
 }

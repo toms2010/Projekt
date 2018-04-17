@@ -43,7 +43,7 @@
 				<br />
 				Nazwa kategorii: <form:input path="name" />
 				<br />
-				Tag Kategorii <form:input path="tag" />
+				Kod Kategorii <form:input path="code" />
 				<br />
 				<input type="submit" value="Zapisz" class="save" />
 			</form:form>

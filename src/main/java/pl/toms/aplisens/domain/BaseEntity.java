@@ -30,14 +30,14 @@ public class BaseEntity {
     /**
      * Nazwa encji
      */
-    @Column(name = "nazwa")
+    @Column(name = "name")
     private String name;
 
     /**
      * Data utworzenia wpisu
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "data_utworzenia", updatable = false, nullable = false)
+    @Column(name = "create_date", updatable = false, nullable = false)
     private Date createDate = new Date();
 
     /**
