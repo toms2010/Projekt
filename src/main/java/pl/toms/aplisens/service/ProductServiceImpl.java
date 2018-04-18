@@ -12,7 +12,7 @@ import pl.toms.aplisens.util.AppMessage;
 import pl.toms.aplisens.util.ApplicationException;
 
 /**
- * Implementacja serwisu do zarządzania produktami
+ * Implementacja serwisu do zarządzania produktami.
  *
  * @see Product
  */
@@ -25,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
     private CategoryRepository repoCategory;
 
     /**
-     * Generator komunikatów aplikacji
+     * Generator komunikatów aplikacji.
      */
     @Autowired
     private AppMessage appMessage;

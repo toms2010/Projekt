@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.toms.aplisens.domain.Category;
 
 /**
- * Interfejs definiujący metody dostępu do danych kategorii
+ * Interfejs definiujący metody dostępu do danych kategorii.
  *
  * @see Category
  */

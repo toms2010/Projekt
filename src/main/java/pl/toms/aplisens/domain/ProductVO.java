@@ -15,39 +15,39 @@ public class ProductVO {
      * Nazwa produktu.
      */
     private String name;
-    
+
     /**
      * Tag produktu.
      */
     private String tag;
-    
+
     /**
      * Cena produktu.
      */
     private BigDecimal price;
-    
+
     /**
      * Dolny zakres pomiarowy porduktu.
      */
     private BigDecimal rangeLow;
-    
+
     /**
      * Górny zakres pomiarowy produktu.
      */
     private BigDecimal rangeHigh;
-    
+
     /**
      * Jednostka zakresu pomiarowego.
      */
     private PresureUnits unit = null;
-    
+
     /**
-     * Lista z identyfikatorami parametrów produktu
+     * Lista z identyfikatorami parametrów produktu.
      */
     private List<Long> productParameterID;
-    
+
     /**
-     * Lista z identyfikatorami wykonań produktu
+     * Lista z identyfikatorami wykonań produktu.
      */
     private List<Long> productDesignID;
 
@@ -116,9 +116,8 @@ public class ProductVO {
     }
 
     @Override
-    public String toString()
-    {
-        return "ProductVO [name=" + name + ", tag=" + tag + ", price=" + price + ", rangeLow=" + rangeLow + ", rangeHigh=" + rangeHigh + ", unit=" + unit
-            + ", productParameterID=" + productParameterID + ", productDesignID=" + productDesignID + "]";
+    public String toString() {
+        return "ProductVO [name=" + name + ", tag=" + tag + ", price=" + price + ", rangeLow=" + rangeLow + ", rangeHigh=" + rangeHigh + ", unit="
+                + unit + ", productParameterID=" + productParameterID + ", productDesignID=" + productDesignID + "]";
     }
 }

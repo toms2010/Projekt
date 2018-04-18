@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Currency;
 
 /**
- * Encja reprezentująca wykonania product
+ * Encja reprezentująca wykonania product.
  * 
  */
 @Entity
@@ -25,35 +25,35 @@ import org.hibernate.validator.constraints.Currency;
 public class ProductDesign extends BaseEntity {
 
     /**
-     * Lista produktów
+     * Lista produktów.
      */
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH })
     @JoinTable(name = "products_designs", joinColumns = @JoinColumn(name = "design_ID"), inverseJoinColumns = @JoinColumn(name = "product_ID"))
     private List<Product> products;
 
     /**
-     *  Opis wykonania produktu 
+     * Opis wykonania produktu.
      */
     @Column(name = "description")
     private String description;
 
     /**
-     * Kod wykonania produktu
+     * Kod wykonania produktu.
      */
-    @Column(name = "code", nullable=false)
+    @Column(name = "code", nullable = false)
     @NotBlank
     private String code;
 
     /**
-     * Cena wykonania produktu
+     * Cena wykonania produktu.
      */
-    @Column(name = "price", nullable=false)
+    @Column(name = "price", nullable = false)
     @NotNull
-    @Currency(value = { "PLN" }) //TODO sprawdzić czy działa
+    @Currency(value = { "PLN" }) // TODO sprawdzić czy działa
     private BigDecimal price;
 
     /**
-     * Zwraca produkty
+     * Zwraca produkty.
      * 
      * @return produkty
      */
@@ -62,7 +62,7 @@ public class ProductDesign extends BaseEntity {
     }
 
     /**
-     * Ustawia produkty
+     * Ustawia produkty.
      * 
      * @param products produkty
      */
@@ -71,7 +71,7 @@ public class ProductDesign extends BaseEntity {
     }
 
     /**
-     * Zwraca opis wykonania
+     * Zwraca opis wykonania.
      * 
      * @return opis wykonania
      */
@@ -80,7 +80,7 @@ public class ProductDesign extends BaseEntity {
     }
 
     /**
-     * Ustawia opis wykonania
+     * Ustawia opis wykonania.
      * 
      * @param description opis wykonania
      */
@@ -89,7 +89,7 @@ public class ProductDesign extends BaseEntity {
     }
 
     /**
-     * Zwraca kod wykonania
+     * Zwraca kod wykonania.
      * 
      * @return kod wykonania
      */
@@ -98,7 +98,7 @@ public class ProductDesign extends BaseEntity {
     }
 
     /**
-     * Ustaiwa kod wykonania
+     * Ustaiwa kod wykonania.
      * 
      * @param code kod wykonania
      */
@@ -107,7 +107,7 @@ public class ProductDesign extends BaseEntity {
     }
 
     /**
-     * Zwraca cene wykonania
+     * Zwraca cene wykonania.
      * 
      * @return cena wykonania
      */
@@ -116,7 +116,7 @@ public class ProductDesign extends BaseEntity {
     }
 
     /**
-     * Ustawia cene wykonania
+     * Ustawia cene wykonania.
      * 
      * @param price cena wykonania
      */

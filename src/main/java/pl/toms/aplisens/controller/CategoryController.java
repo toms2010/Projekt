@@ -35,15 +35,15 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
-     * Generator komunikatów aplikacji
+     * Generator komunikatów aplikacji.
      */
     @Autowired
     private AppMessage appMessage;
 
     /**
-     * Metoda zwracająca okno z listą kategorii produktów
+     * Metoda zwracająca okno z listą kategorii produktów.
      * 
-     * @param theModel
+     * @param theModel model
      * @return okno z listą kategorii: CATEGORY_LIST_WINDOW
      */
     @GetMapping(value = { "/", "/category" })
@@ -55,70 +55,66 @@ public class CategoryController {
     }
 
     /**
-     * Metoda zwracająca okno do edycji lub dodawania nowej kategorii
+     * Metoda zwracająca okno do edycji lub dodawania nowej kategorii.
      * 
-     * @param theModel
+     * @param theModel model
      * @param categoryId identyfikator kategorii (dla edycji), przy tworzeniu nie wymagany
      * @return CREATE_CATEGORY_WINDOW
      */
-    @RequestMapping(value = {"adm/editCategory", "adm/addCategory"},  method= {RequestMethod.POST, RequestMethod.GET})
-    public String editCategory(Model theModel, @RequestParam(name="categoryId", required=false ) Long categoryId) {
+    @RequestMapping(value = { "adm/editCategory", "adm/addCategory" }, method = { RequestMethod.POST, RequestMethod.GET })
+    public String editCategory(Model theModel, @RequestParam(name = "categoryId", required = false) Long categoryId) {
         Category category;
         if (categoryId == null) {
-             category = new Category();
-        }
-        else {
+            category = new Category();
+        } else {
             category = categoryService.getCategoryById(categoryId);
         }
         theModel.addAttribute("category", category);
         LOGGER.debug(appMessage.getAppMessage("info.showing", new Object[] { CREATE_CATEGORY_WINDOW, category }));
         return CREATE_CATEGORY_WINDOW;
-        //TODO może jedna metoda razem z add (@RequestParam musiałby być opcjonalny) required = false
     }
 
     /**
-     * Metoda do usuwania kategorii
+     * Metoda do usuwania kategorii.
      * 
-     * @param theModel
+     * @param theModel model
      * @return wraca do okna kategorii
      */
     @PostMapping("/adm/deleteCategory")
     public String deleteCategory(Model theModel, @RequestParam("categoryId") Long categoryId) {
         categoryService.deleteCategory(categoryId);
-        LOGGER.debug(appMessage.getAppMessage("info.delete", new Object[] {categoryId}));
+        LOGGER.debug(appMessage.getAppMessage("info.delete", new Object[] { categoryId }));
         return "redirect:/category";
     }
 
     /**
-     * Metoda zapisująca kategorie
+     * Metoda zapisująca kategorie.
      * 
-     * @param theModel
+     * @param theModel model
      * @param category kategoria do zapisania
      * @return wraca do okna kategorii
      */
     @PostMapping("adm/saveCategory")
     public String saveCategory(@Valid @ModelAttribute("category") Category category, BindingResult bindingResult, Model theModel) {
-        if(bindingResult.hasErrors()) {
-            LOGGER.debug("Błąd walidacji");
+        if (bindingResult.hasErrors()) {
+            LOGGER.debug("Błąd walidacji, dokładna ilośc błędów: {}", bindingResult.getFieldErrorCount());
             theModel.addAttribute("category", category);
             return CREATE_CATEGORY_WINDOW;
-        }
-        else {
+        } else {
             categoryService.saveCategory(category);
-            LOGGER.debug(appMessage.getAppMessage("info.save", new Object[] {category}));
-            return "redirect:/category"; 
+            LOGGER.debug(appMessage.getAppMessage("info.save", new Object[] { category }));
+            return "redirect:/category";
         }
-        //TODO przy edycji poprawić
     }
-    
-  /**
-  * Metoda obsługująca błąd HTTP 400
-  * 
-  * @return okno startowe
-  */
- @GetMapping("/error400")
- public String getWindowFor400Error(Model theModel) {
-     LOGGER.debug(appMessage.getAppMessage("error.badRequest.400", null));
-     return "redirect:/category";
- }
+
+    /**
+     * Metoda obsługująca błąd HTTP 400.
+     * 
+     * @return okno startowe
+     */
+    @GetMapping("/error400")
+    public String getWindowFor400Error(Model theModel) {
+        LOGGER.debug(appMessage.getAppMessage("error.badRequest.400", null));
+        return "redirect:/category";
+    }
 }

@@ -58,13 +58,15 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
 
         if (productId != null || theModel != null) {
             Product product = productService.getProductById(productId);
-            if (product == null)
+            if (product == null) {
                 throw new ApplicationException(appMessage.getAppMessage("error.product.load", null));
+            }
             theModel.addAttribute("product", product);
             theModel.addAttribute("productVO", new ProductVO());
             String category = product.getCategory().getCode();
-            if (category == null)
+            if (category == null) {
                 throw new ApplicationException(appMessage.getAppMessage("error.product.loadCategory", null));
+            }
 
             switch (category) {
             case "PC":
@@ -91,9 +93,9 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
      * 
      */
     public BigDecimal countPricePC(ProductVO productVO) {
-        if (productVO == null)
+        if (productVO == null) {
             throw new ApplicationException(appMessage.getAppMessage("error.productVO.null", null));
-
+        }
         BigDecimal finalPrice = BigDecimal.valueOf(0);
         List<BigDecimal> priceComponents = new ArrayList<>();
         priceComponents.add(productVO.getPrice());
@@ -101,7 +103,7 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
         priceComponents.add(countDesignPrice(productVO));
 
         for (BigDecimal price : priceComponents) {
-            LOGGER.debug(appMessage.getAppMessage("info.price", new Object[] {price}));
+            LOGGER.debug(appMessage.getAppMessage("info.price", new Object[] { price }));
             finalPrice = finalPrice.add(price);
         }
         return finalPrice;
@@ -109,26 +111,26 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
 
     /**
      * Oblicza dodatek do ceny za dodatkowe wykonania produktu.
-     *         
+     * 
      * @param productVO biekt z wartościami produktu
      * @return dodatek do ceny za wykonania
      */
     private BigDecimal countDesignPrice(ProductVO productVO) {
         List<Long> designsIds = productVO.getProductDesignID();
-        BigDecimal designPrice= new BigDecimal(0);
-        if (designsIds == null || designsIds.isEmpty())
+        BigDecimal designPrice = new BigDecimal(0);
+        if (designsIds == null || designsIds.isEmpty()) {
             return BigDecimal.ZERO;
-        
+        }
         List<ProductDesign> designs = repo.findAllById(designsIds);
-        for(ProductDesign design: designs) {
+        for (ProductDesign design : designs) {
             designPrice = designPrice.add(design.getPrice());
         }
-        LOGGER.debug(appMessage.getAppMessage("info.price.design", new Object[] {designPrice}));
+        LOGGER.debug(appMessage.getAppMessage("info.price.design", new Object[] { designPrice }));
         return designPrice;
     }
 
     /**
-     * Oblicza dodatkową cenę za zakres pomiarowy urządzeń z kategorii "PC"
+     * Oblicza dodatkową cenę za zakres pomiarowy urządzeń z kategorii "PC".
      * 
      * @param productVO biekt z wartościami produktu
      * @return dodatek do ceny za zakres
@@ -136,23 +138,26 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
     private BigDecimal countPCRangePrice(ProductVO productVO) {
         BigDecimal rangeLow = productVO.getRangeLow();
         BigDecimal rangeHigh = productVO.getRangeHigh();
-        if (productVO.getUnit() == null)
+        if (productVO.getUnit() == null) {
             throw new ApplicationException(appMessage.getAppMessage("error.productVO.unit", null));
-            
+        }
         BigDecimal multiplicand = BigDecimal.valueOf(productVO.getUnit().getMultiplier());
         rangeLow = rangeLow.multiply(multiplicand);
         rangeHigh = rangeHigh.multiply(multiplicand);
 
-        if ((rangeHigh.subtract(rangeLow)).abs().compareTo(BigDecimal.valueOf(10)) < 1)
+        if ((rangeHigh.subtract(rangeLow)).abs().compareTo(BigDecimal.valueOf(10)) < 1) {
             return BigDecimal.valueOf(250);
-
+        }
         if (rangeHigh.compareTo(BigDecimal.valueOf(6000)) > 0 || rangeLow.compareTo(BigDecimal.valueOf(6000)) > 0) {
             if (rangeHigh.compareTo(BigDecimal.valueOf(20000)) > 0 || rangeLow.compareTo(BigDecimal.valueOf(20000)) > 0) {
                 return BigDecimal.valueOf(200);
-            } else
+            } else {
                 return BigDecimal.valueOf(100);
-        } else
+            }
+        } else {
             return BigDecimal.valueOf(0);
+        }
+
     }
 
 }

@@ -11,7 +11,7 @@ import pl.toms.aplisens.util.AppMessage;
 import pl.toms.aplisens.util.ApplicationException;
 
 /**
- * Implementacja serwisu do zarządzania kategoriami
+ * Implementacja serwisu do zarządzania kategoriami.
  *
  * @see Category
  */
@@ -22,7 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository repo;
 
     /**
-     * Generator komunikatów aplikacji
+     * Generator komunikatów aplikacji.
      */
     @Autowired
     private AppMessage appMessage;

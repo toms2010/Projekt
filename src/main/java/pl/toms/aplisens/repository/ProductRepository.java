@@ -10,7 +10,7 @@ import pl.toms.aplisens.domain.Category;
 import pl.toms.aplisens.domain.Product;
 
 /**
- * Interfejs definiujący metody dostępu do danych produktów
+ * Interfejs definiujący metody dostępu do danych produktów.
  *
  * @see Product
  */
@@ -19,7 +19,7 @@ import pl.toms.aplisens.domain.Product;
 public interface ProductRepository extends BaseRepository<Product, Long> {
 
     /**
-     * Wyszukuje wszystkie produkty po podanej kategorii
+     * Wyszukuje wszystkie produkty po podanej kategorii.
      * 
      * @param category kategoria wyszukiwanych produktów
      * @return lista produktów z podanej kategorii

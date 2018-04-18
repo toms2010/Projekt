@@ -1,5 +1,7 @@
 package pl.toms.aplisens.controller;
 
+import com.mysql.jdbc.StringUtils;
+
 import java.math.BigDecimal;
 
 import org.slf4j.Logger;
@@ -11,15 +13,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mysql.jdbc.StringUtils;
-
 import pl.toms.aplisens.domain.ProductVO;
 import pl.toms.aplisens.service.ProductDetailsService;
 import pl.toms.aplisens.util.AppMessage;
 import pl.toms.aplisens.util.ApplicationException;
 
 /**
- * Kontroler zarządzający szczegółami produktu
+ * Kontroler zarządzający szczegółami produktu.
  */
 @Controller
 public class ProductDetailsController {
@@ -31,15 +31,15 @@ public class ProductDetailsController {
     private ProductDetailsService productDetailsService;
 
     /**
-     * Generator komunikatów aplikacji
+     * Generator komunikatów aplikacji.
      */
     @Autowired
     private AppMessage appMessage;
 
     /**
-     * Zwraca stronę z formularzem szczegółów produku
+     * Zwraca stronę z formularzem szczegółów produku.
      * 
-     * @param theModel
+     * @param theModel model
      * @param productId identyfikator produktu
      * @return okno ze szczegółami produktu
      */
@@ -53,10 +53,10 @@ public class ProductDetailsController {
     }
 
     /**
-     * Zwraca okno z podsumowaniem produktu
+     * Zwraca okno z podsumowaniem produktu.
      * 
      * @param productVO obiekt z wartościami produktu
-     * @param theModel
+     * @param theModel model
      * @return okno z podsumowaniem produktu
      */
     @PostMapping("/saveProduct")

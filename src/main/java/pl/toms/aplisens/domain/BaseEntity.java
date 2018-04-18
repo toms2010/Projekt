@@ -15,14 +15,14 @@ import javax.validation.constraints.Size;
 import org.springframework.stereotype.Component;
 
 /**
- * Bazowa klasa encji
+ * Bazowa klasa encji.
  */
 @Component
 @MappedSuperclass
 public class BaseEntity {
 
     /**
-     * Identyfikator encji
+     * Identyfikator encji.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,22 +30,22 @@ public class BaseEntity {
     private Long id;
 
     /**
-     * Nazwa encji
+     * Nazwa encji.
      */
     @NotNull(message = "{NotNull.baseEntity.name}")
-    @Size(min = 3, max = 30, message="{Size.baseEntity.name}")
+    @Size(min = 3, max = 30, message = "{Size.baseEntity.name}")
     @Column(name = "name", nullable = false)
     private String name;
 
     /**
-     * Data utworzenia wpisu
+     * Data utworzenia wpisu.
      */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date", updatable = false, nullable = false)
     private Date createDate = new Date();
 
     /**
-     * Zwaraca identyfikator obiektu
+     * Zwaraca identyfikator obiektu.
      * 
      * @return identyfikator obiektu
      */
@@ -54,7 +54,7 @@ public class BaseEntity {
     }
 
     /**
-     * Ustawia identyfikator
+     * Ustawia identyfikator.
      * 
      * @param id identyfikator obiektu
      */
@@ -63,7 +63,7 @@ public class BaseEntity {
     }
 
     /**
-     * Zwraca nazwę obiektu
+     * Zwraca nazwę obiektu.
      * 
      * @return nazwa obiektu
      */
@@ -72,7 +72,7 @@ public class BaseEntity {
     }
 
     /**
-     * Ustawia nazwę obiektu
+     * Ustawia nazwę obiektu.
      * 
      * @param name nazwa obiektu
      */
@@ -81,7 +81,7 @@ public class BaseEntity {
     }
 
     /**
-     * Zwraca date utworzenia
+     * Zwraca date utworzenia.
      * 
      * @return data utworzenia
      */
@@ -90,7 +90,7 @@ public class BaseEntity {
     }
 
     /**
-     * Ustawia date utworzenia obiektu
+     * Ustawia date utworzenia obiektu.
      * 
      * @param createDate data utworzenia obiektu
      */

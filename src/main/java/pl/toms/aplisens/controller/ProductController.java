@@ -23,39 +23,38 @@ import pl.toms.aplisens.util.AppMessage;
  */
 @Controller
 public class ProductController {
-	private static final String PRODUCT_LIST_WINDOW = "product-list";
-	
-	protected static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
-	
-	@Autowired
-	private ProductService productService;
+    private static final String PRODUCT_LIST_WINDOW = "product-list";
+
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+
+    @Autowired
+    private ProductService productService;
 
     /**
-     * Generator komunikatów aplikacji
+     * Generator komunikatów aplikacji.
      */
     @Autowired
     private AppMessage appMessage;
-    
-	/**
-    * Zwraca stronę z listą produktów o podanej kategorii.
-    * 
-    * @param theModel
-    * @param categoryId identyfikator grupy produktów
-    * @return okno z listą produktó PRODUCT_LIST_WINDOW
-    */
-	@RequestMapping(value="/products", method={ RequestMethod.POST, RequestMethod.GET })
-	public String getProductList(Model theModel, @RequestParam("categoryId") Long categoryId) {
-		List<Product> products = productService.getProductsByCategory(categoryId);
-		theModel.addAttribute("products",products);
-		LOGGER.debug(appMessage.getAppMessage("info.showing", new Object[] {PRODUCT_LIST_WINDOW, products}));
-		return PRODUCT_LIST_WINDOW;
-	}
-	
+
     /**
-     * W BUDOWIE.
-     * Metoda zwracająca okno do dodawania nowego produktu.
+     * Zwraca stronę z listą produktów o podanej kategorii.
      * 
-     * @param theModel
+     * @param theModel model
+     * @param categoryId identyfikator grupy produktów
+     * @return okno z listą produktó PRODUCT_LIST_WINDOW
+     */
+    @RequestMapping(value = "/products", method = { RequestMethod.POST, RequestMethod.GET })
+    public String getProductList(Model theModel, @RequestParam("categoryId") Long categoryId) {
+        List<Product> products = productService.getProductsByCategory(categoryId);
+        theModel.addAttribute("products", products);
+        LOGGER.debug(appMessage.getAppMessage("info.showing", new Object[] { PRODUCT_LIST_WINDOW, products }));
+        return PRODUCT_LIST_WINDOW;
+    }
+
+    /**
+     * W BUDOWIE. Metoda zwracająca okno do dodawania nowego produktu.
+     * 
+     * @param theModel model
      * @return inProgres
      */
     @GetMapping("adm/addProduct")
@@ -65,12 +64,11 @@ public class ProductController {
         LOGGER.debug("W budowie");
         return "inProgres";
     }
-    
+
     /**
-     * W BUDOWIE 
-     * Metoda zwracająca okno do edycji produktów
+     * W BUDOWIE Metoda zwracająca okno do edycji produktów.
      * 
-     * @param theModel
+     * @param theModel model
      * @param productId identyfikator produktu
      * @return inProgres
      */
@@ -81,32 +79,30 @@ public class ProductController {
         LOGGER.debug("W budowie");
         return "inProgres";
     }
-	
-	 /**
-     * Metoda do usuwania produktów
+
+    /**
+     * Metoda do usuwania produktów.
      * 
-     * @param theModel
+     * @param theModel model
      * @return wraca do okna produktów
      */
     @PostMapping("/adm/deleteProduct")
     public String deleteProduct(Model theModel, @RequestParam("productId") Long productId) {
         productService.deleteProduct(productId);
-        LOGGER.debug(appMessage.getAppMessage("info.delete", new Object[] {productId}));
-        //TODO usuwa wszystkie powiązane
+        LOGGER.debug(appMessage.getAppMessage("info.delete", new Object[] { productId }));
         return "redirect:/products";
     }
-    
+
     /**
-     * Metoda zapisująca produkt
+     * Metoda zapisująca produkt.
      * 
-     * @param theModel
      * @param product produkt do zapisania
      * @return wraca do okna produktów
      */
     @PostMapping("adm/saveProduct")
     public String saveCategory(@ModelAttribute("product") Product product) {
         productService.saveProduct(product);
-        LOGGER.debug(appMessage.getAppMessage("info.save", new Object[] {product}));
+        LOGGER.debug(appMessage.getAppMessage("info.save", new Object[] { product }));
         return "redirect:/products";
     }
 }

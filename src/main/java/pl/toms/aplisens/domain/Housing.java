@@ -17,34 +17,34 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Currency;
 
 /**
- * Encja reprezentująca obudowy produktów
+ * Encja reprezentująca obudowy produktów.
  * 
  */
 @Entity
 @Table(name = "housing")
 public class Housing extends BaseEntity {
     /**
-     * Lista produktów
+     * Lista produktów.
      */
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
     @JoinTable(name = "products_housing", joinColumns = @JoinColumn(name = "housing_ID"), inverseJoinColumns = @JoinColumn(name = "product_ID"))
     private List<Product> products;
 
     /**
-     * Kod parametru
+     * Kod parametru.
      */
     @Column(name = "code", nullable = false)
     @NotBlank
     private String code;
 
     /**
-     * Opis parametru
+     * Opis parametru.
      */
     @Column(name = "description")
     private String description;
 
     /**
-     * Cena wykonania produktu
+     * Cena wykonania produktu.
      */
     @Column(name = "price", nullable = false)
     @NotNull

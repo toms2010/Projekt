@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * Encja reprezentująca kategorie produktów
+ * Encja reprezentująca kategorie produktów.
  * 
  */
 @Entity
@@ -20,27 +20,27 @@ import javax.validation.constraints.Size;
 public class Category extends BaseEntity {
 
     /**
-     * Dane kategorii
+     * Dane kategorii.
      */
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER) //TODO moze tu lazy?
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Product> products;
 
     /**
-     * Kod kategorii
+     * Kod kategorii.
      */
-    @Column(name = "code", nullable=false)
+    @Column(name = "code", nullable = false)
     @NotNull
     @Size(min = 2, max = 4)
     private String code;
 
     /**
-     *  Ilośc produktów w kategorii  
-	 */
+     * Ilośc produktów w kategorii.
+     */
     @Transient
     private Integer size;
 
     /**
-     * Zwraca listę produktów nalezących do kategorii
+     * Zwraca listę produktów nalezących do kategorii.
      * 
      * @return lista produktów
      */
@@ -49,7 +49,7 @@ public class Category extends BaseEntity {
     }
 
     /**
-     * Ustawia listę produktów nalezących do kategorii
+     * Ustawia listę produktów nalezących do kategorii.
      * 
      * @param products lista produktów
      */
@@ -58,7 +58,7 @@ public class Category extends BaseEntity {
     }
 
     /**
-     * Zwraca kod produktu
+     * Zwraca kod produktu.
      * 
      * @return code produktu
      */
@@ -67,7 +67,7 @@ public class Category extends BaseEntity {
     }
 
     /**
-     * Ustawia kod produktu
+     * Ustawia kod produktu.
      * 
      * @param code kod produktu
      */
@@ -76,7 +76,7 @@ public class Category extends BaseEntity {
     }
 
     /**
-     * Zwraca ilość produktów w kategorii
+     * Zwraca ilość produktów w kategorii.
      * 
      * @return ilość produktów
      */
@@ -86,7 +86,7 @@ public class Category extends BaseEntity {
     }
 
     /**
-     * Ustawia ilośc produktów w kategorii
+     * Ustawia ilośc produktów w kategorii.
      * 
      * @param size ilość produktów
      */
@@ -95,8 +95,7 @@ public class Category extends BaseEntity {
     }
 
     /* (non-Javadoc)
-     * @see java.lang.Object#toString() 
-     * */
+     * @see java.lang.Object#toString() */
     @Override
     public String toString() {
         return "Category [code= " + code + " ;" + super.toString() + "]";

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 /**
- * Encja reprezentująca parametry product
+ * Encja reprezentująca parametry produktu.
  * 
  */
 @Entity
@@ -21,33 +21,33 @@ import javax.validation.constraints.NotBlank;
 public class ProductParameter extends BaseEntity {
 
     /**
-     * Lista produktów
+     * Lista produktów.
      */
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
     @JoinTable(name = "products_parameters", joinColumns = @JoinColumn(name = "parameter_ID"), inverseJoinColumns = @JoinColumn(name = "product_ID"))
     private List<Product> products;
     /**
-     * Wartość parametru produktu
+     * Wartość parametru produktu.
      */
-    @Column(name = "param_value", nullable=false)
+    @Column(name = "param_value", nullable = false)
     @NotBlank
     private String value;
 
     /**
-     * Kod parametru
+     * Kod parametru.
      */
     @Column(name = "code", nullable = false)
     @NotBlank
     private String code;
 
     /**
-     * Opis parametru
+     * Opis parametru.
      */
     @Column(name = "description")
     private String description;
 
     /**
-     * Zwraca listę produktów
+     * Zwraca listę produktów.
      * 
      * @return lista produktów
      */
@@ -56,7 +56,7 @@ public class ProductParameter extends BaseEntity {
     }
 
     /**
-     * Ustawia listę produktów
+     * Ustawia listę produktów.
      * 
      * @param products lista produktów
      */
@@ -65,7 +65,7 @@ public class ProductParameter extends BaseEntity {
     }
 
     /**
-     * Zwraca wartość parametru
+     * Zwraca wartość parametru.
      * 
      * @return wartość parametru
      */
@@ -74,7 +74,7 @@ public class ProductParameter extends BaseEntity {
     }
 
     /**
-     * Ustawia wartość parametru
+     * Ustawia wartość parametru.
      * 
      * @param value wartość parametru
      */
@@ -83,7 +83,7 @@ public class ProductParameter extends BaseEntity {
     }
 
     /**
-     * Zwraca kod parametru
+     * Zwraca kod parametru.
      * 
      * @return code parametru
      */
@@ -92,7 +92,7 @@ public class ProductParameter extends BaseEntity {
     }
 
     /**
-     * Ustawia kod parametru
+     * Ustawia kod parametru.
      * 
      * @param code kod parametru
      */
@@ -101,7 +101,7 @@ public class ProductParameter extends BaseEntity {
     }
 
     /**
-     * Zwraca opis parametru
+     * Zwraca opis parametru.
      * 
      * @return opis parametru
      */
@@ -110,9 +110,10 @@ public class ProductParameter extends BaseEntity {
     }
 
     /**
-     * Ustawia opis parametru
+     * Ustawia opis parametru.
      * 
-     * @param opis opis parametru
+     * @param description opis parametru
+     * 
      */
     public void setDescription(final String description) {
         this.description = description;

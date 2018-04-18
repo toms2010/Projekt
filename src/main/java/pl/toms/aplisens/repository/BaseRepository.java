@@ -6,7 +6,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import pl.toms.aplisens.domain.BaseEntity;
 
 /**
- * Interfejs definiujący metody dostępu do encji
+ * Interfejs definiujący metody dostępu do encji.
  *
  * @param <T> typ encji
  * @param <ID> typ identyfikatora bazodanowego encji
@@ -15,16 +15,18 @@ import pl.toms.aplisens.domain.BaseEntity;
 public interface BaseRepository<T extends BaseEntity, ID> extends JpaRepository<T, ID> {
 
     /**
-     * Wyszukuje encje po nazwie
+     * Wyszukuje encje po nazwie.
      * 
      * @param name nazwa encji do wyszukania
      * @return encja o podanej nazwie
      */
     T findOneByName(String name);
 
-    /* Wyszukuje encje po identyfikatorze
-     * @param name identyfikator encji do wyszukania
+    /**
+     * Wyszukuje encje po identyfikatorze.
+     * 
+     * @param id identyfikator encji do wyszukania
      * @return encja o podanym identyfikatore 
-     * */
+     */
     T findOneById(Long id);
 }

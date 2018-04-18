@@ -15,22 +15,22 @@ import pl.toms.aplisens.domain.ProductVO;
  */
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
-public interface ProductDetailsService
-{
+public interface ProductDetailsService {
+
     /**
      * Zwraca okno z formularzem szczegółów produktu.
      * 
      * @param productId identyfikator produktu
-     * @param theModel
+     * @param theModel model
      * @return odpowiedni formularz ze szczegółami produktu
      */
-    String displayDetailsForm(Long productId, Model theModel); 
-    
+    String displayDetailsForm(Long productId, Model theModel);
+
     /**
      * Liczy cenę produktu z grupy "PC".
      * 
      * @param productVO obiekt z wartościami produktu
      * @return całkowita cena produktu
      */
-	BigDecimal countPricePC(ProductVO productVO);
+    BigDecimal countPricePC(ProductVO productVO);
 }
