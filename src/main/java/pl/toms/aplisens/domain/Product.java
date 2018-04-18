@@ -21,14 +21,14 @@ import org.hibernate.annotations.FetchMode;
  *
  */
 @Entity
-@Table(name = "produkty")
+@Table(name = "products")
 public class Product extends BaseEntity {
 
     /**
      * Lista parametrów produktu
      */
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "produkt_parametry", joinColumns = @JoinColumn(name = "produktID"), inverseJoinColumns = @JoinColumn(name = "parametrID"))
+    @JoinTable(name = "products_parameters", joinColumns = @JoinColumn(name = "product_ID"), inverseJoinColumns = @JoinColumn(name = "parameter_ID"))
     private List<ProductParameter> productParameter;
 
     /**
@@ -36,33 +36,41 @@ public class Product extends BaseEntity {
      * TODO napisać testy i sprawdzić usuwanie (czy cascade działa)
      */
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
-    @JoinTable(name = "produkt_wykonania", joinColumns = @JoinColumn(name = "produktID"), inverseJoinColumns = @JoinColumn(name = "wykonanieID"))
+    @JoinTable(name = "products_designs", joinColumns = @JoinColumn(name = "product_ID"), inverseJoinColumns = @JoinColumn(name = "design_ID"))
     @Fetch(value = FetchMode.SUBSELECT)
     private List<ProductDesign> productDesign;
 
     /**
+     * Lista obudów produktów
+     */
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "products_housing", joinColumns = @JoinColumn(name = "product_ID"), inverseJoinColumns = @JoinColumn(name = "housing_ID"))
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Housing> housing;
+    
+    /**
      * Identyfikator kategorii produktu
      */
     @ManyToOne
-    @JoinColumn(name = "kategoria_ID")
+    @JoinColumn(name = "category_ID")
     private Category category;
 
     /**
      * Kod produktu
      */
-    @Column(name = "kod")
+    @Column(name = "code")
     private String code;
 
     /**
      * Opis produktu
      */
-    @Column(name = "dok_opis")
+    @Column(name = "description")
     private String description;
 
     /**
      * Cena produktu
      */
-    @Column(name = "cena")
+    @Column(name = "price")
     private BigDecimal price;
 
     /**
@@ -99,6 +107,24 @@ public class Product extends BaseEntity {
      */
     public void setProductDesign(List<ProductDesign> productDesign) {
         this.productDesign = productDesign;
+    }
+
+    /**
+     * Zwraca liste obudów produktu
+     * 
+     * @return lista obudów produktu
+     */
+    public List<Housing> getHousing() {
+        return housing;
+    }
+    
+    /**
+     * Ustawia liste obudów produktu
+     * 
+     * @param housing lista obudów produktu
+     */
+    public void setHousing(List<Housing> housing) {
+        this.housing = housing;
     }
 
     /**

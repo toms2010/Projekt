@@ -34,14 +34,14 @@ public class BaseEntity {
      */
     @NotNull(message = "{error.validation.name.notNull}")
     @Size(min = 3, max = 30)
-    @Column(name = "nazwa", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     /**
      * Data utworzenia wpisu
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "data_utworzenia", updatable = false, nullable = false)
+    @Column(name = "create_date", updatable = false, nullable = false)
     private Date createDate = new Date();
 
     /**

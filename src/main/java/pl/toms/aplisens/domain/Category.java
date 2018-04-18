@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
  * 
  */
 @Entity
-@Table(name = "kategorie")
+@Table(name = "categories")
 public class Category extends BaseEntity {
 
     /**
@@ -26,16 +26,16 @@ public class Category extends BaseEntity {
     private List<Product> products;
 
     /**
-     * Tag kategorii
+     * Kod kategorii
      */
-    @Column(name = "tag", nullable=false)
+    @Column(name = "code", nullable=false)
     @NotNull(message = "To long")
     @Size(min = 2, max = 4)
-    private String tag;
+    private String code;
 
     /**
-     *  Ilośc produktów w kategorii 
-     *  */
+     *  Ilośc produktów w kategorii  
+	 */
     @Transient
     private Integer size;
 
@@ -58,21 +58,21 @@ public class Category extends BaseEntity {
     }
 
     /**
-     * Zwraca tag kategorii
+     * Zwraca kod produktu
      * 
-     * @return tag kategorii
+     * @return code produktu
      */
-    public String getTag() {
-        return tag;
+    public String getCode() {
+        return code;
     }
 
     /**
-     * Ustawia tag kategorii
+     * Ustawia kod produktu
      * 
-     * @param tag tag kategorii
+     * @param code kod produktu
      */
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     /**
@@ -99,6 +99,6 @@ public class Category extends BaseEntity {
      * */
     @Override
     public String toString() {
-        return "Category [tag= " + tag + " ;" + super.toString() + "]";
+        return "Category [code= " + code + " ;" + super.toString() + "]";
     }
 }

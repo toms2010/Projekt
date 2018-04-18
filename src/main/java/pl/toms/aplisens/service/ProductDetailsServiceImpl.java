@@ -62,7 +62,7 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
                 throw new ApplicationException(appMessage.getAppMessage("error.product.load", null));
             theModel.addAttribute("product", product);
             theModel.addAttribute("productVO", new ProductVO());
-            String category = product.getCategory().getTag();
+            String category = product.getCategory().getCode();
             if (category == null)
                 throw new ApplicationException(appMessage.getAppMessage("error.product.loadCategory", null));
 

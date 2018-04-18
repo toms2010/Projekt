@@ -17,30 +17,30 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "wykonania")
+@Table(name = "designs")
 public class ProductDesign extends BaseEntity {
 
     /**
      * Lista produktów
      */
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
-    @JoinTable(name = "produkt_wykonania", joinColumns = @JoinColumn(name = "wykonanieID"), inverseJoinColumns = @JoinColumn(name = "produktID"))
+    @JoinTable(name = "products_designs", joinColumns = @JoinColumn(name = "design_ID"), inverseJoinColumns = @JoinColumn(name = "product_ID"))
     private List<Product> products;
 
     /* Opis wykonania produktu */
-    @Column(name = "opis")
+    @Column(name = "description")
     private String description;
 
     /**
      * Kod wykonania produktu
      */
-    @Column(name = "kod")
+    @Column(name = "code")
     private String code;
 
     /**
      * Cena wykonania produktu
      */
-    @Column(name = "cena")
+    @Column(name = "price")
     private BigDecimal price;
 
     /**

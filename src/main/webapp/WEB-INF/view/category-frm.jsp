@@ -44,8 +44,8 @@
 				Nazwa kategorii: <form:input path="name" />
 				<form:errors path="name" cssClass="error" />
 				<br />
-				Tag Kategorii <form:input path="tag" />
-				<form:errors path="tag" cssClass="error" />
+				Kod Kategorii <form:input path="code" />
+				<form:errors path="code" cssClass="error" />
 				<br />
 				<input type="submit" value="Zapisz" class="save" />
 			</form:form>

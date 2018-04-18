@@ -42,7 +42,7 @@
 			<!-- Tabela -->
 			<table>
 				<tr>
-					<th>Tag</th>
+					<th>Kod</th>
 					<th>Nazwa</th>
 					<th>Ilość produktów</th>
 					<th></th>
@@ -51,7 +51,7 @@
 				</tr>
 				<c:forEach var="category" items="${categoryList}">
 					<tr>
-						<td>${category.tag}</td>
+						<td>${category.code}</td>
 						<td>${category.name}</td>
 						<td>${category.size}</td>
 						<td>

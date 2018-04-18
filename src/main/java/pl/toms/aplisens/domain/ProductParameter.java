@@ -16,31 +16,31 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "parametry")
+@Table(name = "parameters")
 public class ProductParameter extends BaseEntity {
 
     /**
      * Lista produktów
      */
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "produkt_parametry", joinColumns = @JoinColumn(name = "parametrID"), inverseJoinColumns = @JoinColumn(name = "produktID"))
+    @JoinTable(name = "products_parameters", joinColumns = @JoinColumn(name = "parameter_ID"), inverseJoinColumns = @JoinColumn(name = "product_ID"))
     private List<Product> products;
     /**
      * Wartość parametru produktu
      */
-    @Column(name = "wartosc")
+    @Column(name = "param_value")
     private String value;
 
     /**
      * Kod parametru
      */
-    @Column(name = "kod")
+    @Column(name = "code")
     private String code;
 
     /**
      * Opis parametru
      */
-    @Column(name = "opis")
+    @Column(name = "description")
     private String description;
 
     /**
