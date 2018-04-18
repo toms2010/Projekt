@@ -22,7 +22,7 @@ public class Category extends BaseEntity {
     /**
      * Dane kategorii
      */
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER) //TODO moze tu lazy?
     private List<Product> products;
 
     /**

@@ -31,7 +31,7 @@ public class Product extends BaseEntity {
     /**
      * Lista parametrów produktu
      */
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
     @JoinTable(name = "products_parameters", joinColumns = @JoinColumn(name = "product_ID"), inverseJoinColumns = @JoinColumn(name = "parameter_ID"))
     private List<ProductParameter> productParameter;
 
@@ -39,7 +39,7 @@ public class Product extends BaseEntity {
      * Lista wykonań produktu
      * TODO napisać testy i sprawdzić usuwanie (czy cascade działa)
      */
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH} )
     @JoinTable(name = "products_designs", joinColumns = @JoinColumn(name = "product_ID"), inverseJoinColumns = @JoinColumn(name = "design_ID"))
     @Fetch(value = FetchMode.SUBSELECT)
     private List<ProductDesign> productDesign;
@@ -47,7 +47,7 @@ public class Product extends BaseEntity {
     /**
      * Lista obudów produktów
      */
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
     @JoinTable(name = "products_housing", joinColumns = @JoinColumn(name = "product_ID"), inverseJoinColumns = @JoinColumn(name = "housing_ID"))
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Housing> housing;
@@ -55,7 +55,7 @@ public class Product extends BaseEntity {
     /**
      * Identyfikator kategorii produktu
      */
-    @ManyToOne
+    @ManyToOne 
     @JoinColumn(name = "category_ID", nullable=false)
     @NotEmpty
     private Category category;

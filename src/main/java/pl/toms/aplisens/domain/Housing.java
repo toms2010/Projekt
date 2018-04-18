@@ -26,7 +26,7 @@ public class Housing extends BaseEntity {
     /**
      * Lista produktów
      */
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
     @JoinTable(name = "products_housing", joinColumns = @JoinColumn(name = "housing_ID"), inverseJoinColumns = @JoinColumn(name = "product_ID"))
     private List<Product> products;
 
