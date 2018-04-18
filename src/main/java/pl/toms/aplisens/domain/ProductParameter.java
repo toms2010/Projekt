@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 /**
  * Encja reprezentująca parametry product
@@ -28,13 +29,15 @@ public class ProductParameter extends BaseEntity {
     /**
      * Wartość parametru produktu
      */
-    @Column(name = "param_value")
+    @Column(name = "param_value", nullable=false)
+    @NotBlank
     private String value;
 
     /**
      * Kod parametru
      */
-    @Column(name = "code")
+    @Column(name = "code", nullable = false)
+    @NotBlank
     private String code;
 
     /**

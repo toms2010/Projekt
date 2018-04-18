@@ -11,6 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Currency;
 
 /**
  * Encja reprezentująca obudowy produktów
@@ -29,7 +33,8 @@ public class Housing extends BaseEntity {
     /**
      * Kod parametru
      */
-    @Column(name = "code")
+    @Column(name = "code", nullable = false)
+    @NotBlank
     private String code;
 
     /**
@@ -41,7 +46,9 @@ public class Housing extends BaseEntity {
     /**
      * Cena wykonania produktu
      */
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
+    @NotNull
+    @Currency(value = { "PLN" }) //TODO sprawdzić czy działa
     private BigDecimal price;
 
     public List<Product> getProducts() {

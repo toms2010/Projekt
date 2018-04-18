@@ -29,7 +29,7 @@ public class Category extends BaseEntity {
      * Kod kategorii
      */
     @Column(name = "code", nullable=false)
-    @NotNull(message = "To long")
+    @NotNull
     @Size(min = 2, max = 4)
     private String code;
 

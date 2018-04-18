@@ -12,9 +12,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.validator.constraints.Currency;
 
 /**
  * Encja reprezentująca produky
@@ -52,13 +56,16 @@ public class Product extends BaseEntity {
      * Identyfikator kategorii produktu
      */
     @ManyToOne
-    @JoinColumn(name = "category_ID")
+    @JoinColumn(name = "category_ID", nullable=false)
+    @NotEmpty
     private Category category;
 
     /**
      * Kod produktu
      */
-    @Column(name = "code")
+    @Column(name = "code", nullable = false)
+    @NotNull
+    @Size(min = 2, max = 10)
     private String code;
 
     /**
@@ -71,6 +78,8 @@ public class Product extends BaseEntity {
      * Cena produktu
      */
     @Column(name = "price")
+    @NotNull
+    @Currency(value = { "PLN" }) //TODO sprawdzić czy działa
     private BigDecimal price;
 
     /**

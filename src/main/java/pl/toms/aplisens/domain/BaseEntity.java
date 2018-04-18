@@ -32,8 +32,8 @@ public class BaseEntity {
     /**
      * Nazwa encji
      */
-    @NotNull(message = "{error.validation.name.notNull}")
-    @Size(min = 3, max = 30)
+    @NotNull(message = "{NotNull.baseEntity.name}")
+    @Size(min = 3, max = 30, message="{Size.baseEntity.name}")
     @Column(name = "name", nullable = false)
     private String name;
 

@@ -11,6 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Currency;
 
 /**
  * Encja reprezentująca wykonania product
@@ -27,20 +31,25 @@ public class ProductDesign extends BaseEntity {
     @JoinTable(name = "products_designs", joinColumns = @JoinColumn(name = "design_ID"), inverseJoinColumns = @JoinColumn(name = "product_ID"))
     private List<Product> products;
 
-    /* Opis wykonania produktu */
+    /**
+     *  Opis wykonania produktu 
+     */
     @Column(name = "description")
     private String description;
 
     /**
      * Kod wykonania produktu
      */
-    @Column(name = "code")
+    @Column(name = "code", nullable=false)
+    @NotBlank
     private String code;
 
     /**
      * Cena wykonania produktu
      */
-    @Column(name = "price")
+    @Column(name = "price", nullable=false)
+    @NotNull
+    @Currency(value = { "PLN" }) //TODO sprawdzić czy działa
     private BigDecimal price;
 
     /**
