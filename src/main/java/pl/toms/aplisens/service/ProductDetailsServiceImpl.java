@@ -27,7 +27,7 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ProductDetailsServiceImpl.class);
 
     /** Okno formularza ze szczegółami dla przetworników ciśnienia. */
-    private static final String PC_DETAILS_WINDOW = "product-details";
+    private static final String PC_DETAILS_WINDOW = "product-PC-details";
 
     /** Okno formularza ze szczegółami dla sond głębokości. */
     private static final String SG_DETAILS_WINDOW = "inProgres";

@@ -20,9 +20,9 @@ import javax.validation.constraints.Size;
 public class Category extends BaseEntity {
 
     /**
-     * Dane kategorii.
+     * Dane produktów.
      */
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private List<Product> products;
 
     /**

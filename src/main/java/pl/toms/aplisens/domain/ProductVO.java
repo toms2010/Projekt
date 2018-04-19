@@ -51,6 +51,16 @@ public class ProductVO {
      */
     private List<Long> productDesignID;
 
+    /**
+     * Typ kabla
+     */
+    private CableType cableType;
+    
+    /**
+     * Długośc kabla
+     */
+    private Integer lenght;
+    
     public String getName() {
         return name;
     }
@@ -113,6 +123,26 @@ public class ProductVO {
 
     public void setProductDesignID(List<Long> productDesignID) {
         this.productDesignID = productDesignID;
+    }
+
+    public CableType getCableType()
+    {
+        return cableType;
+    }
+
+    public void setCableType(CableType cableType)
+    {
+        this.cableType = cableType;
+    }
+
+    public Integer getLenght()
+    {
+        return lenght;
+    }
+
+    public void setLenght(Integer lenght)
+    {
+        this.lenght = lenght;
     }
 
     @Override

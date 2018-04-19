@@ -4,8 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import pl.toms.aplisens.util.AppMessage;
 
@@ -22,14 +20,14 @@ public class ErrorController {
     @Autowired
     private AppMessage appMessage;
     
-    /**
-     * Metoda obsługująca błąd HTTP 400.
-     * 
-     * @return okno startowe
-     */
-    @GetMapping("/error400")
-    public String getWindowFor400Error(Model theModel) {
-        LOGGER.debug(appMessage.getAppMessage("error.badRequest.400", null));
-        return "redirect:/category";
-    }
+//    /**
+//     * Metoda obsługująca błąd HTTP 400.
+//     * 
+//     * @return okno startowe
+//     */
+//    @GetMapping("/error400")
+//    public String getWindowFor400Error(Model theModel) {
+//        LOGGER.debug(appMessage.getAppMessage("error.badRequest.400", null));
+//        return "redirect:/category";
+//    }
 }
