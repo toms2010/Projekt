@@ -9,11 +9,6 @@ import java.math.BigDecimal;
  */
 public class SGcategoryVO extends ProductVO{
     /**
-     * Dolny zakres pomiarowy porduktu.
-     */
-    private BigDecimal rangeLow = BigDecimal.ZERO;
-    
-    /**
      * Typ kabla
      */
     private CableType cableType;
@@ -23,40 +18,47 @@ public class SGcategoryVO extends ProductVO{
      */
     private Integer lenght;
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString() 
+    /**
+     * Górny zakres pomiarowy produktu.
      */
-    @Override
-    public BigDecimal getRangeLow() {
-        return rangeLow;
-    }
+    private BigDecimal rangeHigh;
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString() 
-     */
-    @Override
-    public void setRangeLow(BigDecimal rangeLow) {
-        this.rangeLow = rangeLow;
-    }
-
-    public CableType getCableType() {
+    public CableType getCableType()
+    {
         return cableType;
     }
 
-    public void setCableType(CableType cableType) {
+    public void setCableType(CableType cableType)
+    {
         this.cableType = cableType;
     }
 
-    public Integer getLenght() {
+    public Integer getLenght()
+    {
         return lenght;
     }
 
-    public void setLenght(Integer lenght) {
+    public void setLenght(Integer lenght)
+    {
         this.lenght = lenght;
     }
 
-    @Override
-    public String toString() {
-        return "SGcategoryVO [rangeLow=" + rangeLow + ", cableType=" + cableType + ", lenght=" + lenght + super.toString() + "]";
+    public BigDecimal getRangeHigh()
+    {
+        return rangeHigh;
     }
+
+    public void setRangeHigh(BigDecimal rangeHigh)
+    {
+        this.rangeHigh = rangeHigh;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "SGcategoryVO [cableType=" + cableType + ", lenght=" + lenght + ", rangeHigh=" + rangeHigh + "]";
+    }
+    
+    
+    
 }

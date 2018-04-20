@@ -32,7 +32,7 @@
 			<h3>Parametry dla : ${product.name}</h3>
 			<h5>${product.description}</h5>
 			<p>
-				<form:form action="saveProduct" modelAttribute="productVO" method="POST">
+				<form:form action="savePCProduct" modelAttribute="productVO" method="POST">
 					<h5>
 						Zakres pomiarowy:
 						<form:input path="rangeLow" />
@@ -60,7 +60,7 @@
 					<br>
 					
 					<form:hidden path="name" value="${product.name}"/>
-					<form:hidden path="tag" value="${product.code}"/>
+					<form:hidden path="code" value="${product.code}"/>
 					<form:hidden path="price" value="${product.price}"/>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<input type="submit" name="submit" value="Zatwierdz">

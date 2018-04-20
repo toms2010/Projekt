@@ -1,6 +1,8 @@
 package pl.toms.aplisens.domain;
 
-import java.util.List;
+import java.math.BigDecimal;
+
+import org.hibernate.validator.constraints.Range;
 
 import pl.toms.aplisens.util.PresureUnits;
 
@@ -17,16 +19,60 @@ public class PCcategoryVO extends ProductVO {
     private PresureUnits unit = null;
 
     /**
-     * 
+     * Typ obudowy
      */
     private Housing housing;
     
-    public PresureUnits getUnit() {
+    /**
+     * Dolny zakres pomiarowy porduktu.
+     */
+    private BigDecimal rangeLow;
+
+    /**
+     * Górny zakres pomiarowy produktu.
+     */
+    private BigDecimal rangeHigh;
+
+    public PresureUnits getUnit()
+    {
         return unit;
     }
 
-    public void setUnit(PresureUnits unit) {
+    public void setUnit(PresureUnits unit)
+    {
         this.unit = unit;
     }
+
+    public Housing getHousing()
+    {
+        return housing;
+    }
+
+    public void setHousing(Housing housing)
+    {
+        this.housing = housing;
+    }
+
+    public BigDecimal getRangeLow()
+    {
+        return rangeLow;
+    }
+
+    public void setRangeLow(BigDecimal rangeLow)
+    {
+        this.rangeLow = rangeLow;
+    }
+
+    public BigDecimal getRangeHigh()
+    {
+        return rangeHigh;
+    }
+
+    public void setRangeHigh(BigDecimal rangeHigh)
+    {
+        this.rangeHigh = rangeHigh;
+    }
+    
+
 
 }

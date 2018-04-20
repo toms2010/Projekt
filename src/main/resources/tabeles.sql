@@ -114,3 +114,13 @@ CREATE TABLE `products_housing` (
   CONSTRAINT `product_housing` FOREIGN KEY (`product_ID`) REFERENCES `products` (`id`),
   CONSTRAINT `housing` FOREIGN KEY (`housing_ID`) REFERENCES `housing` (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `cables` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `description` varchar(255),
+  `create_date` date NOT NULL,
+  `modify_date` date,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

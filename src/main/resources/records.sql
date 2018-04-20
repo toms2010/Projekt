@@ -11,6 +11,7 @@ DELETE FROM `aplisens`.`designs`;
 DELETE FROM `aplisens`.`housing`;  
 DELETE FROM `aplisens`.`products`; 
 DELETE FROM `aplisens`.`categories`;
+DELETE FROM `aplisens`.`cables`;
 SET SQL_SAFE_UPDATES=1;
 
 INSERT INTO `aplisens`.`users` (`username`, `password`, `enabled`)
@@ -63,4 +64,11 @@ VALUES (1, 'PD', 0, 'Przyłącze typu pd (standard)',  '2018-03-20'),
 
 INSERT INTO `aplisens`.`products_housing` (`id`, `product_ID`, `housing_ID`)
 VALUES (1, 3, 1), (2, 3, 2), (3, 3, 3),(4, 3, 4),
-       (5, 4, 4), (6, 4, 2);            
+       (5, 4, 4), (6, 4, 2);        
+       
+INSERT INTO `aplisens`.`cables` (`id`, `name`, `price`, `description`, `create_date`)
+VALUES (1, 'PU', 3, 'Poliuretan (standard), maksymalna temperatura 40 st',  '2018-03-20'), 
+       (2, 'PU PZH', 5, 'Poliuretan z atestem PZH, maksymalna temperatura 40 st', '2018-03-20'), 
+       (3, 'ETFE', 5, 'ETFE, o podwyższonej odporności chemicznej,  maksymalna temperatura 75 st', '2018-03-20'), 
+       (4, 'ETFE-R', 7, 'ETFE z przeznaczeniem do madium ropopochodnych, maksymalna temperatura 40 st', '2018-03-20'),
+       (5, 'Teflon', 15, 'Osłona kabla z teflonu,  maksymalna temperatura 75 st' , '2018-03-20'); 

@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
-import pl.toms.aplisens.domain.ProductVO;
+import pl.toms.aplisens.domain.PCcategoryVO;
 
 /**
  * Serwis do zarządzania szczegółami produktu.
@@ -32,5 +32,5 @@ public interface ProductDetailsService {
      * @param productVO obiekt z wartościami produktu
      * @return całkowita cena produktu
      */
-    BigDecimal countPricePC(ProductVO productVO);
+    BigDecimal countPricePC(PCcategoryVO productVO);
 }

@@ -26,11 +26,16 @@ import pl.toms.aplisens.util.AppMessage;
  */
 @Controller
 public class CategoryController {
+    /** Okno z listą kategorii. */
     private static final String CATEGORY_LIST_WINDOW = "category-list";
+    /** Okno z formularzem do edycji/dodawania kategorii. */
     private static final String CREATE_CATEGORY_WINDOW = "category-frm";
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
 
+    /**
+     * Serwis do obsługi kategorii.
+     */
     @Autowired
     private CategoryService categoryService;
 
@@ -44,7 +49,7 @@ public class CategoryController {
      * Metoda zwracająca okno z listą kategorii produktów.
      * 
      * @param theModel model
-     * @return okno z listą kategorii: CATEGORY_LIST_WINDOW
+     * @return okno z listą kategorii:  {@link #CATEGORY_LIST_WINDOW}
      */
     @GetMapping(value = { "/", "/category" })
     public String getCategoryList(Model theModel) {
@@ -59,7 +64,7 @@ public class CategoryController {
      * 
      * @param theModel model
      * @param categoryId identyfikator kategorii (dla edycji), przy tworzeniu nie wymagany
-     * @return CREATE_CATEGORY_WINDOW
+     * @return okno z listą kategorii:  {@link #CREATE_CATEGORY_WINDOW}
      */
     @RequestMapping(value = { "adm/editCategory", "adm/addCategory" }, method = { RequestMethod.POST, RequestMethod.GET })
     public String editCategory(Model theModel, @RequestParam(name = "categoryId", required = false) Long categoryId) {
@@ -78,7 +83,7 @@ public class CategoryController {
      * Metoda do usuwania kategorii.
      * 
      * @param theModel model
-     * @return wraca do okna kategorii
+     * @return wraca do okna kategorii {@link #getCategoryList}
      */
     @PostMapping("/adm/deleteCategory")
     public String deleteCategory(Model theModel, @RequestParam("categoryId") Long categoryId) {
@@ -92,7 +97,8 @@ public class CategoryController {
      * 
      * @param theModel model
      * @param category kategoria do zapisania
-     * @return wraca do okna kategorii
+     * @param bindingResult rezultat walidacji
+     * @return wraca do okna kategorii {@link #getCategoryList}
      */
     @PostMapping("adm/saveCategory")
     public String saveCategory(@Valid @ModelAttribute("category") Category category, BindingResult bindingResult, Model theModel) {
@@ -105,16 +111,5 @@ public class CategoryController {
             LOGGER.debug(appMessage.getAppMessage("info.save", new Object[] { category }));
             return "redirect:/category";
         }
-    }
-
-    /**
-     * Metoda obsługująca błąd HTTP 400.
-     * 
-     * @return okno startowe
-     */
-    @GetMapping("/error400")
-    public String getWindowFor400Error(Model theModel) {
-        LOGGER.debug(appMessage.getAppMessage("error.badRequest.400", null));
-        return "redirect:/category";
     }
 }

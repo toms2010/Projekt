@@ -10,9 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import pl.toms.aplisens.domain.PCcategoryVO;
 import pl.toms.aplisens.domain.Product;
 import pl.toms.aplisens.domain.ProductDesign;
 import pl.toms.aplisens.domain.ProductVO;
+import pl.toms.aplisens.domain.SGcategoryVO;
+import pl.toms.aplisens.repository.CableTypeRepository;
 import pl.toms.aplisens.repository.ProductDesignRepository;
 import pl.toms.aplisens.util.AppMessage;
 import pl.toms.aplisens.util.ApplicationException;
@@ -30,7 +33,7 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
     private static final String PC_DETAILS_WINDOW = "product-PC-details";
 
     /** Okno formularza ze szczegółami dla sond głębokości. */
-    private static final String SG_DETAILS_WINDOW = "inProgres";
+    private static final String SG_DETAILS_WINDOW = "product-SG-details";
 
     /** Okno formularza ze szczegółami dla pozostałych urządzeń. */
     private static final String DEFAULT_DETAILS_WINDOW = "inProgres";
@@ -42,7 +45,10 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
     private ProductService productService;
 
     @Autowired
-    private ProductDesignRepository repo;
+    private ProductDesignRepository productDesignRepo;
+    
+    @Autowired
+    private CableTypeRepository cableTypeRepo;
     /**
      * Generator komunikatów aplikacji.
      */
@@ -62,7 +68,6 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
                 throw new ApplicationException(appMessage.getAppMessage("error.product.load", null));
             }
             theModel.addAttribute("product", product);
-            theModel.addAttribute("productVO", new ProductVO());
             String category = product.getCategory().getCode();
             if (category == null) {
                 throw new ApplicationException(appMessage.getAppMessage("error.product.loadCategory", null));
@@ -71,9 +76,12 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
             switch (category) {
             case "PC":
                 theModel.addAttribute("units", PresureUnits.values());
+                theModel.addAttribute("productVO", new PCcategoryVO());
                 returnWindow = PC_DETAILS_WINDOW;
                 break;
             case "SG":
+                theModel.addAttribute("cableTypes", cableTypeRepo.findAll());
+                theModel.addAttribute("productVO", new SGcategoryVO());
                 returnWindow = SG_DETAILS_WINDOW;
                 break;
             default:
@@ -92,7 +100,7 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
      * {@inheritDoc}
      * 
      */
-    public BigDecimal countPricePC(ProductVO productVO) {
+    public BigDecimal countPricePC(PCcategoryVO productVO) {
         if (productVO == null) {
             throw new ApplicationException(appMessage.getAppMessage("error.productVO.null", null));
         }
@@ -121,7 +129,7 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
         if (designsIds == null || designsIds.isEmpty()) {
             return BigDecimal.ZERO;
         }
-        List<ProductDesign> designs = repo.findAllById(designsIds);
+        List<ProductDesign> designs = productDesignRepo.findAllById(designsIds);
         for (ProductDesign design : designs) {
             designPrice = designPrice.add(design.getPrice());
         }
@@ -135,7 +143,7 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
      * @param productVO biekt z wartościami produktu
      * @return dodatek do ceny za zakres
      */
-    private BigDecimal countPCRangePrice(ProductVO productVO) {
+    private BigDecimal countPCRangePrice(PCcategoryVO productVO) {
         BigDecimal rangeLow = productVO.getRangeLow();
         BigDecimal rangeHigh = productVO.getRangeHigh();
         if (productVO.getUnit() == null) {

@@ -32,16 +32,20 @@
 			<h3>Parametry dla : ${product.name}</h3>
 			<h5>${product.description}</h5>
 			<p>
-				<form:form action="saveProduct" modelAttribute="productVO" method="POST">
+				<form:form action="saveSGProduct" modelAttribute="productVO" method="POST" >
 					<h5>
 						<h3>Zakres pomiarowy:</h3>
-						<form:hidden path="rangeLow" value="0"/>
-						<form:input path="rangeLow" readonly="true" />
-						...
-						<form:input path="rangeHigh" />
+						<form:input path="rangeHigh" /> mH2O
 						<br/>
 						<h3>Kabel:</h3>
-						Dłogość: <form:input path="lenght" />  Typ kabla : <form:select path="cableType" items="${cableTypes}" />
+						Typ kabla : 
+						<form:select path="cableType">
+							<c:forEach var="cable" items="${cableTypes}" varStatus="rowCount">
+								<form:option value="${cable.id}">${cable.name} : ${cable.description}</form:option>
+<%-- 								<form:radiobutton path="cableType" value="${cable}" /> ${cable.name}  :  ${cable.description}  --%>
+							</c:forEach>
+						</form:select>
+						Dłogość: <form:input path="lenght" /> 
 					</h5>
 					<h5>Wybierz dodatkowe opcje:</h5>
 					<table>
@@ -62,7 +66,7 @@
 					<br>
 					
 					<form:hidden path="name" value="${product.name}"/>
-					<form:hidden path="tag" value="${product.code}"/>
+					<form:hidden path="code" value="${product.code}"/>
 					<form:hidden path="price" value="${product.price}"/>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<input type="submit" name="submit" value="Zatwierdz">

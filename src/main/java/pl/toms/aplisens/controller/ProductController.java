@@ -23,10 +23,14 @@ import pl.toms.aplisens.util.AppMessage;
  */
 @Controller
 public class ProductController {
+    /** Okno z listą produktów. */
     private static final String PRODUCT_LIST_WINDOW = "product-list";
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 
+    /**
+     * Serwis do obsługi produktów.
+     */
     @Autowired
     private ProductService productService;
 
@@ -41,7 +45,7 @@ public class ProductController {
      * 
      * @param theModel model
      * @param categoryId identyfikator grupy produktów
-     * @return okno z listą produktó PRODUCT_LIST_WINDOW
+     * @return okno z listą produktów {@link #PRODUCT_LIST_WINDOW}
      */
     @RequestMapping(value = "/products", method = { RequestMethod.POST, RequestMethod.GET })
     public String getProductList(Model theModel, @RequestParam("categoryId") Long categoryId) {
@@ -84,7 +88,7 @@ public class ProductController {
      * Metoda do usuwania produktów.
      * 
      * @param theModel model
-     * @return wraca do okna produktów
+     * @return wraca do okna produktów {@link #getProductList}
      */
     @PostMapping("/adm/deleteProduct")
     public String deleteProduct(Model theModel, @RequestParam("productId") Long productId) {
@@ -94,10 +98,10 @@ public class ProductController {
     }
 
     /**
-     * Metoda zapisująca produkt.
+     *  W BUDOWIE Metoda zapisująca produkt.
      * 
      * @param product produkt do zapisania
-     * @return wraca do okna produktów
+     * @return wraca do okna produktów {@link #getProductList}
      */
     @PostMapping("adm/saveProduct")
     public String saveCategory(@ModelAttribute("product") Product product) {

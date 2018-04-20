@@ -37,7 +37,7 @@
 
 	<div id="container">
 		<div id="content">
-			<form:form action="saveCategory" method="post" modelAttribute="category" acceptCharset="UTF-8">
+			<form:form action="saveCategory" method="post" modelAttribute="category" acceptCharset="UTF-8" enctype="text/plain" > 
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				Numer id : <form:input path="id" readonly="true"/>
 				<br />
