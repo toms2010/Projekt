@@ -3,10 +3,8 @@ package pl.toms.aplisens.domain;
 import java.math.BigDecimal;
 import java.util.List;
 
-import pl.toms.aplisens.util.PresureUnits;
-
 /**
- * Obiekt z wartościami dla produktu.
+ * Klasa z wartościami dla produktu.
  * 
  * @see Product
  */
@@ -17,9 +15,9 @@ public class ProductVO {
     private String name;
 
     /**
-     * Tag produktu.
+     * Kod produktu.
      */
-    private String tag;
+    private String code;
 
     /**
      * Cena produktu.
@@ -37,11 +35,6 @@ public class ProductVO {
     private BigDecimal rangeHigh;
 
     /**
-     * Jednostka zakresu pomiarowego.
-     */
-    private PresureUnits unit = null;
-
-    /**
      * Lista z identyfikatorami parametrów produktu.
      */
     private List<Long> productParameterID;
@@ -51,16 +44,6 @@ public class ProductVO {
      */
     private List<Long> productDesignID;
 
-    /**
-     * Typ kabla
-     */
-    private CableType cableType;
-    
-    /**
-     * Długośc kabla
-     */
-    private Integer lenght;
-    
     public String getName() {
         return name;
     }
@@ -69,12 +52,12 @@ public class ProductVO {
         this.name = name;
     }
 
-    public String getTag() {
-        return tag;
+    public String getCode() {
+        return code;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public BigDecimal getPrice() {
@@ -101,14 +84,6 @@ public class ProductVO {
         this.rangeHigh = rangeHigh;
     }
 
-    public PresureUnits getUnit() {
-        return unit;
-    }
-
-    public void setUnit(PresureUnits unit) {
-        this.unit = unit;
-    }
-
     public List<Long> getProductParameterID() {
         return productParameterID;
     }
@@ -125,29 +100,11 @@ public class ProductVO {
         this.productDesignID = productDesignID;
     }
 
-    public CableType getCableType()
-    {
-        return cableType;
-    }
-
-    public void setCableType(CableType cableType)
-    {
-        this.cableType = cableType;
-    }
-
-    public Integer getLenght()
-    {
-        return lenght;
-    }
-
-    public void setLenght(Integer lenght)
-    {
-        this.lenght = lenght;
-    }
-
     @Override
     public String toString() {
-        return "ProductVO [name=" + name + ", tag=" + tag + ", price=" + price + ", rangeLow=" + rangeLow + ", rangeHigh=" + rangeHigh + ", unit="
-                + unit + ", productParameterID=" + productParameterID + ", productDesignID=" + productDesignID + "]";
+        return "ProductVO [name=" + name + ", code=" + code + ", price=" + price + ", rangeLow=" + rangeLow + ", rangeHigh=" + rangeHigh
+                + ", productParameterID=" + productParameterID + ", productDesignID=" + productDesignID + "]";
     }
+
+   
 }

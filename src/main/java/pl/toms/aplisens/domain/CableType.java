@@ -15,10 +15,9 @@ import org.hibernate.validator.constraints.Currency;
  */
 @Entity
 @Table(name = "cables")
-public class CableType extends BaseEntity
-{
+public class CableType extends BaseEntity {
     /**
-     * Cena wykonania produktu.
+     * Cena za 1m kabla.
      */
     @Column(name = "price", nullable = false)
     @NotNull
@@ -26,37 +25,33 @@ public class CableType extends BaseEntity
     private BigDecimal price;
 
     /**
-     * Opis wykonania produktu.
+     * Opis kabla.
      */
     @Column(name = "description")
     private String description;
 
-    
-    public BigDecimal getPrice()
-    {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price)
-    {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString() 
+     */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "CableType [price=" + price + ", description=" + description + "Super" + super.toString() + "]";
     }
-    
-    
+
 }

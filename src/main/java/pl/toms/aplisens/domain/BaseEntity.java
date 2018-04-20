@@ -99,7 +99,8 @@ public class BaseEntity {
     }
 
     /* (non-Javadoc)
-     * @see java.lang.Object#toString() */
+     * @see java.lang.Object#toString() 
+     */
     @Override
     public String toString() {
         return "BaseEntity [id=" + id + ", name=" + name + ", createDate=" + createDate + "]";
