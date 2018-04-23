@@ -41,7 +41,12 @@ public class ProductVO
      * Mapa zawierająca wszystkie składniki ceny
      */
     private Map<String, BigDecimal> priceComponents;
-
+    
+    /**
+     * Szczegółowy kod wybranego produktu
+     */
+    private String orderCode;
+    
     public Long getId()
     {
         return id;
@@ -101,8 +106,6 @@ public class ProductVO
     {
         this.productDesignID = productDesignID;
     }
-    
-    
 
     public Map<String, BigDecimal> getPriceComponents()
     {
@@ -114,13 +117,21 @@ public class ProductVO
         this.priceComponents = priceComponents;
     }
 
+    public String getOrderCode()
+    {
+        return orderCode;
+    }
+
+    public void setOrderCode(String orderCode)
+    {
+        this.orderCode = orderCode;
+    }
+
     @Override
     public String toString()
     {
-        return "ProductVO [name=" + name + ", code=" + code + ", price=" + price + ", productParameterID=" + productParameterID + ", productDesignID="
-            + productDesignID + ", priceComponents=" + priceComponents + "]";
+        return "ProductVO [id=" + id + ", name=" + name + ", code=" + code + ", price=" + price + ", productParameterID=" + productParameterID
+            + ", productDesignID=" + productDesignID + ", priceComponents=" + priceComponents + ", orderCode=" + orderCode + "]";
     }
-
-
 
 }

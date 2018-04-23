@@ -30,8 +30,8 @@
 	<div id="container">
 		<div id="content">
 		
-<%-- 		<h1>${productVO.name}/${productVO.rangeLow}...${productVO.rangeHigh} ${productVO.unit}</h1> --%>
-<!-- TODO kod -->
+	<h1>${productVO.orderCode}
+	</h1>
 		${productVO.name}
 		<h2>Cena to : ${totalPrice}</h2>
 		

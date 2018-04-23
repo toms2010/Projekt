@@ -31,37 +31,40 @@
 			<h3>Parametry dla : ${product.name}</h3>
 			<h5>${product.description}</h5>
 			<p>
+			<h4>Podstawowe parametry urządzenia:</h4>
+			<table>
+				<c:forEach var="parameter" items="${product.productParameter}">
+					<tr>
+						<td>${parameter.name}</td>
+						<td>${parameter.value}</td>
+					</tr>
+				</c:forEach>	
+			</table>
+			<h3>Szczegółowa specyfikacja:
+			</h3>
 				<form:form action="saveSGProduct" modelAttribute="productVO" method="POST" >
-					<h5>
-						<h3>Zakres pomiarowy:</h3>
-						<form:input path="rangeHigh" /> mH2O
-						<br/>
-						<h3>Kabel:</h3>
-						Typ kabla : 
-						<form:select path="cableType">
-							<c:forEach var="cable" items="${cableTypes}" varStatus="rowCount">
-								<form:option value="${cable.id}">${cable.name} : ${cable.description}</form:option>
-<%-- 								<form:radiobutton path="cableType" value="${cable}" /> ${cable.name}  :  ${cable.description}  --%>
-							</c:forEach>
-						</form:select>
-						Długość: <form:input path="lenght" /> 
+					<h5>Zakres pomiarowy:</h5>
+					<form:input path="rangeHigh" /> mH2O
+					<br/>
+					<h5>Kabel:</h5>
+					Typ kabla : 
+					<form:select path="cableType">
+						<c:forEach var="cable" items="${cableTypes}" varStatus="rowCount">
+							<form:option value="${cable.id}">${cable.name} : ${cable.description}</form:option>
+						</c:forEach>
+					</form:select>
+					Długość: <form:input path="lenght" /> 
 					</h5>
-					<h5>Wybierz dodatkowe opcje:</h5>
+					<h5>Wybierz dodatkowe wykonania:</h5>
 					<table>
-						<c:forEach var="parameter" items="${product.productParameter}">
+						<c:forEach var="design" items="${product.productDesign}">
 							<tr>
-								<td><form:checkbox path="productParameterID" value="${parameter.id}" /></td>
-								<td>${parameter.name}</td>
-								<td>${parameter.value}</td>
+								<td><form:checkbox path="productDesignID" value="${design.id}" /></td>
+								<td>${design.name}</td>
+								<td>${design.description}</td>
 							</tr>
 						</c:forEach>
 					</table>
-					<br>
-					<h5>Wykonania:</h5>
-					<c:forEach var="design" items="${product.productDesign}" varStatus="rowItem">
-						<form:radiobutton path="productDesignID" value="${design.id}" /> ${design.name}
-						<br>
-					</c:forEach>
 					<br>
 					
 					<form:hidden path="id" value="${product.id}"/>

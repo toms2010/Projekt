@@ -32,6 +32,17 @@
 			<h3>Parametry dla : ${product.name}</h3>
 			<h5>${product.description}</h5>
 			<p>
+			<h4>Podstawowe parametry urządzenia:</h4>
+			<table>
+				<c:forEach var="parameter" items="${product.productParameter}">
+					<tr>
+						<td>${parameter.name}</td>
+						<td>${parameter.value}</td>
+					</tr>
+				</c:forEach>	
+			</table>
+			<h3>Szczegółowa specyfikacja:
+			</h3>
 				<form:form action="savePCProduct" modelAttribute="productVO" method="POST">
 					<h5>
 						Zakres pomiarowy:
@@ -41,20 +52,20 @@
 						<form:select path="unit" items="${units}" />
 						<%-- 										<form:checkbox path="ABSValue"/> --%>
 					</h5>
-					<h5>Wybierz dodatkowe opcje:</h5>
+					<h5>Wybierz dodatkowe wykonania:</h5>
 					<table>
-						<c:forEach var="parameter" items="${product.productParameter}">
+						<c:forEach var="design" items="${product.productDesign}">
 							<tr>
-								<td><form:checkbox path="productParameterID" value="${parameter.id}" /></td>
-								<td>${parameter.name}</td>
-								<td>${parameter.value}</td>
+								<td><form:checkbox path="productDesignID" value="${design.id}" /></td>
+								<td>${design.name}</td>
+								<td>${design.description}</td>
 							</tr>
 						</c:forEach>
 					</table>
 					<br>
-					<h5>Wykonania:</h5>
-					<c:forEach var="design" items="${product.productDesign}" varStatus="rowItem">
-						<form:radiobutton path="productDesignID" value="${design.id}" /> ${design.name}
+					<h5>Obudowy:</h5>
+					<c:forEach var="housing" items="${product.housing}" varStatus="rowItem">
+						<form:radiobutton path="housingId" value="${housing.id}" /> ${housing.name} : ${housing.description}
 						<br>
 					</c:forEach>
 					<br>

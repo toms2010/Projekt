@@ -12,12 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import pl.toms.aplisens.domain.CableType;
+import pl.toms.aplisens.domain.Housing;
 import pl.toms.aplisens.domain.PCcategoryVO;
 import pl.toms.aplisens.domain.Product;
 import pl.toms.aplisens.domain.ProductDesign;
 import pl.toms.aplisens.domain.ProductVO;
 import pl.toms.aplisens.domain.SGcategoryVO;
 import pl.toms.aplisens.repository.CableTypeRepository;
+import pl.toms.aplisens.repository.HousingRepository;
 import pl.toms.aplisens.repository.ProductDesignRepository;
 import pl.toms.aplisens.util.AppMessage;
 import pl.toms.aplisens.util.ApplicationException;
@@ -50,10 +52,16 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
     private ProductService productService;
 
     /**
-     * Interfejs definiujący metody dostępu do danych wykonań produktu..
+     * Interfejs definiujący metody dostępu do danych wykonań produktu.
      */
     @Autowired
     private ProductDesignRepository productDesignRepo;
+    
+    /**
+     * Interfejs definiujący metody dostępu do danych typów obudów.
+     */
+    @Autowired
+    private HousingRepository housingRepo;
     
     /**
      * Interfejs definiujący metody dostępu do typów kabli.
@@ -110,26 +118,51 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
      * {@inheritDoc}
      * 
      */
-    public BigDecimal countPCPrice(PCcategoryVO productVO) {
+    public BigDecimal createOrderPC(PCcategoryVO productVO) {
         if (productVO == null) {
             throw new ApplicationException(appMessage.getAppMessage("error.productVO.null", null));
         }
         Map<String, BigDecimal> rangeExtraPrice = countPCRangePrice(productVO);
-        return countFinalPrice(productVO, rangeExtraPrice);
+        Map<String, BigDecimal> housingExtraPrice = countPCHousingPrice(productVO);
+        BigDecimal finalPrice = countFinalPrice(productVO, rangeExtraPrice, housingExtraPrice);
+        
+        StringBuilder orderCode = new StringBuilder()
+            .append(productVO.getCode()).append("/")
+            .append(productVO.getHousingCode()).append("/")
+            .append(productVO.getOrderCode())
+            .append(productVO.getRangeLow()).append("..")
+            .append(productVO.getRangeHigh()).append(productVO.getUnit().name());
+    productVO.setOrderCode(orderCode.toString());
+        
+        return finalPrice;
     }
     
     /**
      * {@inheritDoc}
      * 
      */
-    public BigDecimal countSGPrice(SGcategoryVO productVO, Model theModel)
+    public BigDecimal createOrderSG(SGcategoryVO productVO, Model theModel)
     {
         if (productVO == null) {
             throw new ApplicationException(appMessage.getAppMessage("error.productVO.null", null));
         }
         Map<String, BigDecimal> rangeExtraPrice = countSGRangePrice(productVO);
         Map<String, BigDecimal> cableExtraPrice = countSGCablePrice(productVO, theModel);
-        return countFinalPrice(productVO, rangeExtraPrice, cableExtraPrice);
+        BigDecimal finalPrice = countFinalPrice(productVO, rangeExtraPrice, cableExtraPrice);
+        productVO.getCode();
+        productVO.getCableCode();
+        productVO.getOrderCode();
+        
+        StringBuilder orderCode = new StringBuilder()
+                .append(productVO.getCode()).append("/")
+                .append(productVO.getOrderCode())
+                .append(productVO.getRangeHigh()).append(" mH2O/L=")
+                .append(productVO.getLenght()).append("/")
+                .append(productVO.getCableCode());
+        productVO.setOrderCode(orderCode.toString());
+        LOGGER.debug(appMessage.getAppMessage("info.orderCode", new Object[] {orderCode}));
+     
+        return finalPrice;
     }
 
     /**
@@ -149,7 +182,7 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
         Map<String, BigDecimal> priceComponents = new HashMap<>();
         
         priceComponents.put("basic_price", productVO.getPrice());
-        priceComponents.put("design_price", countDesignPrice(productVO));
+        priceComponents.putAll(countDesignPrice(productVO));
         for(int i=0; i<addictionalPrice.length; i++) {
             priceComponents.putAll(addictionalPrice[i]);
         }
@@ -161,22 +194,27 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
     }
     
     /**
-     * Oblicza dodatek do ceny za dodatkowe wykonania produktu.
+     * Oblicza dodatek do ceny za dodatkowe wykonania produktu. Dodaje kod wykonań do ProductVO.
      * 
      * @param productVO biekt z wartościami produktu
      * @return dodatek do ceny za wykonania
      */
-    private BigDecimal countDesignPrice(ProductVO productVO) {
+    private Map<String, BigDecimal> countDesignPrice(ProductVO productVO) {
+        Map<String, BigDecimal> result= new HashMap<>();
         List<Long> designsIds = productVO.getProductDesignID();
         BigDecimal designPrice = new BigDecimal(0);
         if (designsIds == null || designsIds.isEmpty()) {
-            return BigDecimal.ZERO;
+            result.put("design_price", BigDecimal.ZERO);
         }
+        StringBuilder designsCode = new StringBuilder();
         List<ProductDesign> designs = productDesignRepo.findAllById(designsIds);
         for (ProductDesign design : designs) {
             designPrice = designPrice.add(design.getPrice());
+            designsCode.append(design.getCode()).append("/");
         }
-        return designPrice;
+        productVO.setOrderCode(designsCode.toString());
+        result.put("design_price", designPrice);
+        return result;
     }
 
     /**
@@ -233,6 +271,23 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
     }
     
     /**
+     * Oblicza dodatkową cenę za obudowę.
+     * @param productVO biekt z wartościami produktu
+     * @return dodatek do ceny za obudowę
+     */
+    private Map<String, BigDecimal> countPCHousingPrice(PCcategoryVO productVO)
+    {
+        Map<String, BigDecimal> result= new HashMap<>();
+        Housing housing = housingRepo.findOneById(productVO.getHousingId());
+        if (housing == null) {
+            throw new ApplicationException(appMessage.getAppMessage("error.productVO.housing", null));
+        }
+        productVO.setHousingCode(housing.getCode());
+        result.put("housing_price", housing.getPrice());
+        return result;
+    }
+    
+    /**
      * Oblicza dodatkową cenę za kabel.
      * 
      * @param productVO biekt z wartościami produktu
@@ -250,11 +305,15 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
             theModel.addAttribute("lenghtInfo", message);
         }
         
-        if (productVO.getCableType() == null) {
+//        if (productVO.getCableType() == null) {
+//            throw new ApplicationException(appMessage.getAppMessage("error.productVO.cableType", null));
+//        }
+        CableType cable = cableTypeRepo.findOneById(productVO.getCableType());
+        if (cable == null) {
             throw new ApplicationException(appMessage.getAppMessage("error.productVO.cableType", null));
         }
-        CableType cable = cableTypeRepo.findOneById(productVO.getCableType());
         BigDecimal cableTypePrice = cable.getPrice();
+        productVO.setCableCode(cable.getName());
         Map<String, BigDecimal> result= new HashMap<>();
         result.put("cable_price", cableTypePrice.multiply(BigDecimal.valueOf(lenght)));
         return result;

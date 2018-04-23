@@ -23,6 +23,11 @@ public class SGcategoryVO extends ProductVO{
      */
     private BigDecimal rangeHigh;
 
+    /**
+     * Kod kabla produktu
+     */
+    private String cableCode;
+    
     public Long getCableType()
     {
         return cableType;
@@ -53,12 +58,19 @@ public class SGcategoryVO extends ProductVO{
         this.rangeHigh = rangeHigh;
     }
 
+    public String getCableCode()
+    {
+        return cableCode;
+    }
+
+    public void setCableCode(String cableCode)
+    {
+        this.cableCode = cableCode;
+    }
+    
     @Override
     public String toString()
     {
         return "SGcategoryVO [cableType=" + cableType + ", lenght=" + lenght + ", rangeHigh=" + rangeHigh + super.toString() + "]";
     }
-    
-    
-    
 }

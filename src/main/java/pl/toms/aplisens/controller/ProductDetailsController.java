@@ -74,7 +74,7 @@ public class ProductDetailsController {
             //TODO
         }
         LOGGER.debug(appMessage.getAppMessage("info.infoVO", new Object[] {productVO}));
-        BigDecimal price = productDetailsService.countPCPrice(productVO);
+        BigDecimal price = productDetailsService.createOrderPC(productVO);
         theModel.addAttribute("totalPrice", price);
         return PRODUCT_SUMMARY;
     }
@@ -93,7 +93,7 @@ public class ProductDetailsController {
             //TODO
         }
         LOGGER.debug(appMessage.getAppMessage("info.infoVO", new Object[] {productVO}));
-        BigDecimal price = productDetailsService.countSGPrice(productVO, theModel);
+        BigDecimal price = productDetailsService.createOrderSG(productVO, theModel);
         theModel.addAttribute("totalPrice", price);
         return PRODUCT_SUMMARY;
     }

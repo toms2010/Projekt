@@ -2,8 +2,6 @@ package pl.toms.aplisens.domain;
 
 import java.math.BigDecimal;
 
-import org.hibernate.validator.constraints.Range;
-
 import pl.toms.aplisens.util.PresureUnits;
 
 /**
@@ -21,7 +19,12 @@ public class PCcategoryVO extends ProductVO {
     /**
      * Typ obudowy
      */
-    private Housing housing;
+    private Long housingId;
+    
+    /**
+     * Kod typu obudowy
+     */
+    private String housingCode;
     
     /**
      * Dolny zakres pomiarowy porduktu.
@@ -43,14 +46,14 @@ public class PCcategoryVO extends ProductVO {
         this.unit = unit;
     }
 
-    public Housing getHousing()
+    public Long getHousingId()
     {
-        return housing;
+        return housingId;
     }
 
-    public void setHousing(Housing housing)
+    public void setHousingId(Long housingId)
     {
-        this.housing = housing;
+        this.housingId = housingId;
     }
 
     public BigDecimal getRangeLow()
@@ -73,10 +76,20 @@ public class PCcategoryVO extends ProductVO {
         this.rangeHigh = rangeHigh;
     }
 
+    public String getHousingCode()
+    {
+        return housingCode;
+    }
+
+    public void setHousingCode(String housingCode)
+    {
+        this.housingCode = housingCode;
+    }
+
     @Override
     public String toString()
     {
-        return "PCcategoryVO [unit=" + unit + ", housing=" + housing + ", rangeLow=" + rangeLow + ", rangeHigh=" + rangeHigh +  super.toString() + "]";
+        return "PCcategoryVO [unit=" + unit + ", housingId=" + housingId + ", rangeLow=" + rangeLow + ", rangeHigh=" + rangeHigh +  super.toString() + "]";
     }
     
 

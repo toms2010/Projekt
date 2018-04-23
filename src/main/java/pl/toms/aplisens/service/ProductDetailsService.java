@@ -27,19 +27,19 @@ public interface ProductDetailsService {
     String displayDetailsForm(Long productId, Model theModel);
 
     /**
-     * Liczy cenę produktu z grupy "PC".
+     * Liczy cenę produktu z grupy "PC" oraz tworzy kod wytypowanego produktu.
      * 
      * @param productVO obiekt z wartościami produktu
      * @return całkowita cena produktu
      */
-    BigDecimal countPCPrice(PCcategoryVO productVO);
+    BigDecimal createOrderPC(PCcategoryVO productVO);
 
     /**
-     * Liczy cenę produktu z grupy "SG".
+     * Liczy cenę produktu z grupy "SG" oraz tworzy kod wytypowanego produktu.
      * 
      * @param productVO obiekt z wartościami produktu
      * @param theModel model
      * @return całkowita cena produktu
      */
-    BigDecimal countSGPrice(SGcategoryVO productVO, Model theModel);
+    BigDecimal createOrderSG(SGcategoryVO productVO, Model theModel);
 }
