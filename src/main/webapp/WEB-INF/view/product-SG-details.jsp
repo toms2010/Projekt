@@ -9,10 +9,9 @@
 %>
 
 <html>
-<head>
-<title>Szczegóły produktu</title>
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
+	<head>
+	<title>Szczegóły produktu</title>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
 </head>
 
 <body>
@@ -45,7 +44,7 @@
 <%-- 								<form:radiobutton path="cableType" value="${cable}" /> ${cable.name}  :  ${cable.description}  --%>
 							</c:forEach>
 						</form:select>
-						Dłogość: <form:input path="lenght" /> 
+						Długość: <form:input path="lenght" /> 
 					</h5>
 					<h5>Wybierz dodatkowe opcje:</h5>
 					<table>
@@ -65,6 +64,7 @@
 					</c:forEach>
 					<br>
 					
+					<form:hidden path="id" value="${product.id}"/>
 					<form:hidden path="name" value="${product.name}"/>
 					<form:hidden path="code" value="${product.code}"/>
 					<form:hidden path="price" value="${product.price}"/>

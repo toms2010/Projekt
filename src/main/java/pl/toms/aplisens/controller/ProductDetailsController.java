@@ -32,6 +32,9 @@ public class ProductDetailsController {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ProductDetailsController.class);
 
+    /**
+     * Serwis do obsługi szczegółów produktów.
+     */
     @Autowired
     private ProductDetailsService productDetailsService;
 
@@ -67,10 +70,11 @@ public class ProductDetailsController {
     @PostMapping("/savePCProduct")
     public String getPCSummary(@Valid @ModelAttribute("productVO") PCcategoryVO productVO, BindingResult bindingResult, Model theModel) {
         if (bindingResult.hasErrors()) {
-            LOGGER.debug("Błąd walidacji, dokładna ilośc błędów: {}", bindingResult.getFieldErrorCount());
+            LOGGER.error(appMessage.getAppMessage("error.validationError", new Object[] {bindingResult.getFieldErrorCount()}));
+            //TODO
         }
-        LOGGER.debug("Pobrano wartości: {}", productVO);
-        BigDecimal price = productDetailsService.countPricePC(productVO);
+        LOGGER.debug(appMessage.getAppMessage("info.infoVO", new Object[] {productVO}));
+        BigDecimal price = productDetailsService.countPCPrice(productVO);
         theModel.addAttribute("totalPrice", price);
         return PRODUCT_SUMMARY;
     }
@@ -83,8 +87,14 @@ public class ProductDetailsController {
      * @return okno z podsumowaniem produktu
      */
     @PostMapping("/saveSGProduct")
-    public String getSGSummary(@ModelAttribute("productVO") SGcategoryVO productVO, Model theModel) {
-        LOGGER.debug("Pobrano wartości: {}", productVO);
+    public String getSGSummary(@Valid @ModelAttribute("productVO") SGcategoryVO productVO, BindingResult bindingResult, Model theModel) {
+        if (bindingResult.hasErrors()) {
+            LOGGER.error(appMessage.getAppMessage("error.validationError", new Object[] {bindingResult.getFieldErrorCount()}));
+            //TODO
+        }
+        LOGGER.debug(appMessage.getAppMessage("info.infoVO", new Object[] {productVO}));
+        BigDecimal price = productDetailsService.countSGPrice(productVO, theModel);
+        theModel.addAttribute("totalPrice", price);
         return PRODUCT_SUMMARY;
     }
 }

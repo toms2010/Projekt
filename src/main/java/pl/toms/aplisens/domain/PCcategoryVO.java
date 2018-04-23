@@ -72,6 +72,12 @@ public class PCcategoryVO extends ProductVO {
     {
         this.rangeHigh = rangeHigh;
     }
+
+    @Override
+    public String toString()
+    {
+        return "PCcategoryVO [unit=" + unit + ", housing=" + housing + ", rangeLow=" + rangeLow + ", rangeHigh=" + rangeHigh +  super.toString() + "]";
+    }
     
 
 

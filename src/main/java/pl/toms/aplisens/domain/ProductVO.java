@@ -2,6 +2,7 @@ package pl.toms.aplisens.domain;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Klasa z wartościami dla produktu.
@@ -10,6 +11,7 @@ import java.util.List;
  */
 public class ProductVO
 {
+    private Long id;
     /**
      * Nazwa produktu.
      */
@@ -34,8 +36,22 @@ public class ProductVO
      * Lista z identyfikatorami wykonań produktu.
      */
     private List<Long> productDesignID;
-
     
+    /**
+     * Mapa zawierająca wszystkie składniki ceny
+     */
+    private Map<String, BigDecimal> priceComponents;
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
+
     public String getName()
     {
         return name;
@@ -85,12 +101,26 @@ public class ProductVO
     {
         this.productDesignID = productDesignID;
     }
+    
+    
+
+    public Map<String, BigDecimal> getPriceComponents()
+    {
+        return priceComponents;
+    }
+
+    public void setPriceComponents(Map<String, BigDecimal> priceComponents)
+    {
+        this.priceComponents = priceComponents;
+    }
 
     @Override
     public String toString()
     {
-        return "ProductVO [name=" + name + ", code=" + code + ", price=" + price
-            + ", productParameterID=" + productParameterID + ", productDesignID=" + productDesignID + "]";
+        return "ProductVO [name=" + name + ", code=" + code + ", price=" + price + ", productParameterID=" + productParameterID + ", productDesignID="
+            + productDesignID + ", priceComponents=" + priceComponents + "]";
     }
+
+
 
 }

@@ -59,6 +59,7 @@
 					</c:forEach>
 					<br>
 					
+					<form:hidden path="id" value="${product.id}"/>
 					<form:hidden path="name" value="${product.name}"/>
 					<form:hidden path="code" value="${product.code}"/>
 					<form:hidden path="price" value="${product.price}"/>

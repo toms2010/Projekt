@@ -1,8 +1,9 @@
 package pl.toms.aplisens.service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import pl.toms.aplisens.domain.CableType;
 import pl.toms.aplisens.domain.PCcategoryVO;
 import pl.toms.aplisens.domain.Product;
 import pl.toms.aplisens.domain.ProductDesign;
@@ -41,12 +43,21 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
     /** Okno zwracane gdy nie przekazano identyfikatora produktu. */
     private static final String NO_ARG_WINDOW = "category-list";
 
+    /**
+     * Serwis do obsługi produktów.
+     */
     @Autowired
     private ProductService productService;
 
+    /**
+     * Interfejs definiujący metody dostępu do danych wykonań produktu..
+     */
     @Autowired
     private ProductDesignRepository productDesignRepo;
     
+    /**
+     * Interfejs definiujący metody dostępu do typów kabli.
+     */
     @Autowired
     private CableTypeRepository cableTypeRepo;
     /**
@@ -91,7 +102,6 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
         } else {
             returnWindow = NO_ARG_WINDOW;
         }
-
         LOGGER.debug(appMessage.getAppMessage("info.showing", new Object[] { returnWindow, productId }));
         return returnWindow;
     }
@@ -100,23 +110,56 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
      * {@inheritDoc}
      * 
      */
-    public BigDecimal countPricePC(PCcategoryVO productVO) {
+    public BigDecimal countPCPrice(PCcategoryVO productVO) {
         if (productVO == null) {
             throw new ApplicationException(appMessage.getAppMessage("error.productVO.null", null));
         }
-        BigDecimal finalPrice = BigDecimal.valueOf(0);
-        List<BigDecimal> priceComponents = new ArrayList<>();
-        priceComponents.add(productVO.getPrice());
-        priceComponents.add(countPCRangePrice(productVO));
-        priceComponents.add(countDesignPrice(productVO));
+        Map<String, BigDecimal> rangeExtraPrice = countPCRangePrice(productVO);
+        return countFinalPrice(productVO, rangeExtraPrice);
+    }
+    
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    public BigDecimal countSGPrice(SGcategoryVO productVO, Model theModel)
+    {
+        if (productVO == null) {
+            throw new ApplicationException(appMessage.getAppMessage("error.productVO.null", null));
+        }
+        Map<String, BigDecimal> rangeExtraPrice = countSGRangePrice(productVO);
+        Map<String, BigDecimal> cableExtraPrice = countSGCablePrice(productVO, theModel);
+        return countFinalPrice(productVO, rangeExtraPrice, cableExtraPrice);
+    }
 
-        for (BigDecimal price : priceComponents) {
-            LOGGER.debug(appMessage.getAppMessage("info.price", new Object[] { price }));
+    /**
+     * Oblicza finalną cenę produktu sumując:
+     * <pre>
+     * - cena podstawowa produktu
+     * - cena za wybrane wykonania
+     * - przekazane dodatkowe składniki ceny
+     * <pre>
+     * @param productVO biekt z wartościami produktu
+     * @param addictionalPrice dodatkowy składnik ceny
+     * @return końcowa cena produktu
+     */
+    @SafeVarargs
+    private final BigDecimal countFinalPrice(ProductVO productVO, Map<String, BigDecimal>...addictionalPrice) {
+        BigDecimal finalPrice = BigDecimal.valueOf(0);
+        Map<String, BigDecimal> priceComponents = new HashMap<>();
+        
+        priceComponents.put("basic_price", productVO.getPrice());
+        priceComponents.put("design_price", countDesignPrice(productVO));
+        for(int i=0; i<addictionalPrice.length; i++) {
+            priceComponents.putAll(addictionalPrice[i]);
+        }
+        LOGGER.debug(appMessage.getAppMessage("info.price", new Object[] { priceComponents }));
+        for (BigDecimal price : priceComponents.values()) {
             finalPrice = finalPrice.add(price);
         }
         return finalPrice;
     }
-
+    
     /**
      * Oblicza dodatek do ceny za dodatkowe wykonania produktu.
      * 
@@ -133,7 +176,6 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
         for (ProductDesign design : designs) {
             designPrice = designPrice.add(design.getPrice());
         }
-        LOGGER.debug(appMessage.getAppMessage("info.price.design", new Object[] { designPrice }));
         return designPrice;
     }
 
@@ -143,7 +185,8 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
      * @param productVO biekt z wartościami produktu
      * @return dodatek do ceny za zakres
      */
-    private BigDecimal countPCRangePrice(PCcategoryVO productVO) {
+    private Map<String, BigDecimal> countPCRangePrice(PCcategoryVO productVO) {
+        Map<String, BigDecimal> result= new HashMap<>();
         BigDecimal rangeLow = productVO.getRangeLow();
         BigDecimal rangeHigh = productVO.getRangeHigh();
         if (productVO.getUnit() == null) {
@@ -154,18 +197,66 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
         rangeHigh = rangeHigh.multiply(multiplicand);
 
         if ((rangeHigh.subtract(rangeLow)).abs().compareTo(BigDecimal.valueOf(10)) < 1) {
-            return BigDecimal.valueOf(250);
+            result.put("range_price", BigDecimal.valueOf(250));
         }
         if (rangeHigh.compareTo(BigDecimal.valueOf(6000)) > 0 || rangeLow.compareTo(BigDecimal.valueOf(6000)) > 0) {
             if (rangeHigh.compareTo(BigDecimal.valueOf(20000)) > 0 || rangeLow.compareTo(BigDecimal.valueOf(20000)) > 0) {
-                return BigDecimal.valueOf(200);
+                result.put("range_price", BigDecimal.valueOf(200));
             } else {
-                return BigDecimal.valueOf(100);
+                result.put("range_price", BigDecimal.valueOf(100));
             }
         } else {
-            return BigDecimal.valueOf(0);
+            result.put("range_price", BigDecimal.valueOf(0));
         }
-
+        return result;
     }
-
+    
+    /**
+     * Oblicza dodatkową cenę za zakres pomiarowy urządzeń z kategorii "SG".
+     * 
+     * @param productVO biekt z wartościami produktu
+     * @return dodatek do ceny za zakres
+     */
+    private Map<String, BigDecimal> countSGRangePrice(SGcategoryVO productVO) {
+        Map<String, BigDecimal> result= new HashMap<>();
+        BigDecimal rangeHigh = productVO.getRangeHigh();
+        if (rangeHigh.compareTo(BigDecimal.valueOf(100)) > 0) {
+            result.put("range_price", BigDecimal.valueOf(300));
+        }
+        else if (rangeHigh.compareTo(BigDecimal.valueOf(10)) > 0){
+            result.put("range_price", BigDecimal.valueOf(100));
+        }
+        else {
+            result.put("range_price", BigDecimal.valueOf(0));
+        }
+        return result;
+    }
+    
+    /**
+     * Oblicza dodatkową cenę za kabel.
+     * 
+     * @param productVO biekt z wartościami produktu
+     * @param theModel model
+     * @return dodatek do ceny za kabel
+     */
+    private Map<String, BigDecimal> countSGCablePrice(SGcategoryVO productVO, Model theModel) {
+        long lenght = productVO.getLenght();
+        BigDecimal range = productVO.getRangeHigh();
+        if (range.compareTo(BigDecimal.valueOf(lenght)) > 0 ) {
+            lenght = range.longValue() +2;
+            productVO.setLenght(lenght);
+            String message = appMessage.getAppMessage("info.cableLenght", new Object[] {lenght, range, lenght});
+            LOGGER.debug(message);
+            theModel.addAttribute("lenghtInfo", message);
+        }
+        
+        if (productVO.getCableType() == null) {
+            throw new ApplicationException(appMessage.getAppMessage("error.productVO.cableType", null));
+        }
+        CableType cable = cableTypeRepo.findOneById(productVO.getCableType());
+        BigDecimal cableTypePrice = cable.getPrice();
+        Map<String, BigDecimal> result= new HashMap<>();
+        result.put("cable_price", cableTypePrice.multiply(BigDecimal.valueOf(lenght)));
+        return result;
+    }
 }

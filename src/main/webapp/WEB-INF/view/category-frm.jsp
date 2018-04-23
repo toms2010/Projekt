@@ -51,6 +51,7 @@
 			</form:form>
 			<c:if test="${category.id == null}">
 				<p>Możliwe utowrzenie kategorii jedynie dla produktów nie wymagających dodatkowej specyfikacji
+<!-- 				TODO przenieśc do locale -->
 			</c:if>
 		</div>
 	</div>

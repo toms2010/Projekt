@@ -11,34 +11,34 @@ public class SGcategoryVO extends ProductVO{
     /**
      * Typ kabla
      */
-    private CableType cableType;
+    private Long cableType;
     
     /**
      * Długośc kabla
      */
-    private Integer lenght;
+    private Long lenght;
 
     /**
      * Górny zakres pomiarowy produktu.
      */
     private BigDecimal rangeHigh;
 
-    public CableType getCableType()
+    public Long getCableType()
     {
         return cableType;
     }
 
-    public void setCableType(CableType cableType)
+    public void setCableType(Long cableType)
     {
         this.cableType = cableType;
     }
 
-    public Integer getLenght()
+    public Long getLenght()
     {
         return lenght;
     }
 
-    public void setLenght(Integer lenght)
+    public void setLenght(Long lenght)
     {
         this.lenght = lenght;
     }
@@ -56,7 +56,7 @@ public class SGcategoryVO extends ProductVO{
     @Override
     public String toString()
     {
-        return "SGcategoryVO [cableType=" + cableType + ", lenght=" + lenght + ", rangeHigh=" + rangeHigh + "]";
+        return "SGcategoryVO [cableType=" + cableType + ", lenght=" + lenght + ", rangeHigh=" + rangeHigh + super.toString() + "]";
     }
     
     
