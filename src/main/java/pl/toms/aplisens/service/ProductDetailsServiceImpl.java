@@ -27,7 +27,6 @@ import pl.toms.aplisens.util.PresureUnits;
 
 /**
  * Implementacja serwisu do zarządzania szczegółami produktów.
- *
  */
 @Service
 public class ProductDetailsServiceImpl implements ProductDetailsService {
@@ -80,8 +79,7 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
      */
     public String displayDetailsForm(Long productId, Model theModel) {
         String returnWindow;
-
-        if (productId != null || theModel != null) {
+        if (productId != null) {
             Product product = productService.getProductById(productId);
             if (product == null) {
                 throw new ApplicationException(appMessage.getAppMessage("error.product.load", null));
@@ -149,9 +147,6 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
         Map<String, BigDecimal> rangeExtraPrice = countSGRangePrice(productVO);
         Map<String, BigDecimal> cableExtraPrice = countSGCablePrice(productVO, theModel);
         BigDecimal finalPrice = countFinalPrice(productVO, rangeExtraPrice, cableExtraPrice);
-        productVO.getCode();
-        productVO.getCableCode();
-        productVO.getOrderCode();
         
         StringBuilder orderCode = new StringBuilder()
                 .append(productVO.getCode()).append("/")
@@ -210,7 +205,7 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
         List<ProductDesign> designs = productDesignRepo.findAllById(designsIds);
         for (ProductDesign design : designs) {
             designPrice = designPrice.add(design.getPrice());
-            designsCode.append(design.getCode()).append("/");
+            designsCode.append(design.getName()).append("/");
         }
         productVO.setOrderCode(designsCode.toString());
         result.put("design_price", designPrice);
