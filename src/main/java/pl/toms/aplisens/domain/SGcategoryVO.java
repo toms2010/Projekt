@@ -2,30 +2,44 @@ package pl.toms.aplisens.domain;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 /**
  * Klasa z wartościami dla produktów z kategorii "SG".
  * 
  * @see Product
  */
-public class SGcategoryVO extends ProductVO{
+public class SGcategoryVO extends ProductVO {
+    
     /**
      * Typ kabla
      */
+    @Min(value=1)
+    @Digits(fraction = 0, integer = 8)
     private Long cableType;
     
     /**
      * Długośc kabla
      */
+    @Min(value=1)
+    @Max(value=1000)
+    @Digits(fraction = 0, integer = 4)
     private Long lenght;
 
     /**
      * Górny zakres pomiarowy produktu.
      */
+    @Min(value=1)
+    @Max(value=500)
+    @Digits(fraction = 0, integer = 3)
     private BigDecimal rangeHigh;
 
     /**
      * Kod kabla produktu
      */
+    //TODO chyba nie potrzebne
     private String cableCode;
     
     public Long getCableType()

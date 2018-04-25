@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
@@ -32,7 +32,7 @@ public class BaseEntity {
     /**
      * Nazwa encji.
      */
-    @NotNull(message = "{NotNull.baseEntity.name}")
+    @NotBlank(message = "{NotNull.baseEntity.name}")
     @Size(min = 3, max = 30, message = "{Size.baseEntity.name}")
     @Column(name = "name", nullable = false)
     private String name;

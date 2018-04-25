@@ -8,7 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
@@ -29,7 +29,7 @@ public class Category extends BaseEntity {
      * Kod kategorii.
      */
     @Column(name = "code", nullable = false)
-    @NotNull
+    @NotBlank
     @Size(min = 2, max = 4)
     private String code;
 

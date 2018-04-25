@@ -71,6 +71,7 @@ public class ProductDetailsController {
     public String getPCSummary(@Valid @ModelAttribute("productVO") PCcategoryVO productVO, BindingResult bindingResult, Model theModel) {
         if (bindingResult.hasErrors()) {
             LOGGER.error(appMessage.getAppMessage("error.validationError", new Object[] {bindingResult.getFieldErrorCount()}));
+            return "product-PC-details";
             //TODO
         }
         LOGGER.debug(appMessage.getAppMessage("info.infoVO", new Object[] {productVO}));
@@ -91,6 +92,7 @@ public class ProductDetailsController {
         if (bindingResult.hasErrors()) {
             LOGGER.error(appMessage.getAppMessage("error.validationError", new Object[] {bindingResult.getFieldErrorCount()}));
             //TODO
+            return "product-SG-details";
         }
         LOGGER.debug(appMessage.getAppMessage("info.infoVO", new Object[] {productVO}));
         BigDecimal price = productDetailsService.createOrderSG(productVO, theModel);

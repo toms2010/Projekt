@@ -253,6 +253,10 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
     private Map<String, BigDecimal> countSGRangePrice(SGcategoryVO productVO) {
         Map<String, BigDecimal> result= new HashMap<>();
         BigDecimal rangeHigh = productVO.getRangeHigh();
+        if (rangeHigh == null ) {
+            //TODO 
+            throw new ApplicationException();
+        }
         if (rangeHigh.compareTo(BigDecimal.valueOf(100)) > 0) {
             result.put("range_price", BigDecimal.valueOf(300));
         }
@@ -290,8 +294,12 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
      * @return dodatek do ceny za kabel
      */
     private Map<String, BigDecimal> countSGCablePrice(SGcategoryVO productVO, Model theModel) {
-        long lenght = productVO.getLenght();
+        Long lenght = productVO.getLenght();
         BigDecimal range = productVO.getRangeHigh();
+        if (lenght == null || range == null) {
+            //TODO
+            throw new ApplicationException();
+        }
         if (range.compareTo(BigDecimal.valueOf(lenght)) > 0 ) {
             lenght = range.longValue() +2;
             productVO.setLenght(lenght);

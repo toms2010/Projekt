@@ -45,6 +45,7 @@
 				<form:form action="saveSGProduct" modelAttribute="productVO" method="POST" >
 					<h5>Zakres pomiarowy:</h5>
 					<form:input path="rangeHigh" /> mH2O
+					<form:errors path="rangeHigh" cssClass="error" />
 					<br/>
 					<h5>Kabel:</h5>
 					Typ kabla : 
@@ -53,7 +54,9 @@
 							<form:option value="${cable.id}">${cable.name} : ${cable.description}</form:option>
 						</c:forEach>
 					</form:select>
+					<form:errors path="cableType" cssClass="error" />
 					Długość: <form:input path="lenght" /> 
+					<form:errors path="lenght" cssClass="error" />
 					</h5>
 					<h5>Wybierz dodatkowe wykonania:</h5>
 					<table>
@@ -64,13 +67,17 @@
 								<td>${design.description}</td>
 							</tr>
 						</c:forEach>
+					<form:errors path="productDesignID" cssClass="error" />
 					</table>
 					<br>
-					
 					<form:hidden path="id" value="${product.id}"/>
+					<form:errors path="id" cssClass="error" />
 					<form:hidden path="name" value="${product.name}"/>
+					<form:errors path="name" cssClass="error" />
 					<form:hidden path="code" value="${product.code}"/>
+					<form:errors path="code" cssClass="error" />
 					<form:hidden path="price" value="${product.price}"/>
+					<form:errors path="price" cssClass="error" />
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<input type="submit" name="submit" value="Zatwierdz">
 				</form:form>

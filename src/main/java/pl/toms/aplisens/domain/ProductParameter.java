@@ -26,6 +26,7 @@ public class ProductParameter extends BaseEntity {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
     @JoinTable(name = "products_parameters", joinColumns = @JoinColumn(name = "parameter_ID"), inverseJoinColumns = @JoinColumn(name = "product_ID"))
     private List<Product> products;
+    
     /**
      * Wartość parametru produktu.
      */
