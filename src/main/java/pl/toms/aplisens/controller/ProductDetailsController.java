@@ -69,11 +69,16 @@ public class ProductDetailsController {
      */
     @PostMapping("/savePCProduct")
     public String getPCSummary(@Valid @ModelAttribute("productVO") PCcategoryVO productVO, BindingResult bindingResult, Model theModel) {
+        
         if (bindingResult.hasErrors()) {
             LOGGER.error(appMessage.getAppMessage("error.validationError", new Object[] {bindingResult.getFieldErrorCount()}));
-            return "product-PC-details";
-            //TODO
+            String window = productDetailsService.displayDetailsForm(productVO.getId(), theModel);
+            if (StringUtils.isNullOrEmpty(window)) {
+                throw new ApplicationException(appMessage.getAppMessage("error.product.window", null));
+            }
+            return window;
         }
+        
         LOGGER.debug(appMessage.getAppMessage("info.infoVO", new Object[] {productVO}));
         BigDecimal price = productDetailsService.createOrderPC(productVO);
         theModel.addAttribute("totalPrice", price);
@@ -89,11 +94,16 @@ public class ProductDetailsController {
      */
     @PostMapping("/saveSGProduct")
     public String getSGSummary(@Valid @ModelAttribute("productVO") SGcategoryVO productVO, BindingResult bindingResult, Model theModel) {
+        
         if (bindingResult.hasErrors()) {
             LOGGER.error(appMessage.getAppMessage("error.validationError", new Object[] {bindingResult.getFieldErrorCount()}));
-            //TODO
+            String window = productDetailsService.displayDetailsForm(productVO.getId(), theModel);
+            if (StringUtils.isNullOrEmpty(window)) {
+                throw new ApplicationException(appMessage.getAppMessage("error.product.window", null));
+            }
             return "product-SG-details";
         }
+        
         LOGGER.debug(appMessage.getAppMessage("info.infoVO", new Object[] {productVO}));
         BigDecimal price = productDetailsService.createOrderSG(productVO, theModel);
         theModel.addAttribute("totalPrice", price);

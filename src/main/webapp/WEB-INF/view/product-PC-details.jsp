@@ -47,9 +47,12 @@
 					<h5>
 						Zakres pomiarowy:
 						<form:input path="rangeLow" />
+						<form:errors path="rangeLow" cssClass="error" />
 						...
 						<form:input path="rangeHigh" />
+						<form:errors path="rangeHigh" cssClass="error" />
 						<form:select path="unit" items="${units}" />
+						<form:errors path="unit" cssClass="error" />
 						<%-- 										<form:checkbox path="ABSValue"/> --%>
 					</h5>
 					<h5>Wybierz dodatkowe wykonania:</h5>

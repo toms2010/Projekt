@@ -93,12 +93,14 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
             switch (category) {
             case "PC":
                 theModel.addAttribute("units", PresureUnits.values());
-                theModel.addAttribute("productVO", new PCcategoryVO());
+                if (!theModel.containsAttribute("productVO"))
+                    theModel.addAttribute("productVO", new PCcategoryVO());
                 returnWindow = PC_DETAILS_WINDOW;
                 break;
             case "SG":
                 theModel.addAttribute("cableTypes", cableTypeRepo.findAll());
-                theModel.addAttribute("productVO", new SGcategoryVO());
+                if (!theModel.containsAttribute("productVO"))
+                    theModel.addAttribute("productVO", new SGcategoryVO());
                 returnWindow = SG_DETAILS_WINDOW;
                 break;
             default:
