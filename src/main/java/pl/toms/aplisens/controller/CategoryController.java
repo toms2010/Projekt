@@ -100,7 +100,7 @@ public class CategoryController {
      * @param bindingResult rezultat walidacji
      * @return wraca do okna kategorii {@link #getCategoryList}
      */
-    @PostMapping("adm/saveCategory")
+    @PostMapping(value = { "adm/saveCategory"})
     public String saveCategory(@Valid @ModelAttribute("category") Category category, BindingResult bindingResult, Model theModel) {
         if (bindingResult.hasErrors()) {
             LOGGER.debug("Błąd walidacji, dokładna ilośc błędów: {}", bindingResult.getFieldErrorCount());

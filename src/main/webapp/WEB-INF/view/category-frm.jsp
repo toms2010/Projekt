@@ -9,7 +9,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Dodaj/edytuj kategorie</title>
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
-	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/add-style.css">
 </head>
 
 <body>
@@ -37,8 +36,7 @@
 
 	<div id="container">
 		<div id="content">
-			<form:form action="saveCategory" method="post" modelAttribute="category" acceptCharset="UTF-8" enctype="text/plain" > 
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<form:form action="saveCategory" method="post" modelAttribute="category"> 
 				Numer id : <form:input path="id" readonly="true"/>
 				<br />
 				Nazwa kategorii: <form:input path="name" />
@@ -46,7 +44,8 @@
 				<br />
 				Kod Kategorii <form:input path="code" />
 				<form:errors path="code" cssClass="error" />
-				<br />
+				<br/>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 				<input type="submit" value="Zapisz" class="save" />
 			</form:form>
 			<c:if test="${category.id == null}">

@@ -4,12 +4,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
-
 /**
  * Value object z wybranymi parametrami dla produktu.
  * 
@@ -20,28 +14,21 @@ public class ProductVO {
     /**
      * Identyfikator produktu.
      */
-    @Min(value=1)
-    @Digits(fraction = 0, integer = 8)
     private Long id;
     
     /**
      * Nazwa produktu.
      */
-    @NotBlank
-    @Size(min = 2, max = 30)
     private String name;
 
     /**
      * Kod produktu.
      */
-    @NotBlank
-    @Size(min = 1, max = 10)
     private String code;
 
     /**
      * Cena produktu.
      */
-    @PositiveOrZero
     private BigDecimal price;
 
     /**

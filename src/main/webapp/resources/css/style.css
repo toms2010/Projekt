@@ -74,3 +74,8 @@ tr:nth-child(odd) {
 	margin-bottom: 15px;
 	background: #cccccc;
 }
+
+.error {
+	font-size: 16px;
+	color: red;
+}

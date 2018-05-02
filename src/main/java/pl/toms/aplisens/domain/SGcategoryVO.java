@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Klasa z wartościami dla produktów z kategorii "SG".
@@ -16,31 +17,25 @@ public class SGcategoryVO extends ProductVO {
     /**
      * Typ kabla
      */
-    @Min(value=1)
-    @Digits(fraction = 0, integer = 8)
     private Long cableType;
     
     /**
      * Długośc kabla
      */
+    @NotNull
     @Min(value=1)
     @Max(value=1000)
-    @Digits(fraction = 0, integer = 4)
+    @Digits(fraction = 0, integer = 8)
     private Long lenght;
 
     /**
      * Górny zakres pomiarowy produktu.
      */
+    @NotNull
     @Min(value=1)
     @Max(value=500)
-    @Digits(fraction = 0, integer = 3)
+    @Digits(fraction = 0, integer = 8)
     private BigDecimal rangeHigh;
-
-    /**
-     * Kod kabla produktu
-     */
-    //TODO chyba nie potrzebne
-    private String cableCode;
     
     public Long getCableType()
     {
@@ -70,16 +65,6 @@ public class SGcategoryVO extends ProductVO {
     public void setRangeHigh(BigDecimal rangeHigh)
     {
         this.rangeHigh = rangeHigh;
-    }
-
-    public String getCableCode()
-    {
-        return cableCode;
-    }
-
-    public void setCableCode(String cableCode)
-    {
-        this.cableCode = cableCode;
     }
     
     @Override

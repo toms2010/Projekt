@@ -3,11 +3,7 @@ package pl.toms.aplisens.domain;
 import java.math.BigDecimal;
 
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import pl.toms.aplisens.util.PresureUnits;
 
@@ -26,16 +22,12 @@ public class PCcategoryVO extends ProductVO {
     /**
      * Typ obudowy
      */
-    @Min(value=1)
-    @Digits(fraction = 0, integer = 8)
+    @NotNull
     private Long housingId;
     
     /**
      * Kod typu obudowy
      */
-    @NotBlank
-    @Size(min = 1, max = 10)
-    //TODO chyba nie potrzebne
     private String housingCode;
     
     /**

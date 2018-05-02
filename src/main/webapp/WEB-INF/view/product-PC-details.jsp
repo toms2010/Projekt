@@ -71,6 +71,7 @@
 						<form:radiobutton path="housingId" value="${housing.id}" /> ${housing.name} : ${housing.description}
 						<br>
 					</c:forEach>
+					<form:errors path="housingId" cssClass="error" />
 					<br>
 					
 					<form:hidden path="id" value="${product.id}"/>

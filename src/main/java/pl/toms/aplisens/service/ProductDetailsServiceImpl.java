@@ -149,13 +149,16 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
         Map<String, BigDecimal> rangeExtraPrice = countSGRangePrice(productVO);
         Map<String, BigDecimal> cableExtraPrice = countSGCablePrice(productVO, theModel);
         BigDecimal finalPrice = countFinalPrice(productVO, rangeExtraPrice, cableExtraPrice);
+        Long cableId = productVO.getCableType();
+        if (cableId == null)
+            throw new ApplicationException(appMessage.getAppMessage("error.productVO.cableType", null));
         
         StringBuilder orderCode = new StringBuilder()
                 .append(productVO.getCode()).append("/")
                 .append(productVO.getOrderCode())
                 .append(productVO.getRangeHigh()).append(" mH2O/L=")
                 .append(productVO.getLenght()).append("/")
-                .append(productVO.getCableCode());
+                .append(cableTypeRepo.findOneById(cableId).getName());
         productVO.setOrderCode(orderCode.toString());
         LOGGER.debug(appMessage.getAppMessage("info.orderCode", new Object[] {orderCode}));
      
@@ -318,7 +321,6 @@ public class ProductDetailsServiceImpl implements ProductDetailsService {
             throw new ApplicationException(appMessage.getAppMessage("error.productVO.cableType", null));
         }
         BigDecimal cableTypePrice = cable.getPrice();
-        productVO.setCableCode(cable.getName());
         Map<String, BigDecimal> result= new HashMap<>();
         result.put("cable_price", cableTypePrice.multiply(BigDecimal.valueOf(lenght)));
         return result;
