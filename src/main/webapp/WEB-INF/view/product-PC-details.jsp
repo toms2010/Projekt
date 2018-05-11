@@ -43,7 +43,7 @@
 			</table>
 			<h3>Szczegółowa specyfikacja:
 			</h3>
-				<form:form action="savePCProduct" modelAttribute="productVO" method="POST">
+				<form:form action="countPCProduct" modelAttribute="productVO" method="POST">
 					<h5>
 						Zakres pomiarowy:
 						<form:input path="rangeLow" />

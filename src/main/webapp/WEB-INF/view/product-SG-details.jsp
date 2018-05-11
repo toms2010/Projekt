@@ -42,7 +42,7 @@
 			</table>
 			<h3>Szczegółowa specyfikacja:
 			</h3>
-				<form:form action="saveSGProduct" modelAttribute="productVO" method="POST" >
+				<form:form action="countSGProduct" modelAttribute="productVO" method="POST" >
 					<h5>Zakres pomiarowy:</h5>
 					<form:input path="rangeHigh" /> mH2O
 					<form:errors path="rangeHigh" cssClass="error" />
@@ -57,7 +57,6 @@
 					<form:errors path="cableType" cssClass="error" />
 					Długość: <form:input path="lenght" /> 
 					<form:errors path="lenght" cssClass="error" />
-					</h5>
 					<h5>Wybierz dodatkowe wykonania:</h5>
 					<table>
 						<c:forEach var="design" items="${product.productDesign}">

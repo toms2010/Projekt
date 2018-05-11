@@ -12,8 +12,9 @@ import pl.toms.aplisens.util.PresureUnits;
  * 
  * @see Product
  */
-public class PCcategoryVO extends ProductVO {
-   
+public class PCproductVO extends ProductVO
+{
+
     /**
      * Jednostka zakresu pomiarowego.
      */
@@ -24,16 +25,16 @@ public class PCcategoryVO extends ProductVO {
      */
     @NotNull
     private Long housingId;
-    
+
     /**
      * Kod typu obudowy
      */
     private String housingCode;
-    
+
     /**
      * Dolny zakres pomiarowy porduktu.
      */
-    //TODO napisac metode na sprawdzanie czy cisnienei nie nizsze niz cis absolutnes
+    // TODO napisac metode na sprawdzanie czy cisnienei nie nizsze niz cis absolutnes
     @NotNull
     @Digits(fraction = 4, integer = 8)
     private BigDecimal rangeLow;
@@ -98,9 +99,7 @@ public class PCcategoryVO extends ProductVO {
     @Override
     public String toString()
     {
-        return "PCcategoryVO [unit=" + unit + ", housingId=" + housingId + ", rangeLow=" + rangeLow + ", rangeHigh=" + rangeHigh +  super.toString() + "]";
+        return "PCcategoryVO [unit=" + unit + ", housingId=" + housingId + ", rangeLow=" + rangeLow + ", rangeHigh=" + rangeHigh + super.toString() + "]";
     }
-    
-
 
 }

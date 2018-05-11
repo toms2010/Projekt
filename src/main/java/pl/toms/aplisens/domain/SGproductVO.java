@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * 
  * @see Product
  */
-public class SGcategoryVO extends ProductVO {
+public class SGproductVO extends ProductVO {
     
     /**
      * Typ kabla
