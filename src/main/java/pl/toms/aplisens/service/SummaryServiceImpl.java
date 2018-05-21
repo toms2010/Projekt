@@ -8,11 +8,13 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import pl.toms.aplisens.domain.CableType;
 import pl.toms.aplisens.domain.Housing;
 import pl.toms.aplisens.domain.PCproductVO;
+import pl.toms.aplisens.domain.Product;
 import pl.toms.aplisens.domain.ProductDesign;
 import pl.toms.aplisens.domain.ProductVO;
 import pl.toms.aplisens.domain.SGproductVO;
@@ -22,8 +24,12 @@ import pl.toms.aplisens.repository.ProductDesignRepository;
 import pl.toms.aplisens.util.AppMessage;
 import pl.toms.aplisens.util.ApplicationException;
 
+/**
+ * Implementacja serwisu do zarządzania podsumowaniem produktów.
+ *
+ */
+@Service
 public class SummaryServiceImpl implements SummaryService {
-    
     protected static final Logger LOGGER = LoggerFactory.getLogger(ProductDetailsServiceImpl.class);
     
     /**
@@ -74,7 +80,6 @@ public class SummaryServiceImpl implements SummaryService {
         }
         BigDecimal finalPrice = countProductPrice(productVO, theModel);
         generateProductOrderCode(productVO);
-     
         return finalPrice;
     }
 

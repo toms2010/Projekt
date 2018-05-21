@@ -21,16 +21,21 @@ import pl.toms.aplisens.util.PresureUnits;
 public class ProductDetailsServiceImpl implements ProductDetailsService {
     protected static final Logger LOGGER = LoggerFactory.getLogger(ProductDetailsServiceImpl.class);
 
-    /** Okno formularza ze szczegółami dla przetworników ciśnienia. */
+    /** 
+     * Okno formularza ze szczegółami dla przetworników ciśnienia. 
+     */
     private static final String PC_DETAILS_WINDOW = "product-PC-details";
-
-    /** Okno formularza ze szczegółami dla sond głębokości. */
+    /** 
+     * Okno formularza ze szczegółami dla sond głębokości. 
+     */
     private static final String SG_DETAILS_WINDOW = "product-SG-details";
-
-    /** Okno formularza ze szczegółami dla pozostałych urządzeń. */
+    /** 
+     * Okno formularza ze szczegółami dla pozostałych urządzeń. 
+     */
     private static final String DEFAULT_DETAILS_WINDOW = "inProgres";
-
-    /** Okno zwracane gdy nie przekazano identyfikatora produktu. */
+    /** 
+     * Okno zwracane gdy nie przekazano identyfikatora produktu.
+     */
     private static final String NO_ARG_WINDOW = "category-list";
 
     /**

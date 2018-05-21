@@ -39,7 +39,7 @@ public class AppMessage {
      * @param code kod komunikatu
      * @param args tablica argumentów występujących w komunikacie
      * @return zlokalizowany komunikat aplikacji
-     * @throws NoSuchMessageException - jeśli zlokalizowany komunikat aplikacji ie zostanie znaleziony
+     * @throws NoSuchMessageException - jeśli zlokalizowany komunikat aplikacji nie zostanie znaleziony
      *
      */
     public String getAppMessage(final String code, final Object[] args) {
@@ -55,7 +55,7 @@ public class AppMessage {
      * @return zlokalizowany komunikat aplikacji lub komunikat "Wystąpił błąd"
      *
      */
-    public String getErrorMessage(final String code, final Object[] args) {
+    public String getAppMessageWithDefaultMessage(final String code, final Object[] args) {
         return messageSource.getMessage(code, args, "Wystąpił błąd", LOCALE);
     }
 }
